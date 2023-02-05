@@ -1,12 +1,20 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
 type Ingredients struct {
@@ -50,9 +58,21 @@ type Recipe []struct {
 }
 
 var recipes []Recipe
+var ctx context.Context
+var err error
+var client *mongo.Client
+var collection *mongo.Collection
 
 func init() {
 	recipes = make([]Recipe, 0)
+	ctx = context.Background()
+	client, err = mongo.Connect(ctx,
+		options.Client().ApplyURI(os.Getenv("MONGO_URI")))
+	if err = client.Ping(context.TODO(),
+		readpref.Primary()); err != nil {
+		log.Fatal(err)
+	}
+	log.Println("Connected to MongoDB")
 }
 func NewRecipeHandler(c *gin.Context) {
 	// take in desired ingredients from user and store in variable
@@ -76,12 +96,34 @@ func NewRecipeHandler(c *gin.Context) {
 	//create a new recipe struct, then put the result of the API call into recipe
 	var recipe Recipe
 	_ = json.Unmarshal(body, &recipe)
+	_, err = collection.InsertOne(ctx, recipe)
+	if err != nil {
+		fmt.Println(err)
+		c.JSON(http.StatusInternalServerError,
+			gin.H{"error": "Error while inserting a new recipe"})
+		return
+	}
 	recipes = append(recipes, recipe)
 	//print new recipe struct that contains the recipe corresponding to the input ingredients
 	c.JSON(http.StatusOK, recipe)
 }
 
 func ListRecipesHandler(c *gin.Context) {
+	cur, err := collection.Find(ctx, bson.M{})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError,
+			gin.H{"error": err.Error()})
+		return
+	}
+	defer cur.Close(ctx)
+
+	recipes := make([]Recipe, 0)
+	for cur.Next(ctx) {
+		var recipe Recipe
+		cur.Decode(&recipe)
+		recipes = append(recipes, recipe)
+	}
+
 	c.JSON(http.StatusOK, recipes)
 }
 
