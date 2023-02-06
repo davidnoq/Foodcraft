@@ -1,0 +1,56 @@
+/* Bordered form */
+form {
+    border: 3px solid #f1f1f1;
+    
+  }
+  
+  /* Full-width inputs */
+  input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  /* Set a style for all buttons */
+  button {
+    background-color: black;
+    color: white;
+    padding: 5px 16px;
+    margin: 14px 0 14px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .nav-item{
+    color:black;
+  }
+  .nav-link{
+    color:black;
+  }
+  
+  .navbar-expand-lg .navbar-nav .nav-link {
+    padding-right: var(--bs-navbar-nav-link-padding-x);
+    padding-left: var(--bs-navbar-nav-link-padding-x);
+    color: black;
+}
+  
+.navbar{
+  
+  background-image: url("src\assets\grass.png");
+
+}
+  
+ 
+  
+  
+ 
+
+  
+
+ 
+
+ 
