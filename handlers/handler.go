@@ -33,13 +33,20 @@ func (handler *RecipesHandler) ListRecipesHandler(c *gin.Context) {
 		return
 	}
 	defer cur.Close(handler.ctx)
-	recipes := make([]models.Recipe, 0)
+	//var recipes []models.Recipe
+	var recipes []interface{}
 	for cur.Next(handler.ctx) {
-		var recipe models.Recipe
-		err := cur.Decode(&recipe)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		}
+		/*
+		   var recipe models.Recipe
+		   err := cur.Decode(&recipe)
+		   if err != nil {
+		       c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		   }
+		   recipes = append(recipes, recipe)
+		*/
+		var recipe interface{}
+		cur.Decode(&recipe)
+
 		recipes = append(recipes, recipe)
 	}
 
