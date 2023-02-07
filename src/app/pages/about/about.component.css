@@ -62,8 +62,21 @@ body {
     width: 100%;
   }
   
-  .button:hover {
-    background-color: #555;
+  button:active
+  {
+    content:"";
+    display:block;
+    border-radius: 4em;
+    opacity:0;
+    transition: all 0.6s;
+    box-shadow:0 0 10px 10px hsl(0, 0%, 9%);
+
+  }
+  button:active:after
+  {
+    box-shadow:0 0 0 0 hsl(0, 0%, 0%);
+    opacity:0.75;
+    transition:0s;
   }
   
   @media screen and (max-width: 650px) {

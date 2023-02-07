@@ -8,7 +8,7 @@ import { FooterComponent } from './sharepage/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { LoginComponent } from './pages/login/login.component';
-
+import { GetStartedComponent } from './pages/get-started/get-started.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +16,8 @@ import { LoginComponent } from './pages/login/login.component';
     FooterComponent,
     HomeComponent,
     AboutComponent,
-    LoginComponent
+    LoginComponent,
+    GetStartedComponent
   ],
   imports: [
     BrowserModule,
