@@ -8,7 +8,8 @@ import { FooterComponent } from './sharepage/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { LoginComponent } from './pages/login/login.component';
-import { GetStartedComponent } from './pages/get-started/get-started.component';
+import { GetStartedComponent } from './pages/get-started/get-started.component';import { SearchComponent } from './search/search.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,7 +18,8 @@ import { GetStartedComponent } from './pages/get-started/get-started.component';
     HomeComponent,
     AboutComponent,
     LoginComponent,
-    GetStartedComponent
+    GetStartedComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
