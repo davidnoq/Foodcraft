@@ -1,6 +1,9 @@
 ﻿# User Stories
 **Frontend**
-
+- As a parent, I want to specify how large the meals I want to make, in order to have enough made for the family.
+- As a user, I want to choose what type of meal I would like to find (breakfast, lunch, dinner), so that I can narrow down my searches. 
+- As a chef, I want to utilize all extra ingredients in my storage so that nothing goes to waste.
+- As a student, I want to find diverse meals, so that I can widen my palate
 
 **Backend**
  - As a website visitor, I want to be able to get a recipe after inputting the ingredients I have.
