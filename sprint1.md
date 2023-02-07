@@ -7,6 +7,13 @@
 -   As a picky eater, I want to be able to save what ingredients I have so that I don’t have to list/check them all off each time.
 - As a user, I want to be able to login to the website securely, with my password protected, and my data saved.
 # Issues to address
+**Frontend**
+- Build skeleton of the user interface
+- Implement page routing for navigation through the website
+- Create the necessary user interaction for searching through the recipe database. This includes filters such as meal size and type.
+- Design the user interface to be appealing and easy to navigate for the user.
+- Create a login and registration interface for a user profile.
+
 **Backend**
 - Create recipe data model for backend
 - implement Spoonacular API into our backend by making a GET request "Search Recipes by Ingredients." Create REST API for our recipe model
