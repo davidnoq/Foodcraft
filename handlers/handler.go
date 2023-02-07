@@ -26,6 +26,7 @@ func NewRecipesHandler(ctx context.Context, collection *mongo.Collection) *Recip
 	}
 }
 
+// can access all variables of struct since it has RecipesHandler type
 func (handler *RecipesHandler) ListRecipesHandler(c *gin.Context) {
 	cur, err := handler.collection.Find(handler.ctx, bson.D{})
 	if err != nil {
@@ -35,6 +36,8 @@ func (handler *RecipesHandler) ListRecipesHandler(c *gin.Context) {
 	defer cur.Close(handler.ctx)
 	//var recipes []models.Recipe
 	var recipes []interface{}
+
+	// decode one at a time into recipe struct then append to list of recipes
 	for cur.Next(handler.ctx) {
 		/*
 		   var recipe models.Recipe
