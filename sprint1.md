@@ -26,6 +26,7 @@
 - implement user authentication with backend so that users can login and have password encryption
 # Which issues were successfully completed
 - For backend, we were able to complete all of the listed issues except for user authentication. This consisted of setting up a recipe data model and setting up a rest API for adding recipes and getting a list of recipes (also incorporated a 3rd-party API for specific feature). Then we connected MONGODB database to our backend to allow recipes to be saved on the database and be retrieved properly.
-- For the frontend, we implemented the skeleton of the website layout. Implemented page routing and allowed easy access throughout the website. The three other issues, appealing to the user, search interaction for the recipe database, and login registration are all in their template forms, there isnt much functionality and styling done to the website yet. 
+- For the frontend, we implemented the skeleton of the website layout. Implemented page routing and allowed easy access throughout the website. 
 # Which issues weren't completed and why?
 - For backend, we were unable to complete user login authentication because setting up the REST API and connecting with mongoDB took longer than expected. We ran into a lot of problems while connecting mongoDB with our recipe struct not being able to be read properly and had to do a lot of debugging. We will get it done by next sprint. 
+- For the frontend, the three other issues, appealing to the user, search interaction for the recipe database, and login registration are all in their template forms, there isnt much functionality and styling done to the website yet. 
