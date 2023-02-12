@@ -12,6 +12,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
+var authHandler *handlers.AuthHandler
 var recipesHandler *handlers.RecipesHandler
 
 func init() {
@@ -33,7 +34,13 @@ func init() {
 
 func main() {
 	router := gin.Default()
-	router.POST("/recipes", recipesHandler.NewRecipeHandler)
 	router.GET("/recipes", recipesHandler.ListRecipesHandler)
+
+	authorized := router.Group("/")
+	authorized.Use(authHandler.AuthMiddleware())
+	{
+		authorized.POST("/recipes", recipesHandler.NewRecipeHandler)
+	}
+
 	router.Run()
 }
