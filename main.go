@@ -30,11 +30,14 @@ func init() {
 	// global variable to access endpoint handlers
 	collection := client.Database("foodcraft").Collection("recipes")
 	recipesHandler = handlers.NewRecipesHandler(ctx, collection)
+	authHandler = &handlers.AuthHandler{}
 }
 
 func main() {
 	router := gin.Default()
 	router.GET("/recipes", recipesHandler.ListRecipesHandler)
+	router.POST("/signin", authHandler.SignInHandler)
+	router.POST("/refresh", authHandler.RefreshHandler)
 
 	authorized := router.Group("/")
 	authorized.Use(authHandler.AuthMiddleware())
