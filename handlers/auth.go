@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"crypto/sha256"
 	"foodcraft/models"
 	"net/http"
 	"os"
@@ -8,6 +9,7 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"golang.org/x/net/context"
 )
@@ -15,6 +17,13 @@ import (
 type AuthHandler struct {
 	collection *mongo.Collection
 	ctx        context.Context
+}
+
+func NewAuthHandler(ctx context.Context, collection *mongo.Collection) *AuthHandler {
+	return &AuthHandler{
+		collection: collection,
+		ctx:        ctx,
+	}
 }
 
 type Claims struct {
@@ -28,19 +37,25 @@ type JWTOutput struct {
 }
 
 func (handler *AuthHandler) SignInHandler(c *gin.Context) {
+
 	// encode request into user struct
 	var user models.User
 	if err := c.ShouldBindJSON(&user); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	// verify correct credentials
-	if user.Username != "admin" || user.Password !=
-		"password" {
+	// verify valid credentials by comparing with database entries
+	h := sha256.New()
+	cur := handler.collection.FindOne(handler.ctx, bson.M{
+		"username": user.Username,
+		"password": string(h.Sum([]byte(user.Password))),
+	})
+	if cur.Err() != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid username or password"})
 		return
 	}
-	// issue JWT toekn with 10 min expiration
+
+	// issue JWT token with 10 min expiration
 	expirationTime := time.Now().Add(10 * time.Minute)
 	claims := &Claims{
 		Username: user.Username,
