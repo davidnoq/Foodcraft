@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"crypto/sha256"
+	"encoding/hex"
 	"foodcraft/models"
 	"net/http"
 	"os"
@@ -44,11 +45,15 @@ func (handler *AuthHandler) SignInHandler(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	// verify valid credentials by comparing with database entries
+	// HS256 hashing algorithm and salting
 	h := sha256.New()
+	hash := h.Sum([]byte(user.Password))
+	user.Password = hex.EncodeToString(hash[:])
+
+	// verify valid credentials by comparing with database entries
 	cur := handler.collection.FindOne(handler.ctx, bson.M{
 		"username": user.Username,
-		"password": string(h.Sum([]byte(user.Password))),
+		"password": user.Password,
 	})
 	if cur.Err() != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid username or password"})
@@ -116,6 +121,32 @@ func (handler *AuthHandler) RefreshHandler(c *gin.Context) {
 		Expires: expirationTime,
 	}
 	c.JSON(http.StatusOK, jwtOutput)
+}
+
+func (handler *AuthHandler) SignUpHandler(c *gin.Context) {
+	var user models.User
+	if err := c.ShouldBindJSON(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	// HS256 hashing algorithm and salting
+	h := sha256.New()
+	hash := h.Sum([]byte(user.Password))
+	user.Password = hex.EncodeToString(hash[:])
+
+	cur := handler.collection.FindOne(handler.ctx, bson.M{
+		"username": user.Username,
+	})
+	if cur.Err() == mongo.ErrNoDocuments {
+		_, err := handler.collection.InsertOne(handler.ctx, user)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusAccepted, gin.H{"message": "Account has been created"})
+	} else {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Username already taken"})
+	}
 }
 
 // require JWT match to add new recipe
