@@ -1,6 +1,6 @@
 package models
 
-type Recipe []struct {
+type Recipe struct {
 	ID                    int    `bson:"id"`
 	Title                 string `bson:"title"`
 	Image                 string `bson:"image"`

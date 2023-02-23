@@ -34,20 +34,11 @@ func (handler *RecipesHandler) ListRecipesHandler(c *gin.Context) {
 		return
 	}
 	defer cur.Close(handler.ctx)
-	//var recipes []models.Recipe
-	var recipes []interface{}
+	var recipes []models.Recipe
 
 	// decode one at a time into recipe struct then append to list of recipes
 	for cur.Next(handler.ctx) {
-		/*
-		   var recipe models.Recipe
-		   err := cur.Decode(&recipe)
-		   if err != nil {
-		       c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		   }
-		   recipes = append(recipes, recipe)
-		*/
-		var recipe interface{}
+		var recipe models.Recipe
 		cur.Decode(&recipe)
 
 		recipes = append(recipes, recipe)
@@ -76,21 +67,15 @@ func (handler *RecipesHandler) NewRecipeHandler(c *gin.Context) {
 	//body stores the result of the API call
 	body, _ := ioutil.ReadAll(res.Body)
 	//create a new recipe struct, then put the result of the API call into recipe
-	var recipe models.Recipe
-	_ = json.Unmarshal(body, &recipe)
-	/*
-		_ = json.Unmarshal(body, &recipe)
-		var datas []interface{}
-		for _, r := range recipe {
-			datas = append(datas, r)
-		}
-	*/
-	_, err := handler.collection.InsertOne(handler.ctx, recipe[0])
+	var recipes []models.Recipe
+	_ = json.Unmarshal(body, &recipes)
+	newRecipe := recipes[0]
+
+	_, err := handler.collection.InsertOne(handler.ctx, newRecipe)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		//c.JSON(http.StatusInternalServerError, datas[0])
 		return
 	}
 	//print new recipe struct that contains the recipe corresponding to the input ingredients
-	c.JSON(http.StatusOK, recipe)
+	c.JSON(http.StatusOK, newRecipe)
 }
