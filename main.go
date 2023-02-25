@@ -34,8 +34,7 @@ func init() {
 	collectionUsers := client.Database("foodcraft").Collection("users")
 	authHandler = handlers.NewAuthHandler(ctx, collectionUsers)
 }
-
-func main() {
+func SetupServer() *gin.Engine {
 	router := gin.Default()
 	router.GET("/recipes", recipesHandler.ListRecipesHandler)
 	router.POST("/signin", authHandler.SignInHandler)
@@ -48,5 +47,8 @@ func main() {
 		authorized.POST("/recipes", recipesHandler.NewRecipeHandler)
 	}
 
-	router.Run()
+	return router
+}
+func main() {
+	SetupServer().Run()
 }
