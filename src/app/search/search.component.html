@@ -52,8 +52,16 @@
     </div>
 
     <div class="box searchIngredients">
+        <h5>Search for ingredients to add to search function</h5>
         <form>
-            <input type="text" style="color:black;" placeholder="Search for Ingredients..." (keyup)="search">
+            <input type="text" [(ngModel)]="query" style="color:black;" (keyup.enter)="search()" placeholder="Search for Recipe...">
+            <button (click)="search()">Search</button>
+            <ul>
+                <li *ngFor="let recipe of recipes">
+                    <h3>{{ recipe.name }}</h3>
+                    <p>{{ recipe.ingredients }}</p>
+                </li>
+            </ul>
         </form>
     </div>
 </div>

@@ -1,4 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+
+// creating item for recipes and declared variables
+interface recipes {
+  title: string
+  ingredients: string
+}
 
 @Component({
   selector: 'app-search',
@@ -6,8 +13,21 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent {
-  search(query: string) {
-    
+
+  constructor(
+    private httpClient: HttpClient
+  ) {
+    this.generateTicks();
+  }
+
+  query: string = '';
+  recipes: any[] = [];
+  
+  // search function - fetch recipes dependent on the search
+  async search() {
+    this.httpClient.get<any[]>('/api/recipes').subscribe(recipes => {
+      this.recipes = recipes;
+    });
   }
 
   number: number = 1;
@@ -27,10 +47,6 @@ export class SearchComponent {
   step = 10;
   value = 50;
   ticks = [];
-
-  constructor() {
-    this.generateTicks();
-  }
 
   generateTicks() {
     const numTicks = (this.max - this.min) / this.step + 1;
