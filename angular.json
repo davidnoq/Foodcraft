@@ -26,10 +26,10 @@
               "src/assets"
             ],
             "styles": [
-
-              "src/styles.css","node_modules/bootstrap/scss/bootstrap.scss" ],
+              "src/styles.css",
+              "node_modules/bootstrap/scss/bootstrap.scss"
+            ],
             "scripts": []
-            
           },
           "configurations": {
             "production": {
@@ -90,28 +90,73 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css","node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
-
               "node_modules/jquery/dist/jquery.min.js",
-
               "node_modules/jquery-easing/jquery.easing.min.js",
-
               "js/sb-admin-2.min.js",
-
               "vendor/chart.js/Chart.min.js",
-
               "js/demo/chart-area-demo.js",
-
               "js/demo/chart-pie-demo.js",
-
               "node_modules/bootstrap/dist/js/bootstrap.bundle.js"
             ]
+          }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "front-end:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "front-end:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false
+          }
+        },
+        "ct": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "front-end:serve",
+            "watch": true,
+            "headless": false,
+            "testingType": "component"
+          },
+          "configurations": {
+            "development": {
+              "devServerTarget": "front-end:serve:development"
+            }
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "front-end:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "front-end:serve:production"
+            }
           }
         }
       }
     }
+  },
+  "cli": {
+    "schematicCollections": [
+      "@cypress/schematic",
+      "@schematics/angular"
+    ]
   }
 }
