@@ -2,7 +2,7 @@ button {
     text-align: center;
     margin: auto;
     position:absolute;
-    top: 50%;
+    top: 60%;
     left:50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
@@ -30,7 +30,7 @@ button {
     background-color: #555;
   }
   
-  .main-logo{
+  .cover-heading{
     width:auto;
     height:auto;
     position: absolute;
@@ -39,3 +39,16 @@ button {
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
   }
+
+  .describe{
+    text-align: center;
+    width:750px;
+    height:auto;
+    position: absolute;
+    top: 50%;
+    left:50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    
+  }
+  

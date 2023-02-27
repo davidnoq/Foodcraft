@@ -34,6 +34,9 @@ body {
     
     background-size: auto;
   }
+  p{
+    margin-top:40px;
+  }
   /*background-image: url(src\assets\grass.png); */
   
   .container {
