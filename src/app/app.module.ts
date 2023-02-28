@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +11,10 @@ import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { LoginComponent } from './pages/login/login.component';
 import { GetStartedComponent } from './pages/get-started/get-started.component';import { SearchComponent } from './search/search.component';
+
+import { AuthService } from 'app/auth.service';
+import { AuthInterceptorService } from 'app/auth-interceptor.service';
+import { CanActivateViaAuthGuard } from 'app/can-activate-via-auth.guard';
 
 @NgModule({
   declarations: [
@@ -27,9 +31,17 @@ import { GetStartedComponent } from './pages/get-started/get-started.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthInterceptorService,
+        multi: true
+    },
+    CanActivateViaAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,35 +1,13 @@
-<div class="auth-container">
-    <div class="login-container">
+<section class="auth-container">
+  <div class="login-container">
+    <form [formGroup]="form">
       <h2>Login</h2>
-      <form (ngSubmit)="login()">
-        <label>
-          Email:
-          <input type="email" [(ngModel)]="loginEmail" name="email" required>
-        </label>
-        <label>
-          Password:
-          <input type="password" [(ngModel)]="loginPassword" name="password" required>
-        </label>
-        <button type="submit">Login</button>
-      </form>
-    </div>
-    <div class="signup-container">
-      <h2>Sign Up</h2>
-      <form (ngSubmit)="signup()">
-        <label>
-          Name:
-          <input type="text" [(ngModel)]="signupName" name="name" required>
-        </label>
-        <label>
-          Email:
-          <input type="email" [(ngModel)]="signupEmail" name="email" required>
-        </label>
-        <label>
-          Password:
-          <input type="password" [(ngModel)]="signupPassword" name="password" required>
-        </label>
-        <button type="submit">Sign Up</button>
-      </form>
-    </div>
-</div>
+      <label>Email</label>
+      <input type="text" placeholder="john@gmail.com" formControlName="email" name="email">
+      <label>Password:</label>
+      <input type="password" formControlName="password" name="password">
+      <button type="submit" (click)='login()'>Login</button>
+    </form>
+  </div>
+</section>
   

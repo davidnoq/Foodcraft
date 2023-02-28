@@ -1,52 +1,29 @@
-import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-
-interface User {
-  name: string;
-  email: string;
-  password: string;
-}
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from 'app/auth.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
-  loginEmail: string = '';
-  loginPassword: string = '';
-  signupName: string = '';
-  signupEmail: string = '';
-  signupPassword: string = '';
+export class LoginComponent implements OnInit {
+    form: FormGroup;
 
-  constructor(private http: HttpClient, private router: Router) {}
+    constructor(private fb: FormBuilder, private authService: AuthService) {
+        this.form = this.fb.group({
+            email: ['', Validators.required],
+            password: ['', Validators.required]
+        });
+    }
 
-  login() {
-    const body = { email: this.loginEmail, password: this.loginPassword };
+    ngOnInit() { }
 
-    this.http.post('/signin', body).subscribe((response: any) => {
-      // store the user information in local storage
-      localStorage.setItem('user', JSON.stringify(response.user));
+    login() {
+        const val = this.form.value;
 
-      // navigate to the home page
-      this.router.navigate(['/']);
-    });
-  }
-
-  signup() {
-    const user: User = {
-      name: this.signupName,
-      email: this.signupEmail,
-      password: this.signupPassword,
-    };
-
-    this.http.post('/signup', user).subscribe((response: any) => {
-      // store the user information in local storage
-      localStorage.setItem('user', JSON.stringify(response.user));
-
-      // navigate to the home page
-      this.router.navigate(['/']);
-    });
-  }
+        if (val.email && val.password) {
+            this.authService.login(val.email, val.password);
+        }
+    }
 }
