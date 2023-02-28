@@ -5,7 +5,7 @@ import (
 	"log"
 
 	handlers "foodcraft/handlers"
-
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -36,6 +36,7 @@ func init() {
 }
 func SetupServer() *gin.Engine {
 	router := gin.Default()
+	router.Use(cors.Default())
 	router.GET("/recipes", recipesHandler.ListRecipesHandler)
 	router.POST("/signin", authHandler.SignInHandler)
 	router.POST("/refresh", authHandler.RefreshHandler)
