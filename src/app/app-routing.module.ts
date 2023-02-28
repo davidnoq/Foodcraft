@@ -10,7 +10,8 @@ const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'about',component:AboutComponent},
   {path:'get-started',component:GetStartedComponent},
-  {path:'search',component:SearchComponent}
+  {path:'search',component:SearchComponent},
+  {path:'login', component:LoginComponent}
 ];
 
 @NgModule({

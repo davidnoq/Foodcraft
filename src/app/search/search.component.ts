@@ -25,7 +25,7 @@ export class SearchComponent {
   
   // search function - fetch recipes dependent on the search
   async search() {
-    this.httpClient.get<any[]>('/api/recipes').subscribe(recipes => {
+    this.httpClient.get<any[]>('/recipes').subscribe(recipes => {
       this.recipes = recipes;
     });
   }
