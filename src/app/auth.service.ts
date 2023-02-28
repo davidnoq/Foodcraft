@@ -33,7 +33,7 @@ export class AuthService {
             password: pass
         };
 
-        this.http.post(this.API_URL + '/login', data, headers).subscribe(
+        this.http.post(this.API_URL + '/signup', data, headers).subscribe(
             (res: any) => {
                 localStorage.setItem(this.TOKEN_KEY, res.token);
 
