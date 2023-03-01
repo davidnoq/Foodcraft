@@ -33,6 +33,7 @@ import { CanActivateViaAuthGuard } from 'app/can-activate-via-auth.guard';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule
+    
   ],
   providers: [
     AuthService,

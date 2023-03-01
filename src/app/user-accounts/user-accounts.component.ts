@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-members',
-    templateUrl: './members.component.html',
-    styleUrls: ['./members.component.css']
+    templateUrl: './user-accounts.component.html',
+    styleUrls: ['./user-accounts.component.css']
 })
 export class MembersComponent implements OnInit {
     accountData: any;
