@@ -63,6 +63,6 @@ The backend stores data in two collections:
 
 `users`: Stores user data as the username and password hash.
 ## Testing
-Automated tests can be run using the `go test` command. Tests are located in the handlers/handlers_test.go file and cover both REST API handlers and authentication middleware.
+Automated tests can be run using the `go test` command. Tests are located in the main_test.go file and cover both REST API handlers and authentication middleware.
 ## Bugs
 Currently we are having trouble with resolving CORS issues within our backend.
