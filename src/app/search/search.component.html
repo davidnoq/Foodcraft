@@ -2,9 +2,9 @@
     <div class="box grid-container">
         <div class="cell">
             <h5 style="color: #2e1c0c; margin-top: 10px;">Meal Size</h5>
-            <button style="margin-top: 10px;"(click)="decrement()">-</button>
-            <span style="margin:15px; color: #2e1c0c; font-size: 20px;">{{ number }}</span>
-            <button (click)="increment()">+</button>
+            <button id = decrement style="margin-top: 10px;"(click)="decrement()">-</button>
+            <span id = mealSize style="margin:15px; color: #2e1c0c; font-size: 20px;">{{ number }}</span>
+            <button id = increment (click)="increment()">+</button>
         </div>
         <div class="cell">
             <h5 style="color: #2e1c0c; margin-top: 10px;">Meal Type</h5>
