@@ -24,7 +24,7 @@ func TestListRecipesHandler(t *testing.T) {
 	ts := httptest.NewServer(SetupServer())
 	defer ts.Close()
 
-	resp, err := http.Get(fmt.Sprintf("%s/recipes", ts.URL))
+	resp, err := http.Get(fmt.Sprintf("%s/api/recipes", ts.URL))
 	defer resp.Body.Close()
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusOK, resp.StatusCode) // check that the status code is 200
@@ -32,7 +32,7 @@ func TestListRecipesHandler(t *testing.T) {
 
 	var recipes []models.Recipe
 	json.Unmarshal(data, &recipes)
-	assert.Equal(t, len(recipes), 24) // check that there are 24 recipes in the database
+	assert.Equal(t, len(recipes), 25) // check that there are 24 recipes in the database
 }
 
 // not working - need authorization + index out of range when no auth problem
@@ -45,7 +45,7 @@ func TestNewRecipeHandler(t *testing.T) {
 	}
 
 	raw, _ := json.Marshal(recipe)
-	resp, err := http.Post(fmt.Sprintf("%s/recipes", ts.URL), "application/json", bytes.NewBuffer(raw))
+	resp, err := http.Post(fmt.Sprintf("%s/api/recipes", ts.URL), "application/json", bytes.NewBuffer(raw))
 	defer resp.Body.Close()
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusOK, resp.StatusCode) // check that the status code is 200
@@ -67,7 +67,7 @@ func TestSignInHandler(t *testing.T) {
 	}
 
 	raw, _ := json.Marshal(user)
-	resp, err := http.Post(fmt.Sprintf("%s/signin", ts.URL), "application/json", bytes.NewBuffer(raw))
+	resp, err := http.Post(fmt.Sprintf("%s/api/signin", ts.URL), "application/json", bytes.NewBuffer(raw))
 	defer resp.Body.Close()
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusOK, resp.StatusCode) // check that the status code is 200
@@ -83,7 +83,7 @@ func TestSignInHandlerFail(t *testing.T) {
 	}
 
 	raw, _ := json.Marshal(user)
-	resp, err := http.Post(fmt.Sprintf("%s/signin", ts.URL), "application/json", bytes.NewBuffer(raw))
+	resp, err := http.Post(fmt.Sprintf("%s/api/signin", ts.URL), "application/json", bytes.NewBuffer(raw))
 	defer resp.Body.Close()
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusUnauthorized, resp.StatusCode) // check that the status code is 401 (invalid user/password)
@@ -99,7 +99,7 @@ func TestSignUpHandlerFail(t *testing.T) {
 	}
 
 	raw, _ := json.Marshal(user)
-	resp, err := http.Post(fmt.Sprintf("%s/signup", ts.URL), "application/json", bytes.NewBuffer(raw))
+	resp, err := http.Post(fmt.Sprintf("%s/api/signup", ts.URL), "application/json", bytes.NewBuffer(raw))
 	defer resp.Body.Close()
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusInternalServerError, resp.StatusCode) // check that the status code is 500 (user exists already)
@@ -115,7 +115,7 @@ func TestSignUpHandler(t *testing.T) {
 	}
 
 	raw, _ := json.Marshal(user)
-	resp, err := http.Post(fmt.Sprintf("%s/signup", ts.URL), "application/json", bytes.NewBuffer(raw))
+	resp, err := http.Post(fmt.Sprintf("%s/api/signup", ts.URL), "application/json", bytes.NewBuffer(raw))
 	defer resp.Body.Close()
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusAccepted, resp.StatusCode) // check that the status code is 200
@@ -137,7 +137,7 @@ func TestRefreshHandlerUnauthorized(t *testing.T) {
 	}
 
 	raw, _ := json.Marshal(user)
-	resp, err := http.Post(fmt.Sprintf("%s/refresh", ts.URL), "application/json", bytes.NewBuffer(raw))
+	resp, err := http.Post(fmt.Sprintf("%s/api/refresh", ts.URL), "application/json", bytes.NewBuffer(raw))
 	defer resp.Body.Close()
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusUnauthorized, resp.StatusCode) // check that the status code is 401 (no sign in yet)
@@ -154,7 +154,7 @@ func TestRefreshHandler(t *testing.T) {
 	}
 
 	raw, _ := json.Marshal(user)
-	resp, err := http.Post(fmt.Sprintf("%s/refresh", ts.URL), "application/json", bytes.NewBuffer(raw))
+	resp, err := http.Post(fmt.Sprintf("%s/api/refresh", ts.URL), "application/json", bytes.NewBuffer(raw))
 	defer resp.Body.Close()
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusAccepted, resp.StatusCode) // check that the status code is 200

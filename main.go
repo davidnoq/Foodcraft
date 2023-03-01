@@ -5,7 +5,6 @@ import (
 	"log"
 
 	handlers "foodcraft/handlers"
-	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -34,15 +33,29 @@ func init() {
 	collectionUsers := client.Database("foodcraft").Collection("users")
 	authHandler = handlers.NewAuthHandler(ctx, collectionUsers)
 }
+
 func SetupServer() *gin.Engine {
 	router := gin.Default()
-	router.Use(cors.Default())
-	router.GET("/recipes", recipesHandler.ListRecipesHandler)
-	router.POST("/signin", authHandler.SignInHandler)
-	router.POST("/refresh", authHandler.RefreshHandler)
-	router.POST("/signup", authHandler.SignUpHandler)
+	router.Use(func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
 
-	authorized := router.Group("/")
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+
+		c.Next()
+	})
+
+	api := router.Group("/api")
+	api.GET("/recipes", recipesHandler.ListRecipesHandler)
+	api.POST("/signin", authHandler.SignInHandler)
+	api.POST("/refresh", authHandler.RefreshHandler)
+	api.POST("/signup", authHandler.SignUpHandler)
+
+	authorized := api.Group("/")
 	authorized.Use(authHandler.AuthMiddleware())
 	{
 		authorized.POST("/recipes", recipesHandler.NewRecipeHandler)
