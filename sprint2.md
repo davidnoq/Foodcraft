@@ -16,6 +16,8 @@
 - Search component isolated and tested buttons, increments, visual texts, and type function
 - Login component isolated and tested filling out form
 - End-to-end testing by checking url extensions and moving through pages
+- About component isolated to test specific aspects of the page, button
+- About e2e test to determine if webiste if visitable.
 
 # List unit tests for backend
 - GET for retrieving recipes in database
