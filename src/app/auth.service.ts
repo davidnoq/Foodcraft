@@ -34,11 +34,11 @@ export class AuthService {
             password: pass
         };
 
-        this.http.post(this.API_URL + '/signup', data, headers).subscribe(
+        this.http.post(this.API_URL + '/signin', data, headers).subscribe(
             (res: any) => {
                 localStorage.setItem(this.TOKEN_KEY, res.token);
 
-                this.router.navigateByUrl('/members');
+                this.router.navigateByUrl('/');
             }
         );
     }
