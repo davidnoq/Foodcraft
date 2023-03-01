@@ -1,13 +1,18 @@
 
 # Detail work you've completed in Sprint 2
 **Frontend**
-- 
+- Linked backend to the frontend by implementing a proxy for the HttpClient to listen to the server side url.
+- Set up Cypress within the frontend branch to use for end-to-end and unit testing. 
+- Further developed the graphic design of the client side of the website.
 
 **Backend**
 - 
 
 # List unit tests and Cypress test for frontend
-- 
+- Used Cypress component tests for unit testing
+- Search component isolated and tested buttons, increments, visual texts, and type function
+- Login component isolated and tested filling out form
+- End-to-end testing by checking url extensions and moving through pages
 
 # List unit tests for backend
 - GET for retrieving recipes in database
@@ -15,6 +20,8 @@
 - POST for signing into an existing and nonexistant user
 - POST for signing up with an existing and nonexistant user
 - POST for refreshing JWT token after signin
+
+------------
 
 # Foodcraft Backend Documentation
 ## Overview
