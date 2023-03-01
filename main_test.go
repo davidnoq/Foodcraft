@@ -132,7 +132,7 @@ func TestSignUpHandler(t *testing.T) {
 	resp, err := http.Post(fmt.Sprintf("%s/api/signup", ts.URL), "application/json", bytes.NewBuffer(raw))
 	defer resp.Body.Close()
 	assert.Nil(t, err)
-	assert.Equal(t, http.StatusAccepted, resp.StatusCode) // check that the status code is 200
+	assert.Equal(t, http.StatusAccepted, resp.StatusCode) // check that the status code is 202
 	data, _ := ioutil.ReadAll(resp.Body)
 
 	var payload map[string]string
@@ -177,5 +177,5 @@ func TestRefreshHandler(t *testing.T) {
 	resp, err := http.Post(fmt.Sprintf("%s/api/refresh", ts.URL), "application/json", bytes.NewBuffer(raw))
 	defer resp.Body.Close()
 	assert.Nil(t, err)
-	assert.Equal(t, http.StatusAccepted, resp.StatusCode) // check that the status code is 200
+	assert.Equal(t, http.StatusAccepted, resp.StatusCode) // check that the status code is 202
 }
