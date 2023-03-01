@@ -6,7 +6,9 @@
 - Further developed the graphic design of the client side of the website.
 
 **Backend**
-- 
+- Added authentication to sign up by creating a user
+- Added authentication to be able to sign in
+- Added refresh to allow a user's session to be refreshed without having to sign in again
 
 # List unit tests and Cypress test for frontend
 - Used Cypress component tests for unit testing
@@ -62,4 +64,4 @@ The backend stores data in two collections:
 ## Testing
 Automated tests can be run using the `go test` command. Tests are located in the handlers/handlers_test.go file and cover both REST API handlers and authentication middleware.
 ## Bugs
-Currently were are having trouble with resolving CORS issues within our backend.
+Currently we are having trouble with resolving CORS issues within our backend.
