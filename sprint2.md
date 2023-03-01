@@ -25,10 +25,12 @@ Recipe API handlers: These are responsible for implementing functionality of our
 Authentication middleware: This middleware enables user authentication and provides a layer of user security
 ## APIs
 `GET /api/recipes`: Returns a list of recipes.
+
 `POST /api/signin`: Authenticates a user and generates a JWT access token.
-POST /api/refresh: Refreshes a JWT access token.
-POST /api/signup: Registers a new user.
-POST /api/recipes: Creates a new recipe. (requires authentication)
+
+`POST /api/refresh`: Refreshes a JWT access token.
+`POST /api/signup`: Registers a new user.
+`POST /api/recipes`: Creates a new recipe. (requires authentication)
 ## Authentication and Authorization
 Authentication is performed using JWT access tokens. When a user successfully authenticates using their credentials, a JWT access token is generated and returned in the response. This access token can be used to authenticate future requests by including it in the Authorization header of the request.
 
