@@ -71,6 +71,8 @@ func TestSignInHandler(t *testing.T) {
 	defer resp.Body.Close()
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusOK, resp.StatusCode) // check that the status code is 200
+
+	// difficult to check token/expiration time since it changes each time
 }
 
 func TestSignInHandlerFail(t *testing.T) {
@@ -87,6 +89,12 @@ func TestSignInHandlerFail(t *testing.T) {
 	defer resp.Body.Close()
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusUnauthorized, resp.StatusCode) // check that the status code is 401 (invalid user/password)
+	data, _ := ioutil.ReadAll(resp.Body)
+
+	var payload map[string]string
+	json.Unmarshal(data, &payload)
+
+	assert.Equal(t, payload["error"], "Invalid username or password")
 }
 
 func TestSignUpHandlerFail(t *testing.T) {
@@ -103,6 +111,12 @@ func TestSignUpHandlerFail(t *testing.T) {
 	defer resp.Body.Close()
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusInternalServerError, resp.StatusCode) // check that the status code is 500 (user exists already)
+	data, _ := ioutil.ReadAll(resp.Body)
+
+	var payload map[string]string
+	json.Unmarshal(data, &payload)
+
+	assert.Equal(t, payload["error"], "Username already taken")
 }
 
 func TestSignUpHandler(t *testing.T) {
@@ -141,6 +155,12 @@ func TestRefreshHandlerUnauthorized(t *testing.T) {
 	defer resp.Body.Close()
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusUnauthorized, resp.StatusCode) // check that the status code is 401 (no sign in yet)
+	data, _ := ioutil.ReadAll(resp.Body)
+
+	var payload map[string]string
+	json.Unmarshal(data, &payload)
+
+	assert.Equal(t, payload["error"], "token contains an invalid number of segments")
 }
 
 // not working - need authorization beforehand
