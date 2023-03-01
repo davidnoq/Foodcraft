@@ -9,6 +9,7 @@
 - Added authentication to sign up by creating a user
 - Added authentication to be able to sign in
 - Added refresh to allow a user's session to be refreshed without having to sign in again
+- Created unit tests for all existing handlers
 
 # List unit tests and Cypress test for frontend
 - Used Cypress component tests for unit testing
