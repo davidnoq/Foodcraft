@@ -5,6 +5,7 @@ import (
 	"log"
 
 	handlers "foodcraft/handlers"
+
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -59,6 +60,7 @@ func SetupServer() *gin.Engine {
 	authorized.Use(authHandler.AuthMiddleware())
 	{
 		authorized.POST("/recipes", recipesHandler.NewRecipeHandler)
+		authorized.POST("/recipesTest", recipesHandler.NewRecipeHandler)
 	}
 
 	return router
