@@ -88,45 +88,29 @@ func (handler *RecipesHandler) NewUserRecipeHandler(c *gin.Context) {
 		return
 	}
 	defer cur.Close(handler.ctx)
-	var recipes []models.Recipe
+	var newRecipe models.Recipe
+	// take in desired ID from user and store in variable
+	var ID int
+	if err := c.BindJSON(&ID); err != nil {
+		return
+	}
 
-	// decode one at a time into recipe struct then append to list of recipes
+	// decode one at a time into recipe struct and if found append to list of recipes
 	for cur.Next(handler.ctx) {
 		var recipe models.Recipe
 		cur.Decode(&recipe)
 
-		recipes = append(recipes, recipe)
+		if recipe.ID == ID {
+			newRecipe = recipe
+			break
+		}
+
 	}
+	//print new recipe struct that contains the recipe corresponding to the input ID
+	c.JSON(http.StatusOK, newRecipe)
 
-	/*
-		// take in desired ingredients from user and store in variable
-		var ingredients models.Ingredients
-		if err := c.BindJSON(&ingredients); err != nil {
-			return
-		}
-		// convert array of ingredients to string so that it can be in proper format for the url for api call
-		ingredientsString := strings.Join(ingredients.IngredientList, "%2c")
-		url := "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredientsString + "&number=1&ignorePantry=true&ranking=1"
-		// make api GET request to spoonacular API to search for recipes by ingredients
-		req, _ := http.NewRequest("GET", url, nil)
-		req.Header.Add("X-RapidAPI-Key", "0e2d3a4b52msh4f7ca3d8295bc0ap1374f1jsnaa5308ae1f95")
-		req.Header.Add("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
-		res, _ := http.DefaultClient.Do(req)
-		if res.Body != nil {
-			defer res.Body.Close()
-		}
-		//body stores the result of the API call
-		body, _ := ioutil.ReadAll(res.Body)
-		//create a new recipe struct, then put the result of the API call into recipe
-		var recipes []models.Recipe
-		_ = json.Unmarshal(body, &recipes)
-		newRecipe := recipes[0]
+	// add to user's struct
+	//claims := &Claims{}
+	//username := claims.Username
 
-		_, err := handler.collection.InsertOne(handler.ctx, newRecipe)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-			return
-		}
-		//print new recipe struct that contains the recipe corresponding to the input ingredients
-		c.JSON(http.StatusOK, newRecipe)*/
 }

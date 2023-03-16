@@ -143,6 +143,10 @@ func (handler *AuthHandler) SignUpHandler(c *gin.Context) {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
+		recipes := make([]struct {
+			ID int "bson:\"id\""
+		}, 0, 20)
+		user.Recipes = recipes
 		c.JSON(http.StatusAccepted, gin.H{"message": "Account has been created"})
 	} else {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Username already taken"})

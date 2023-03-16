@@ -4,7 +4,7 @@ type User struct {
 	Password string `json:"password"`
 	Username string `json:"username"`
 
-	Recipe []struct {
+	Recipes []struct {
 		ID int `bson:"id"`
 	}
 }
