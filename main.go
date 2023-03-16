@@ -60,7 +60,7 @@ func SetupServer() *gin.Engine {
 	authorized.Use(authHandler.AuthMiddleware())
 	{
 		authorized.POST("/recipes", recipesHandler.NewRecipeHandler)
-		authorized.POST("/recipesTest", recipesHandler.NewRecipeHandler)
+		authorized.POST("/users", recipesHandler.NewUserRecipeHandler)
 	}
 
 	return router

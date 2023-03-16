@@ -132,7 +132,6 @@ func TestRefreshHandlerUnauthorized(t *testing.T) {
 	assert.Equal(t, payload["error"], "token contains an invalid number of segments")
 }
 
-// not working - 500 code, index out of range?
 func TestNewRecipeHandler(t *testing.T) {
 	ts := httptest.NewServer(SetupServer())
 	defer ts.Close()
@@ -153,13 +152,10 @@ func TestNewRecipeHandler(t *testing.T) {
 	JWTtoken := payload["token"]
 
 	// add recipe
-	recipe := m{
-		"UsedIngredients": a{
-			m{"name": "milk"},
-		},
-	}
+	var ingredients models.Ingredients
+	ingredients.IngredientList = []string{"milk"}
 
-	raw, _ := json.Marshal(recipe)
+	raw, _ := json.Marshal(ingredients)
 
 	r, err := http.NewRequest("POST", fmt.Sprintf("%s/api/recipes", ts.URL), bytes.NewBuffer(raw))
 	if err != nil {
