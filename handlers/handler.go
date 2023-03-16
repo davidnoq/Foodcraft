@@ -19,10 +19,11 @@ type RecipesHandler struct {
 	ctx        context.Context
 }
 
-func NewRecipesHandler(ctx context.Context, collection *mongo.Collection) *RecipesHandler {
+func NewRecipesHandler(ctx context.Context, collection *mongo.Collection, userCollection *mongo.Collection) *RecipesHandler {
 	return &RecipesHandler{
 		collection: collection,
-		ctx:        ctx,
+		//userCollection: userCollection,
+		ctx: ctx,
 	}
 }
 
@@ -47,6 +48,7 @@ func (handler *RecipesHandler) ListRecipesHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, recipes)
 }
 
+// won't need after 2 handlers after are done
 func (handler *RecipesHandler) NewRecipeHandler(c *gin.Context) {
 	// take in desired ingredients from user and store in variable
 	var ingredients models.Ingredients
@@ -82,6 +84,7 @@ func (handler *RecipesHandler) NewRecipeHandler(c *gin.Context) {
 
 // add a recipe to a user's list of recipes
 func (handler *RecipesHandler) NewUserRecipeHandler(c *gin.Context) {
+
 	cur, err := handler.collection.Find(handler.ctx, bson.D{})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -110,7 +113,14 @@ func (handler *RecipesHandler) NewUserRecipeHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, newRecipe)
 
 	// add to user's struct
-	//claims := &Claims{}
-	//username := claims.Username
+	/*claims := &Claims{}
+	username := claims.Username
+
+	idk, err := handler.userCollection.UpdateOne({username: username}, {$addToSet: {Recipes: newRecipe}})*/
+
+}
+
+// insert all recipes from api to recipes collection
+func (handler *RecipesHandler) AllRecipesHandler(c *gin.Context) {
 
 }

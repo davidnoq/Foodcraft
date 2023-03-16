@@ -29,9 +29,9 @@ func init() {
 
 	// global variable to access endpoint handlers
 	collection := client.Database("foodcraft").Collection("recipes")
-	recipesHandler = handlers.NewRecipesHandler(ctx, collection)
-
 	collectionUsers := client.Database("foodcraft").Collection("users")
+
+	recipesHandler = handlers.NewRecipesHandler(ctx, collection, collectionUsers)
 	authHandler = handlers.NewAuthHandler(ctx, collectionUsers)
 }
 
