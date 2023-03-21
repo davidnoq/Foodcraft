@@ -80,6 +80,9 @@ func (handler *AuthHandler) SignInHandler(c *gin.Context) {
 		Token:   tokenString,
 		Expires: expirationTime,
 	}
+
+	//c.Header("Authorization", tokenString)
+
 	c.JSON(http.StatusOK, jwtOutput)
 }
 

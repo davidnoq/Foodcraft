@@ -82,7 +82,7 @@ func (handler *RecipesHandler) NewRecipeHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, newRecipe)
 }
 
-// add a recipe to a user's list of recipes
+// add a recipe to a user's list of recipes - not finished
 func (handler *RecipesHandler) NewUserRecipeHandler(c *gin.Context) {
 
 	cur, err := handler.collection.Find(handler.ctx, bson.D{})
@@ -120,7 +120,7 @@ func (handler *RecipesHandler) NewUserRecipeHandler(c *gin.Context) {
 
 }
 
-// insert all recipes from api to recipes collection
+// insert all recipes from api to recipes collection - only use once
 func (handler *RecipesHandler) AllRecipesHandler(c *gin.Context) {
 
 }
