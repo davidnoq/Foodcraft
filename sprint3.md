@@ -4,7 +4,7 @@
 - 
 
 **Backend**
-- 
+- added an integer array to the user struct for adding recipe IDs
 
 # List unit tests for frontend
 - Used Cypress component tests for unit testing
