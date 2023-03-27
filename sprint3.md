@@ -1,5 +1,5 @@
 
-# Detail work you've completed in Sprint 2
+# Detail work you've completed in Sprint 3
 **Frontend**
 - 
 
@@ -62,4 +62,4 @@ The backend stores data in two collections:
 ## Testing
 Automated tests can be run using the `go test` command. Tests are located in the main_test.go file and cover both REST API handlers and authentication middleware.
 ## Bugs
-Currently we are having trouble with resolving CORS issues within our backend.
+Currently we are having trouble with resolving authorization issues within our frontend.
