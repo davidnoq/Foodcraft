@@ -60,12 +60,18 @@ func (handler *AuthHandler) SignInHandler(c *gin.Context) {
 		return
 	}
 
+	err := cur.Decode(&user)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid username or password"})
+		return
+	}
 	// issue JWT token with 10 min expiration
 	expirationTime := time.Now().Add(10 * time.Minute)
 	claims := &Claims{
 		Username: user.Username,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expirationTime.Unix(),
+			Subject:   user.ID,
 		},
 	}
 	// pass to hashing algorithm
@@ -141,7 +147,7 @@ func (handler *AuthHandler) SignUpHandler(c *gin.Context) {
 		"username": user.Username,
 	})
 	if cur.Err() == mongo.ErrNoDocuments {
-		user.Recipes = append(user.Recipes, 0)
+		//user.Recipes = append(user.Recipes, 0)
 		_, err := handler.collection.InsertOne(handler.ctx, user)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
@@ -170,6 +176,8 @@ func (handler *AuthHandler) AuthMiddleware() gin.HandlerFunc {
 		}
 		if tkn == nil || !tkn.Valid {
 			c.AbortWithStatus(http.StatusUnauthorized)
+		} else {
+			c.Set("userID", claims.Subject)
 		}
 
 		/*if c.GetHeader("X-API-KEY") != os.Getenv("X_API_KEY") {

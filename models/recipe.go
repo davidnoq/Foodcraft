@@ -2,6 +2,7 @@ package models
 
 type Recipe struct {
 	ID                    int    `bson:"id"`
+	UserID                string `bson:"userId"`
 	Title                 string `bson:"title"`
 	Image                 string `bson:"image"`
 	ImageType             string `bson:"imageType"`

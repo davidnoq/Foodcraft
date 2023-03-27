@@ -51,7 +51,7 @@ func SetupServer() *gin.Engine {
 	})
 
 	api := router.Group("/api")
-	api.GET("/recipes", recipesHandler.ListRecipesHandler)
+	//api.GET("/recipes", recipesHandler.ListRecipesHandler)
 	api.POST("/signin", authHandler.SignInHandler)
 	api.POST("/refresh", authHandler.RefreshHandler)
 	api.POST("/signup", authHandler.SignUpHandler)
@@ -60,7 +60,7 @@ func SetupServer() *gin.Engine {
 	authorized.Use(authHandler.AuthMiddleware())
 	{
 		authorized.POST("/recipes", recipesHandler.NewRecipeHandler)
-		authorized.POST("/users", recipesHandler.NewUserRecipeHandler)
+		authorized.GET("/recipes", recipesHandler.ListRecipesHandler)
 	}
 
 	return router
