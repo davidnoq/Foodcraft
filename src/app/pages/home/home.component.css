@@ -1,54 +1,52 @@
+
+
+/* Style the main section */
+.inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Style the cover heading */
+.cover-heading {
+  font-size: 5rem;
+  color: #000000;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Style the description text */
+.describe {
+  font-size: 1.5rem;
+  color: #4d4d4d;
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+/* Style the crafting button */
+.button {
+  background-color: #531c03;
+  border-radius: 10px;
+  padding: 1rem 2rem;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Style the button on hover */
+.button:hover {
+  background-color: #116101;
+  cursor: pointer;
+}
+
+/* Style the button text */
 button {
-    text-align: center;
-    margin: auto;
-    position:absolute;
-    top: 60%;
-    left:50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    background-color: hsl(0, 0%, 0%);
-    color: white;
-    padding: 5px 16px;
-  }
-  button:active
-  {
-    content:"";
-    display:block;
-    border-radius: 4em;
-    opacity:0;
-    transition: all 0.6s;
-    box-shadow:0 0 10px 10px hsl(0, 0%, 9%);
-
-  }
-  button:active:after
-  {
-    box-shadow:0 0 0 0 hsl(0, 0%, 0%);
-    opacity:0.75;
-    transition:0s;
-  }
-  .button:hover {
-    background-color: #555;
-  }
-  
-  .cover-heading{
-    width:auto;
-    height:auto;
-    position: absolute;
-    top: 40%;
-    left:50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-  }
-
-  .describe{
-    text-align: center;
-    width:750px;
-    height:auto;
-    position: absolute;
-    top: 50%;
-    left:50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    
-  }
-  
+  font-size: 1.2rem;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-weight: bold;
+  background-color:transparent;
+  border: none;
+  outline: none;
+}
