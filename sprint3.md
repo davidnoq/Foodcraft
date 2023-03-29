@@ -67,7 +67,7 @@ The backend stores data in two collections:
 
 `recipes`: Stores recipe data, including the recipe name, ingredients,etc.
 
-`users`: Stores user data as the username and password hash, as well as an array for recipe IDs.
+`users`: Stores user data as the username and password hash.
 ## Testing
 Automated tests can be run using the `go test` command. Tests are located in the main_test.go file and cover both REST API handlers and authentication middleware.
 ## Bugs
