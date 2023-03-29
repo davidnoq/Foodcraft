@@ -6,7 +6,13 @@
 **Backend**
 - added an integer array to the user struct for adding recipe IDs (later revised)
 - fixed unit tests that required authorization
-- updated the `Recipe` struct to include a `userId` field, enabling relationships between the recipe and user collections
+- updated the Recipe struct to include a userId field, enabling relationships between the recipe and user collections
+- added an ID field to the User struct so that each User can be uniquely referenced.
+- modified authentication middleware to set and store a unique ID for each User in the database.
+- modified the listRecipeHandler to retrieve recipes that have the current user id, allowing for user-specific recipe lists
+- modified the newRecipeHandler to associate a user ID with every new recipe created
+- created a unit test that verifies the functionality of user-specific recipe lists
+- created a DeleteAllRecipesHandler which clears all the recipes for the current user
 # List unit tests for frontend
 - Used Cypress component tests for unit testing
 - Search component isolated and tested buttons, increments, visual texts, and type function
