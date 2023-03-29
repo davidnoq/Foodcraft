@@ -76,9 +76,15 @@
       <nav class="navbar navbar-expand-sm">
         <ul class="nav navbar-nav navbar-right">
           <a class="nav-link">
-            <div class="button">
-              <button routerLink="login">Login</button>
-            </div>
+            <a class="button" *ngIf="!authService.isAuthenticated">
+              <button routerLink="login">Login/Signup</button>
+            </a>
+            <a class="button" *ngIf="authService.isAuthenticated">
+              <button routerLink="profile">Profile</button>
+            </a>
+            <a class="button" *ngIf="authService.isAuthenticated" (click)="authService.logout()"> 
+              <button>Logout</button>
+            </a>
           </a>
         </ul>
       </nav>

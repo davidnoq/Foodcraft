@@ -37,6 +37,8 @@ export class AuthService {
         this.http.post(this.API_URL + '/signin', data, headers).subscribe(
             (res: any) => {
                 localStorage.setItem(this.TOKEN_KEY, res.token);
+                // navigate to profile page when token is returned
+                this.router.navigateByUrl('');
             }
         );
     }
@@ -51,6 +53,8 @@ export class AuthService {
         this.http.post(this.API_URL + '/signup', data).subscribe(
             (res: any) => {
                 localStorage.setItem(this.TOKEN_KEY, res.token);
+                // navigate to profile page when token is returned
+                this.router.navigateByUrl('');
             }
         );
     }

@@ -7,17 +7,9 @@ import { Router } from '@angular/router';
     templateUrl: './user-accounts.component.html',
     styleUrls: ['./user-accounts.component.css']
 })
-export class MembersComponent implements OnInit {
+export class userAccounts implements OnInit {
     accountData: any;
     constructor(private authService: AuthService, private router: Router) { }
 
-    ngOnInit() {
-        this.authService.getAccount().subscribe(
-            (res: any) => {
-                this.accountData = res;
-            }, (err: any) => {
-                this.router.navigateByUrl('/login');
-            }
-        );
-    }
+    ngOnInit() { }
 }
