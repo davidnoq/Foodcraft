@@ -22,12 +22,12 @@
 - About e2e test to determine if webiste if visitable.
 
 # List unit tests for backend
-- GET for retrieving recipes in database
+- GET for retrieving recipes in database associated with a user (user-specific recipe lists)
 - POST for adding a recipe to the database
 - POST for signing into an existing and nonexistant user
 - POST for signing up with an existing and nonexistant user
 - POST for refreshing JWT token after signin
-- Test for user-specific recipe lists
+- DELETE for removing all recipes from a user's list
 
 ------------
 
@@ -56,7 +56,9 @@ Authentication middleware: This middleware enables user authentication and provi
 `POST /api/signup`: Registers a new user.
 
 `POST /api/recipes`: Generates a new recipe for user.
+
 `DELETE /api/recipes`: Clears a user's recipe list.
+
 ## Authentication and Authorization
 Authentication is performed using JWT access tokens. When a user successfully authenticates using their credentials, a JWT access token is generated and returned in the response. This access token can be used to authenticate future requests by including it in the Authorization header of the request.
 
