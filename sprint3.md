@@ -77,4 +77,4 @@ The backend stores data in two collections:
 ## Testing
 Automated tests can be run using the `go test` command. Tests are located in the main_test.go file and cover both REST API handlers and authentication middleware.
 ## Bugs
-Within our Frontend, we were having 'unauthorized' errors being thrown. The frontend was not recieving a token by the credentials passed through. The bug was resolved by changing variables that were passed through and adding a register function in order to test more profiles. Currently there are no bugs to be resolved.
+Currently we have two bugs regarding the login/signin page which include checking the invalidity of the crendentials inputted and signing in after signing up for a new profile. 
