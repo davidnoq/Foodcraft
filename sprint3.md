@@ -4,9 +4,9 @@
 - 
 
 **Backend**
-- added an integer array to the user struct for adding recipe IDs
+- added an integer array to the user struct for adding recipe IDs (later revised)
 - fixed unit tests that required authorization
-
+- updated the `Recipe` struct to include a `userId` field, enabling relationships between the recipe and user collections
 # List unit tests for frontend
 - Used Cypress component tests for unit testing
 - Search component isolated and tested buttons, increments, visual texts, and type function
@@ -21,6 +21,7 @@
 - POST for signing into an existing and nonexistant user
 - POST for signing up with an existing and nonexistant user
 - POST for refreshing JWT token after signin
+- Test for user-specific recipe lists
 
 ------------
 
@@ -40,7 +41,7 @@ Recipe API handlers: These are responsible for implementing functionality of our
 
 Authentication middleware: This middleware enables user authentication and provides a layer of user security
 ## APIs
-`GET /api/recipes`: Returns a list of recipes.
+`GET /api/recipes`: Returns a user's list of recipes
 
 `POST /api/signin`: Authenticates a user and generates a JWT access token.
 
@@ -48,7 +49,8 @@ Authentication middleware: This middleware enables user authentication and provi
 
 `POST /api/signup`: Registers a new user.
 
-`POST /api/recipes`: Creates a new recipe. (requires authentication)
+`POST /api/recipes`: Generates a new recipe for user.
+`DELETE /api/recipes`: Clears a user's recipe list.
 ## Authentication and Authorization
 Authentication is performed using JWT access tokens. When a user successfully authenticates using their credentials, a JWT access token is generated and returned in the response. This access token can be used to authenticate future requests by including it in the Authorization header of the request.
 
