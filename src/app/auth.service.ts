@@ -24,21 +24,33 @@ export class AuthService {
         this.router.navigateByUrl('/');
     }
 
-    login(email: string, pass: string) {
+    login(username: string, pass: string) {
         const headers = {
             headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' })
         };
 
         const data = {
-            email: email,
+            user: username,
             password: pass
         };
 
         this.http.post(this.API_URL + '/signin', data, headers).subscribe(
             (res: any) => {
                 localStorage.setItem(this.TOKEN_KEY, res.token);
+            }
+        );
+    }
 
-                this.router.navigateByUrl('/');
+    signup(email: string, username: string, pass: string) {
+        const data = {
+            email: email,
+            user: username,
+            password: pass
+        };
+
+        this.http.post(this.API_URL + '/signup', data).subscribe(
+            (res: any) => {
+                localStorage.setItem(this.TOKEN_KEY, res.token);
             }
         );
     }

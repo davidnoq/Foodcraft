@@ -2,11 +2,23 @@
   <div class="login-container">
     <form [formGroup]="form">
       <h2>Login</h2>
-      <label>Email</label>
-      <input type="text" placeholder="john@gmail.com" formControlName="email" name="email">
+      <label>username</label>
+      <input type="text" placeholder="johnDoe123" formControlName="signinUsername" name="signinUsername">
       <label>Password:</label>
-      <input type="password" formControlName="password" name="password">
+      <input type="password" formControlName="signinPassword" name="signinPassword">
       <button type="submit" (click)='login()'>Login</button>
+    </form>
+  </div>
+  <div class="signup-container">
+    <form [formGroup]="form">
+      <h2>Signup</h2>
+      <label>email</label>
+      <input type="text" placeholder="john@gmail.com" formControlName="email" name="email">
+      <label>username</label>
+      <input type="text" placeholder="johnDoe123" formControlName="signupUsername" name="signUpUsername">
+      <label>Password:</label>
+      <input type="password" formControlName="signupPassword" name="signupPassword">
+      <button type="submit" (click)='signup()'>Signup</button>
     </form>
   </div>
 </section>

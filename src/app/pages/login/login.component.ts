@@ -12,8 +12,13 @@ export class LoginComponent implements OnInit {
 
     constructor(private fb: FormBuilder, private authService: AuthService) {
         this.form = this.fb.group({
+            // sign up info
             email: ['', Validators.required],
-            password: ['', Validators.required],
+            signupUsername: ['', Validators.required],
+            signupPassword: ['', Validators.required],
+            // sign in info
+            signinUsername: ['', Validators.required],
+            signinPassword: ['', Validators.required],
         });
     }
 
@@ -22,9 +27,16 @@ export class LoginComponent implements OnInit {
     login() {
         const val = this.form.value;
 
-        if (val.email && val.password) {
-            this.authService.login(val.email, val.password);
+        if (val.signinUsername && val.signinPassword) {
+            this.authService.login(val.signinUsername, val.signinPassword);
         }
-        console.log(val.password);
+    }
+
+    signup() {
+        const vals = this.form.value;
+
+        if (vals.email && vals.signupUsername && vals.signupPassword) {
+            this.authService.signup(vals.email, vals.signupUsername, vals.signupPassword);
+        }
     }
 }
