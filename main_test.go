@@ -235,8 +235,8 @@ func TestUserSpecificRecipeList(t *testing.T){
 	defer ts.Close()
 
 	user := models.User{
-		Username: "tester69",
-		Password: "tester69",
+		Username: "unitTester1",
+		Password: "unitTester1",
 	}
 	// sign in
 	raw1, _ := json.Marshal(user)
@@ -309,8 +309,8 @@ func TestUserSpecificRecipeList(t *testing.T){
 	
 	// sign in second user
 	user2 := models.User{
-		Username: "admin",
-		Password: "password",
+		Username: "UnitTester2",
+		Password: "UnitTester2",
 	}
 	
 	raw3, _ := json.Marshal(user2)

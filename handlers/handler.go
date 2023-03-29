@@ -84,6 +84,16 @@ func (handler *RecipesHandler) NewRecipeHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, newRecipe)
 }
 
+func (handler *RecipesHandler) DeleteAllRecipesHandler(c *gin.Context) {
+    userID, _ := c.MustGet("userID").(string)
+    _, err := handler.collection.DeleteMany(handler.ctx, bson.M{"userId": userID})
+    if err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+        return
+    }
+    c.JSON(http.StatusOK, gin.H{"message": "All recipes deleted for user"})
+}
+
 
 
 
