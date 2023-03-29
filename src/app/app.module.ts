@@ -16,6 +16,7 @@ import { AuthService } from 'app/auth.service';
 import { AuthInterceptorService } from 'app/auth-interceptor.service';
 import { CanActivateViaAuthGuard } from 'app/can-activate-via-auth.guard';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import { CanActivateViaAuthGuard } from 'app/can-activate-via-auth.guard';
     AboutComponent,
     LoginComponent,
     GetStartedComponent,
-    SearchComponent
+    SearchComponent,
+   
   ],
   imports: [
     BrowserModule,

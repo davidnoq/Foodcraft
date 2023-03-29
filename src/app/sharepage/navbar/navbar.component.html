@@ -16,20 +16,22 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
+        <li class="nav-item dropdown">
           <a
-            class="nav-link active"
-            aria-current="page"
-            routerLink=""
-            routerLinkActive="active-link"
-            >Home</a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
           >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="about"> About Us </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="search"> Search </a>
+            Ingredients
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Chicken</a></li>
+            <li><a class="dropdown-item" href="#">Beef</a></li>
+
+            <li><a class="dropdown-item" href="#">Pork</a></li>
+          </ul>
         </li>
         <li class="nav-item dropdown">
           <a
@@ -39,13 +41,16 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Example
+            Cultural Dishes
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">idk</a></li>
-            <li><a class="dropdown-item" href="#">something</a></li>
-            <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><a class="dropdown-item" href="#">Mexican</a></li>
+            <li><a class="dropdown-item" href="#">Chinese</a></li>
+
+            <li><a class="dropdown-item" href="#">Italian </a></li>
+            <li><a class="dropdown-item" href="#">Polish</a></li>
+            <li><a class="dropdown-item" href="#">American</a></li>
+            <li><a class="dropdown-item" href="#">Japanese</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -63,6 +68,9 @@
             <li><a class="dropdown-item" href="#">Lunch</a></li>
             <li><a class="dropdown-item" href="#">Dinner</a></li>
           </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="about"> About Us </a>
         </li>
       </ul>
       <nav class="navbar navbar-expand-sm">

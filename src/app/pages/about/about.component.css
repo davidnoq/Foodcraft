@@ -20,7 +20,12 @@ body {
   .column h2{
     font-size: 26px;
   }
-  
+  h1{
+    font-size: 2rem;
+  }
+  h2{
+    margin-bottom: 60px;
+  }
   .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     margin: 8px;
@@ -57,17 +62,53 @@ body {
   }
   
  
-  .button {
-    background-color: #531c03;
-    border-radius: 10px;
-    padding: 1rem 2rem;
-    transition: background-color 0.3s ease-in-out;
-    width: 100%;
-    color:white;
-  }
   
+  
+button.btn.btn-primary{
+  display:block;
+  margin:auto;
+  position:relative;
+  background-color: #531c03;
+  border-radius: 10px;
+  padding: 1rem 2rem;
+  transition: background-color 0.3s ease-in-out;
+  width:30%;
+  
+  color: white;
+}
+
+  
+button.btn.btn-contact{
+  /*THIS IS TO MIDDLE USE DISPLAY BLOCK*/
+  display:block;
+  background-color: #531c03;
+  border-radius: 10px;
+  padding: 1rem 1rem;
+  transition: background-color 0.3s ease-in-out;
+  margin:auto;
+  margin-top:50px;
+  width: 30%;
+  color:white;
+}
+button.btn.btn-primary:hover{
+  background-color: #116101;
+  cursor: pointer;
+}
+button.btn.btn-secondary:hover{
+  background-color: #116101;
+  cursor: pointer;
+}
+button.btn.btn-contact:hover{
+  background-color: #116101;
+  cursor: pointer;
+}
+.btn-primary:hover{
+  background-color: #116101;
+  cursor: pointer;
+}
+
   button {
-    font-size: 1.2rem;
+    font-size: 1.0rem;
     color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 0.1rem;
