@@ -8,11 +8,13 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
+	
 	"foodcraft/models"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
+	//"github.com/dgrijalva/jwt-go"
+	
 )
 
 type Post struct {
@@ -228,20 +230,140 @@ func TestRefreshHandler(t *testing.T) {
 	assert.Equal(t, post.Error, "Token is not expired yet")
 }
 
-func TestSignInHandler(t *testing.T) {
+func TestUserSpecificRecipeList(t *testing.T){
 	ts := httptest.NewServer(SetupServer())
 	defer ts.Close()
 
 	user := models.User{
+		Username: "tester69",
+		Password: "tester69",
+	}
+	// sign in
+	raw1, _ := json.Marshal(user)
+	resp, _ := http.Post(fmt.Sprintf("%s/api/signin", ts.URL), "application/json", bytes.NewBuffer(raw1))
+	defer resp.Body.Close()
+	data, _ := ioutil.ReadAll(resp.Body)
+
+	var payload map[string]string
+	json.Unmarshal(data, &payload)
+
+	JWTtoken := payload["token"]
+
+	// add 2 recipes to user
+	var ingredients models.Ingredients
+	ingredients.IngredientList = []string{"milk"}
+
+	raw, _ := json.Marshal(ingredients)
+
+	r, err := http.NewRequest("POST", fmt.Sprintf("%s/api/recipes", ts.URL), bytes.NewBuffer(raw))
+	if err != nil {
+		panic(err)
+	}
+
+	r.Header.Add("Authorization", JWTtoken)
+
+	client := &http.Client{}
+	res, err := client.Do(r)
+
+	defer res.Body.Close()
+
+	assert.Nil(t, err)
+	assert.Equal(t, http.StatusOK, res.StatusCode) // check that the status code is 200
+	
+	var ingredients2 models.Ingredients
+    ingredients2.IngredientList = []string{"eggs", "flour"}
+	raw2, _ := json.Marshal(ingredients2)
+
+	r2, err := http.NewRequest("POST", fmt.Sprintf("%s/api/recipes", ts.URL), bytes.NewBuffer(raw2))
+    if err != nil {
+        panic(err)
+    }
+
+	r2.Header.Add("Authorization", JWTtoken)
+	res2, err := client.Do(r2)
+	defer res2.Body.Close()
+	assert.Nil(t, err)
+    assert.Equal(t, http.StatusOK, res2.StatusCode) // check that the status code is 200
+
+	//check that there are 2 recipes associated to user1
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/api/recipes", ts.URL), nil)
+	if err != nil {
+    	t.Fatal(err)
+	}
+
+	req.Header.Set("Authorization", JWTtoken)
+	clientGet := &http.Client{}
+	resGet, err := clientGet.Do(req)
+	if err != nil {
+    	t.Fatal(err)
+	}	
+	defer resGet.Body.Close()
+	assert.Nil(t, err)
+	assert.Equal(t, http.StatusOK, resGet.StatusCode) // check that the status code is 200
+	
+	dataGet, _ := ioutil.ReadAll(resGet.Body)
+	
+	var recipes1 []models.Recipe
+	json.Unmarshal(dataGet, &recipes1)
+	assert.Equal(t, len(recipes1), 2) // check that there are 2 recipes associated to user1
+	
+	// sign in second user
+	user2 := models.User{
 		Username: "admin",
 		Password: "password",
 	}
+	
+	raw3, _ := json.Marshal(user2)
+	resp1, _ := http.Post(fmt.Sprintf("%s/api/signin", ts.URL), "application/json", bytes.NewBuffer(raw3))
+	defer resp1.Body.Close()
+	data1, _ := ioutil.ReadAll(resp1.Body)
 
-	raw, _ := json.Marshal(user)
-	resp, err := http.Post(fmt.Sprintf("%s/api/signin", ts.URL), "application/json", bytes.NewBuffer(raw))
-	defer resp.Body.Close()
+	var payload1 map[string]string
+	json.Unmarshal(data1, &payload1)
+
+	JWTtoken1 := payload1["token"]
+
+	// add recipe to second user
+	var ingredients4 models.Ingredients
+	ingredients4.IngredientList = []string{"bacon"}
+
+	raw4, _ := json.Marshal(ingredients4)
+
+	r4, err := http.NewRequest("POST", fmt.Sprintf("%s/api/recipes", ts.URL), bytes.NewBuffer(raw4))
+	if err != nil {
+		panic(err)
+	}
+
+	r4.Header.Add("Authorization", JWTtoken1)
+
+	client = &http.Client{}
+	res4, err := client.Do(r4)
+
+	defer res.Body.Close()
+
 	assert.Nil(t, err)
-	assert.Equal(t, http.StatusOK, resp.StatusCode) // check that the status code is 200
+	assert.Equal(t, http.StatusOK, res4.StatusCode) // check that the status code is 200
+	
+	//check that there is only 1 recipe associated to user2
+	req2, err := http.NewRequest("GET", fmt.Sprintf("%s/api/recipes", ts.URL), nil)
+	if err != nil {
+    	t.Fatal(err)
+	}
 
-	// difficult to check token/expiration time since it changes each time
+	req2.Header.Set("Authorization", JWTtoken1)
+	clientGet2 := &http.Client{}
+	resGet2, err := clientGet2.Do(req2)
+	if err != nil {
+    	t.Fatal(err)
+	}	
+	defer resGet2.Body.Close()
+	assert.Nil(t, err)
+	assert.Equal(t, http.StatusOK, resGet2.StatusCode) // check that the status code is 200
+	
+	dataGet2, _ := ioutil.ReadAll(resGet2.Body)
+	
+	var recipes2 []models.Recipe
+	json.Unmarshal(dataGet2, &recipes2)
+	assert.Equal(t, len(recipes2), 1) // check that there is only 1 recipe associated to user2
 }
+
