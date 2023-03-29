@@ -2,19 +2,20 @@
   <div class="login-container">
     <form [formGroup]="form">
       <h2>Login</h2>
-      <label>username</label>
+      <label>Username:</label>
       <input type="text" placeholder="johnDoe123" formControlName="signinUsername" name="signinUsername">
       <label>Password:</label>
       <input type="password" formControlName="signinPassword" name="signinPassword">
       <button type="submit" (click)='login()'>Login</button>
+      <div class = "error" *ngIf="errorMessage">{{errorMessage}}</div>
     </form>
   </div>
   <div class="signup-container">
     <form [formGroup]="form">
       <h2>Signup</h2>
-      <label>email</label>
+      <label>Email:</label>
       <input type="text" placeholder="john@gmail.com" formControlName="email" name="email">
-      <label>username</label>
+      <label>Username:</label>
       <input type="text" placeholder="johnDoe123" formControlName="signupUsername" name="signUpUsername">
       <label>Password:</label>
       <input type="password" formControlName="signupPassword" name="signupPassword">

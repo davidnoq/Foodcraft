@@ -52,4 +52,9 @@ button {
 button:hover {
     background-color: #2e1c0c;
 }
+
+.error {
+    color: red;
+    text-align: center;
+}
   
