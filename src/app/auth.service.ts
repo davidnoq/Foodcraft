@@ -10,7 +10,6 @@ export class AuthService {
 
     API_URL = 'http://localhost:8080/api';
     TOKEN_KEY = 'token';
-    errorMessage = '';
 
     constructor(private http: HttpClient, private router: Router) { }
 
@@ -49,18 +48,17 @@ export class AuthService {
         );
     }
 
-    signup(email: string, username: string, pass: string) {
+    signup(email: string, username: string, password: string) {
         const data = {
-            email: email,
-            user: username,
-            password: pass
+            username: username,
+            password: password
         };
 
         this.http.post(this.API_URL + '/signup', data).subscribe(
             (res: any) => {
                 localStorage.setItem(this.TOKEN_KEY, res.token);
                 // navigate to profile page when token is returned
-                this.router.navigate(['']);
+                this.router.navigateByUrl('');
             }, 
             (error: HttpErrorResponse) => {
                 console.error

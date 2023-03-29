@@ -82,7 +82,7 @@
             <a class="button" *ngIf="authService.isAuthenticated">
               <button routerLink="profile">Profile</button>
             </a>
-            <a class="button" *ngIf="authService.isAuthenticated" (click)="authService.logout()"> 
+            <a class="button" id=logoutButton *ngIf="authService.isAuthenticated" (click)="authService.logout()"> 
               <button>Logout</button>
             </a>
           </a>

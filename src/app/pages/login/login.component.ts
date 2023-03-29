@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
     form: FormGroup;
-    errorMessage: string = '';
+    signinErrorMessage: string = '';
+    signupErrorMessage: string = '';
 
     constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
         this.form = this.fb.group({
@@ -33,7 +34,7 @@ export class LoginComponent implements OnInit {
         if (val.signinUsername && val.signinPassword) {
             this.authService.login(val.signinUsername, val.signinPassword, val.form);
             if (this.router.url != 'http://localhost:4200/') {
-                this.errorMessage = 'Invalid credentials. Please try again.';
+                this.signinErrorMessage = 'Invalid credentials. Please try again.';
             }
         }
     }
@@ -43,6 +44,9 @@ export class LoginComponent implements OnInit {
 
         if (vals.email && vals.signupUsername && vals.signupPassword) {
             this.authService.signup(vals.email, vals.signupUsername, vals.signupPassword);
+            if (this.router.url != 'http://localhost:4200/') {
+                this.signupErrorMessage = 'Credentials already taken. Please try again.';
+            }
         }
     }
 }
