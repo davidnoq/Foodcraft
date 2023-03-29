@@ -1,7 +1,11 @@
 
 # Detail work you've completed in Sprint 3
 **Frontend**
-- 
+- added a register/signup form within the login component in order to create new profiles
+- fixed 'unauthorized' error by changing passed variables from the frontend to the backend and adding the above function
+- added more functions to handle errors such as incorrect credentials from the user
+- updated the navigation made by signing in or signing up
+- the navigation bar updates when the user signs in or signs up to display the profile button to access
 
 **Backend**
 - added an integer array to the user struct for adding recipe IDs (later revised)
@@ -73,4 +77,4 @@ The backend stores data in two collections:
 ## Testing
 Automated tests can be run using the `go test` command. Tests are located in the main_test.go file and cover both REST API handlers and authentication middleware.
 ## Bugs
-Currently we are having trouble with resolving authorization issues within our frontend.
+Within our Frontend, we were having 'unauthorized' errors being thrown. The frontend was not recieving a token by the credentials passed through. The bug was resolved by changing variables that were passed through and adding a register function in order to test more profiles. 
