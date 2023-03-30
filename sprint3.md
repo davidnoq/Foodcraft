@@ -9,6 +9,7 @@
 - Updated visuals for the homepage and about page
 - added a contact pop up form with no functionality
 - fixed issues with css in login form
+
 **Backend**
 - added an integer array to the user struct for adding recipe IDs (later revised)
 - fixed unit tests that required authorization
