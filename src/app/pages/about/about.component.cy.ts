@@ -17,7 +17,16 @@ describe('AboutComponent', () => {
     cy.contains('About');
     cy.contains('David Noguera');
 
-    cy.get('button').should('contains.text', 'Contact')
-
+    
   })
-})
+
+  it('should redirect user to a pop up contact page', () => {
+    cy.viewport(1300, 700)
+    // mount the component to test
+    cy.mount(AboutComponent)
+    cy.get('button.btn.btn-contact', {timeout: 30000,}).should('be.visible').click();
+   
+
+    
+    });
+  })

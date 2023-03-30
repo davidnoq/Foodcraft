@@ -2,12 +2,16 @@
   <div class="login-container">
     <form [formGroup]="form">
       <h2>Login</h2>
-      <label>Email</label>
-      <input type="text" placeholder="john@gmail.com" formControlName="email" name="email">
+      <label>Email:</label>
+      <input
+        type="text"
+        placeholder="john@gmail.com"
+        formControlName="email"
+        name="email"
+      />
       <label>Password:</label>
-      <input type="password" formControlName="password" name="password">
-      <button type="submit" (click)='login()'>Login</button>
+      <input type="password" formControlName="password" name="password" />
+      <button type="submit" (click)="login()">Login</button>
     </form>
   </div>
 </section>
-  

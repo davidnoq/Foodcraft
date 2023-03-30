@@ -7,14 +7,21 @@
 .login-container, .signup-container {
     width: 50%;
     padding: 1rem;
+    display:block;
+    margin:auto;
 }
   
 .login-container {
     border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    
 }
   
 h2 {
-    margin-top: 0;
+    display:block;
+    margin:auto;
+    
+    font-size: 2rem;
 }
   
 form {
@@ -24,9 +31,10 @@ form {
 }
   
 label {
-    display: flex;
-    flex-direction: column;
+    
+    
     margin-bottom: 0.5rem;
+    margin-top:0.5rem;
 }
   
 input {
@@ -37,19 +45,27 @@ input {
     box-shadow: 0 0 0 1px #ccc;
     margin-top: 0.5rem;
 }
-  
+
 button {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border: none;
-    border-radius: 0.25rem;
-    background-color: #2e1c0c;
-    color: #fff;
-    margin-top: 1rem;
-    cursor: pointer;
+    font-size: 1.0rem;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-weight: bold;
+  background-color:transparent;
+  border: none;
+  outline: none;
 }
-  
+
+[type=submit]:not(:disabled), button:not(:disabled) {
+    background-color: #531c03;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease-in-out;
+    margin-top: 50px;
+}
 button:hover {
-    background-color: #2e1c0c;
+    background-color: #116101;
+  cursor: pointer;
 }
   
