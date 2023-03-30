@@ -6,7 +6,9 @@
 - added more functions to handle errors such as incorrect credentials from the user
 - updated the navigation made by signing in or signing up
 - the navigation bar updates when the user signs in or signs up to display the profile button to access
-
+- Updated visuals for the homepage and about page
+- added a contact pop up form with no functionality
+- fixed issues with css in login form
 **Backend**
 - added an integer array to the user struct for adding recipe IDs (later revised)
 - fixed unit tests that required authorization
@@ -27,6 +29,7 @@
 - Login e2e testing if profile shows up when user logs in or signs up
 - Login e2e testing logout function when the user is logged in
 - Checking whether a profile exists and making a new profile for login component testing
+- check whether contact button is visible and can be accessed
 
 # List unit tests for backend
 - GET for retrieving recipes in database associated with a user (user-specific recipe lists)
