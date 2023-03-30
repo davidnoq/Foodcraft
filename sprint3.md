@@ -20,10 +20,13 @@
 # List unit tests for frontend
 - Used Cypress component tests for unit testing
 - Search component isolated and tested buttons, increments, visual texts, and type function
-- Login component isolated and tested filling out form
+- Login component isolated and tested filling out form for both sign up and login
 - End-to-end testing by checking url extensions and moving through pages
 - About component isolated to test specific aspects of the page, button
-- About e2e test to determine if webiste if visitable.
+- About e2e test to determine if website if visitable.
+- Login e2e testing if profile shows up when user logs in or signs up
+- Login e2e testing logout function when the user is logged in
+- Checking whether a profile exists and making a new profile for login component testing
 
 # List unit tests for backend
 - GET for retrieving recipes in database associated with a user (user-specific recipe lists)
