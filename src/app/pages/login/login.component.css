@@ -68,4 +68,9 @@ button:hover {
     background-color: #116101;
   cursor: pointer;
 }
+
+.error {
+    color: red;
+    text-align: center;
+}
   

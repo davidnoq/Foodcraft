@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-
+import { retry, catchError } from 'rxjs/operators';
+import { LoginComponent } from './pages/login/login.component';
+import { Form, FormGroup } from '@angular/forms';
 
 @Injectable()
 export class AuthService {
@@ -21,29 +23,50 @@ export class AuthService {
 
     logout() {
         localStorage.removeItem(this.TOKEN_KEY);
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('');
     }
 
-    login(email: string, pass: string) {
+    login(username: string, pass: string, form: FormGroup) {
         const headers = {
             headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' })
         };
 
         const data = {
-            email: email,
+            user: username,
             password: pass
         };
 
         this.http.post(this.API_URL + '/signin', data, headers).subscribe(
             (res: any) => {
                 localStorage.setItem(this.TOKEN_KEY, res.token);
+                // navigate to profile page when token is returned
+                this.router.navigateByUrl('');
+            }, 
+            (error) => {
+                console.error
+            }
+        );
+    }
 
-                this.router.navigateByUrl('/');
+    signup(email: string, username: string, password: string) {
+        const data = {
+            username: username,
+            password: password
+        };
+
+        this.http.post(this.API_URL + '/signup', data).subscribe(
+            (res: any) => {
+                localStorage.setItem(this.TOKEN_KEY, res.token);
+                // navigate to profile page when token is returned
+                this.router.navigateByUrl('');
+            }, 
+            (error: HttpErrorResponse) => {
+                console.error
             }
         );
     }
 
     getAccount() {
-        return this.http.get(this.API_URL + '/account');
+        
     }
 }

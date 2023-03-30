@@ -2,16 +2,57 @@
   <div class="login-container">
     <form [formGroup]="form">
       <h2>Login</h2>
+      <label>Username:</label>
+      <input
+        type="text"
+        id="signinUsername"
+        placeholder="johnDoe123"
+        formControlName="signinUsername"
+        name="signinUsername"
+      />
+      <label>Password:</label>
+      <input
+        type="password"
+        id="signinPassword"
+        formControlName="signinPassword"
+        name="signinPassword"
+      />
+      <button type="submit" id="loginButton" (click)="login()">Login</button>
+      <div class="error" *ngIf="signinErrorMessage">
+        {{ signinErrorMessage }}
+      </div>
+    </form>
+  </div>
+  <div class="signup-container">
+    <form [formGroup]="form">
+      <h2>Signup</h2>
       <label>Email:</label>
       <input
         type="text"
+        id="email"
         placeholder="john@gmail.com"
         formControlName="email"
         name="email"
       />
+      <label>Username:</label>
+      <input
+        type="text"
+        id="signupUsername"
+        placeholder="johnDoe123"
+        formControlName="signupUsername"
+        name="signUpUsername"
+      />
       <label>Password:</label>
-      <input type="password" formControlName="password" name="password" />
-      <button type="submit" (click)="login()">Login</button>
+      <input
+        type="password"
+        id="signupPassword"
+        formControlName="signupPassword"
+        name="signupPassword"
+      />
+      <button type="submit" id="signupButton" (click)="signup()">Signup</button>
+      <div class="error" *ngIf="signupErrorMessage">
+        {{ signupErrorMessage }}
+      </div>
     </form>
   </div>
 </section>

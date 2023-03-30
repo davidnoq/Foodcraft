@@ -19,12 +19,13 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
+    "types": ["@cypress/angular"],
     "lib": [
       "ES2022",
       "dom"
     ]
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "./cypress.d.ts"],
   "exclude": [
     "node_modules",
     "**/*.spec.ts"

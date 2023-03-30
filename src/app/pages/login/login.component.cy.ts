@@ -9,14 +9,24 @@ beforeEach(() => TestBed.configureTestingModule({
   providers: [LoginComponent, AuthService]
 }));
 
+beforeEach(() => {
+  cy.mount(LoginComponent)
+})
+
 describe('LoginComponent', () => {
-  it('mounts', () => {
-    // change the viewport of the test
-    cy.viewport(1300, 700)
-    // mount the component to test
-    cy.mount(LoginComponent)
-    // fill out form
-    cy.get('input[type="text"').should('be.visible').type('john-doe@example.com')
-    cy.get('input[type="password"').should('be.visible').type('password')
+  it('signup test', () => {
+    cy.contains('Signup')
+    cy.get('input[id=email]').type('testing@email.com');
+    cy.get('input[id=signupUsername]').type('testUser');
+    cy.get('input[id=signupPassword]').type('testingPass');
+    cy.get('[id=signupButton]').contains('Signup')
+  })
+
+  it('signin test', () => {
+    cy.contains('Login')
+    cy.get('input[id=signinUsername]').type('testUser');
+    cy.get('input[id=signinPassword]').type('testingPass');
+    cy.get('[id=loginButton]').contains('Login')
   })
 })
+
