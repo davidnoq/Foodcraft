@@ -55,6 +55,7 @@ func SetupServer() *gin.Engine {
 	api.POST("/signin", authHandler.SignInHandler)
 	api.POST("/refresh", authHandler.RefreshHandler)
 	api.POST("/signup", authHandler.SignUpHandler)
+	api.DELETE("/users", authHandler.DeleteUserHandler)
 
 	authorized := api.Group("/")
 	authorized.Use(authHandler.AuthMiddleware())

@@ -159,6 +159,46 @@ func (handler *AuthHandler) SignUpHandler(c *gin.Context) {
 	}
 }
 
+func (handler *AuthHandler) DeleteUserHandler(c *gin.Context) {
+
+	// encode request into user struct
+	var user models.User
+	if err := c.ShouldBindJSON(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	// HS256 hashing algorithm and salting
+	h := sha256.New()
+	hash := h.Sum([]byte(user.Password))
+	user.Password = hex.EncodeToString(hash[:])
+
+	// verify valid credentials by comparing with database entries
+	cur := handler.collection.FindOne(handler.ctx, bson.M{
+		"username": user.Username,
+		"password": user.Password,
+	})
+
+	if cur.Err() != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid username or password"})
+		return
+	}
+
+	err := cur.Decode(&user)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid username or password"})
+		return
+	}
+
+	_, err = handler.collection.DeleteOne(handler.ctx, bson.M{"username": user.Username})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	} else {
+		c.JSON(http.StatusOK, gin.H{"message": "User has been deleted"})
+	}
+
+}
+
 // require JWT match to add new recipe
 func (handler *AuthHandler) AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {

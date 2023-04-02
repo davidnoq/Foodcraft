@@ -387,7 +387,7 @@ func TestUserSpecificRecipeList(t *testing.T) {
 	assert.Equal(t, len(recipes2), 1) // check that there is only 1 recipe associated to user2
 }
 
-func TestDelete(t *testing.T) {
+func TestDeleteRecipes(t *testing.T) {
 	ts := httptest.NewServer(SetupServer())
 	defer ts.Close()
 
@@ -451,4 +451,49 @@ func TestDelete(t *testing.T) {
 	}
 
 	assert.Equal(t, post.Message, "All recipes deleted for user")
+}
+
+func TestDeleteUser(t *testing.T) {
+	ts := httptest.NewServer(SetupServer())
+	defer ts.Close()
+
+	user := models.User{
+		Username: "admin10",
+		Password: "password",
+	}
+	// sign up
+	raw1, _ := json.Marshal(user)
+	resp, _ := http.Post(fmt.Sprintf("%s/api/signin", ts.URL), "application/json", bytes.NewBuffer(raw1))
+	defer resp.Body.Close()
+	data, _ := ioutil.ReadAll(resp.Body)
+
+	var payload map[string]string
+	json.Unmarshal(data, &payload)
+
+	JWTtoken := payload["token"]
+
+	raw, _ := json.Marshal(user)
+
+	r, err := http.NewRequest("DELETE", fmt.Sprintf("%s/api/users", ts.URL), bytes.NewBuffer(raw))
+	if err != nil {
+		panic(err)
+	}
+
+	r.Header.Add("Authorization", JWTtoken)
+
+	client := &http.Client{}
+	res, err := client.Do(r)
+
+	defer res.Body.Close()
+
+	assert.Nil(t, err)
+	assert.Equal(t, http.StatusOK, res.StatusCode) // check that the status code is 200
+
+	dataGet, _ := ioutil.ReadAll(res.Body)
+
+	var pay map[string]string
+	json.Unmarshal(dataGet, &pay)
+
+	assert.Equal(t, pay["message"], "User has been deleted")
+
 }
