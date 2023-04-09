@@ -94,6 +94,29 @@ func (handler *RecipesHandler) DeleteAllRecipesHandler(c *gin.Context) {
     c.JSON(http.StatusOK, gin.H{"message": "All recipes deleted for user"})
 }
 
+func (handler *RecipesHandler) InstructionsForRecipeHandler(c *gin.Context){
+	recipeID := c.Param("ID")
+
+	// Set up the Spoonacular API URL
+	url := "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + recipeID + "/information"
+
+	// Make API GET request to Spoonacular API to get information for recipe
+	req, _ := http.NewRequest("GET", url, nil)
+	req.Header.Add("X-RapidAPI-Key", "0e2d3a4b52msh4f7ca3d8295bc0ap1374f1jsnaa5308ae1f95")
+	req.Header.Add("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
+	res, _ := http.DefaultClient.Do(req)
+	if res.Body != nil {
+		defer res.Body.Close()
+	}
+
+	// Read the response body
+	body, _ := ioutil.ReadAll(res.Body)
+
+	var information models.Information
+	_ = json.Unmarshal(body, &information)
+	//return the instructions for the specified recipe
+	c.JSON(http.StatusOK, gin.H{"instructions": information.Instructions})
+}
 
 
 
