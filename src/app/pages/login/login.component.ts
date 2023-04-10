@@ -32,10 +32,12 @@ export class LoginComponent implements OnInit {
         const val = this.form.value;
 
         if (val.signinUsername && val.signinPassword) {
-            this.authService.login(val.signinUsername, val.signinPassword, val.form);
-            if (this.router.url != 'http://localhost:4200/') {
-                this.signinErrorMessage = 'Invalid credentials. Please try again.';
-            }
+            this.authService.login(val.signinUsername, val.signinPassword);
+            setTimeout(() => {
+                if (this.router.url != 'http://localhost:4200/') {
+                    this.signinErrorMessage = 'Invalid credentials. Please try again.';
+                }
+            }, 500);
         }
     }
 
@@ -44,9 +46,11 @@ export class LoginComponent implements OnInit {
 
         if (vals.email && vals.signupUsername && vals.signupPassword) {
             this.authService.signup(vals.email, vals.signupUsername, vals.signupPassword);
-            if (this.router.url != 'http://localhost:4200/') {
-                this.signupErrorMessage = 'Credentials already taken. Please try again.';
-            }
+            setTimeout(() => {
+                if (this.router.url != 'http://localhost:4200/') {
+                    this.signupErrorMessage = 'Credentials already taken. Please try again.';
+                } 
+            }, 500);
         }
     }
 }

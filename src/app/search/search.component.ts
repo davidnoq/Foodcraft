@@ -1,10 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { AuthService } from 'app/auth.service';
 
 // creating item for recipes and declared variables
 interface recipes {
-  title: string
-  ingredients: string
+  title: string;
+  ingredients: string;
+}
+
+interface Ingredient {
+  name: string;
+  selected: boolean;
 }
 
 @Component({
@@ -20,7 +26,6 @@ export class SearchComponent {
     this.generateTicks();
   }
 
-  query: string = '';
   recipes: any[] = [];
   
   // search function - fetch recipes dependent on the search
@@ -176,4 +181,50 @@ export class SearchComponent {
     }
   }
 
+  selectedMealTypes: string[] = [];
+  selectedCuisines: string[] = [];
+  selectedIngredients: Ingredient[] = [];
+  selectedIngredientNames: string[] = [];
+
+
+  // filter ingredients and retrieve what the user selects
+  ingredients: Ingredient[] = [
+    { name: 'Salt', selected: false },
+    { name: 'Sugar', selected: false },
+    { name: 'Flour', selected: false },
+    { name: 'Tomato', selected: false },
+    { name: 'Chicken', selected: false },
+    { name: 'Rice', selected: false }
+  ];
+
+  searchTerm: string = '';
+  searchIngredients() {
+    return this.ingredients.filter(ingredient =>
+      ingredient.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+
+  onIngredientSelected(ingredient: Ingredient) {
+    ingredient.selected = !ingredient.selected;
+    if (ingredient.selected) {
+      this.selectedIngredients.push(ingredient);
+    } else {
+      const index = this.selectedIngredients.findIndex(selected => selected.name === ingredient.name);
+      this.selectedIngredients.splice(index, 1);
+    }
+    this.selectedIngredientNames = this.selectedIngredients.map(selected => selected.name);
+    console.log('Selected ingredient names:', this.selectedIngredientNames);
+  }
+
+  // backend requests
+  apiUrl = 'http://localhost:8080/api/recipes';
+  searchRecipes() {
+    const url = `${this.apiUrl}?ingredients=${this.ingredients.join(',').toLowerCase()}`;
+
+    this.httpClient.post<any>(this.apiUrl, this.selectedIngredientNames.join(',')).subscribe(
+      (res: any[]) => {
+        this.recipes = res;
+        console.log(this.recipes);
+    });
+  }
 }
