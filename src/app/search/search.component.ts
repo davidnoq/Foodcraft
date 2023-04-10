@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AuthService } from 'app/auth.service';
 
 // creating item for recipes and declared variables
 interface recipes {
-  title: string;
+  name: string;
   ingredients: string;
 }
 
@@ -24,15 +24,6 @@ export class SearchComponent {
     private httpClient: HttpClient
   ) {
     this.generateTicks();
-  }
-
-  recipes: any[] = [];
-  
-  // search function - fetch recipes dependent on the search
-  async search() {
-    this.httpClient.get<any[]>('/recipes').subscribe(recipes => {
-      this.recipes = recipes;
-    });
   }
 
   number: number = 1;
@@ -185,7 +176,7 @@ export class SearchComponent {
   selectedCuisines: string[] = [];
   selectedIngredients: Ingredient[] = [];
   selectedIngredientNames: string[] = [];
-
+  recipes: string[] = [];
 
   // filter ingredients and retrieve what the user selects
   ingredients: Ingredient[] = [

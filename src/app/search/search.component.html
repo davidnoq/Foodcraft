@@ -10,13 +10,8 @@
                 <button id = increment (click)="increment()">+</button>
             </div>
             <div class="cell">
-                <h5 style="color: #2e1c0c; margin-top: 10px;">Meal Type</h5>
-                <button id="Breakfast" (click)="mealType('Breakfast')" [ngClass]="{ 'clicked': breakfastClicked, 'original': !breakfastClicked }">Breakfast</button>
-                <button id="Lunch" (click)="mealType('Lunch')" [ngClass]="{ 'clicked': lunchClicked, 'original': !lunchClicked }">Lunch</button>
-                <button id="Dinner" (click)="mealType('Dinner')" [ngClass]="{ 'clicked': dinnerClicked, 'original': !dinnerClicked }">Dinner</button>
-                <br>
-                <button id="Snack" (click)="mealType('Snack')" [ngClass]="{ 'clicked': snackClicked, 'original': !snackClicked }">Snack</button>
-                <button id="Dessert" (click)="mealType('Dessert')" [ngClass]="{ 'clicked': dessertClicked, 'original': !dessertClicked }">Dessert</button>
+                <img src="/assets/bread.png" alt='bread' 
+                height="100vh" margin="auto" display="block" class="images">
             </div>
             <div class="cell">
                 <h5 style="color: #2e1c0c; margin-top: 10px;">Meal Cost</h5>
@@ -31,14 +26,16 @@
                 </div>
             </div>
             <div class="cell">
-                <h5 style="color: #2e1c0c; margin-top: 10px;">Cook Time</h5>
-                <button id="On the Go" (click)="mealTime('On the Go')" [ngClass]="{ 'clicked': OntheGoClicked, 'original': !OntheGoClicked }">On the Go</button>
-                <button id="~30 min" (click)="mealTime('~30 min')" [ngClass]="{ 'clicked': MinClicked, 'original': !MinClicked }">~30 min</button>
-                <button id="~1 Hr" (click)="mealTime('~1 Hr')" [ngClass]="{ 'clicked': HrClicked, 'original': !HrClicked }">~1 Hr</button>
-                <button id="~2 Hrs" (click)="mealTime('~2 Hrs')" [ngClass]="{ 'clicked': HrsClicked, 'original': !HrsClicked }">~2 Hrs</button>
+                cuisine
             </div>
             <div class="cell">
-                -
+                <h5 style="color: #2e1c0c; margin-top: 10px;">Meal Type</h5>
+                <button id="Breakfast" (click)="mealType('Breakfast')" [ngClass]="{ 'clicked': breakfastClicked, 'original': !breakfastClicked }">Breakfast</button>
+                <button id="Lunch" (click)="mealType('Lunch')" [ngClass]="{ 'clicked': lunchClicked, 'original': !lunchClicked }">Lunch</button>
+                <button id="Dinner" (click)="mealType('Dinner')" [ngClass]="{ 'clicked': dinnerClicked, 'original': !dinnerClicked }">Dinner</button>
+                <br>
+                <button id="Snack" (click)="mealType('Snack')" [ngClass]="{ 'clicked': snackClicked, 'original': !snackClicked }">Snack</button>
+                <button id="Dessert" (click)="mealType('Dessert')" [ngClass]="{ 'clicked': dessertClicked, 'original': !dessertClicked }">Dessert</button>
             </div>
             <div class="cell">
                 <img src="/assets/cake.png" alt='cake'
@@ -49,24 +46,22 @@
                 height="100vh" margin="auto" display="block" class="images">
             </div>
             <div class="cell">
-                diet
+                nutrients
             </div>
             <div class="cell">
-                avoid
+                similar recipes
             </div>
         </div>
     </div>
 
     <div class="searchIngredients">
         <input type="text" placeholder="Search for ingredients..." [(ngModel)]="searchTerm">
-        <ul>
-            <li *ngFor="let ingredient of searchIngredients()">
-                <label>
-                    <input type="checkbox" [checked]="ingredient.selected" (change)="onIngredientSelected(ingredient)">
+            <div *ngFor="let ingredient of searchIngredients()">
+                <table>
+                    <input type="checkbox" [checked]="ingredient.selected" (change)="onIngredientSelected(ingredient)" class="listIng">
                     {{ ingredient.name }}
-                </label>
-            </li>
-        </ul>
+                </table>
+            </div>
     </div>
 </div>
 

@@ -151,11 +151,25 @@ input[type="text"] {
 }
 
 .searchIngredients {
-    background: #eac086;
     max-width: 700px;
     margin-left: 0;
 }
 
 .images {
     margin-top: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+    font-size: 18px;
+}
+
+table:hover {
+    background-color: #eac086;
+}
+
+.listIng {
+    margin: 15px;
 }
