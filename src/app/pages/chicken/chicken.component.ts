@@ -1,9 +1,5 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from 'app/auth.service';
-import { Router } from '@angular/router';
-
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-chicken',
@@ -11,32 +7,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./chicken.component.css']
 })
 export class ChickenComponent implements OnInit {
-  form: FormGroup;
-  chickenError: string = '';
+  chickenData: any[] = []; // Define a variable to hold the chicken data
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
-    this.form = this.fb.group({
-      // sign up info
-      chicken: ['', Validators.required],
-      
-  });
-}
+  constructor(private http: HttpClient) { }
 
-ngOnInit() { }
-
-chickenRecipes() {
-  const val = this.form.value;
-
-  if (val.chicken)
-  {
-    this.authService.chickenRecipes(val.chicken);
-    
-    if (this.router.url != 'http://localhost:4200/') 
-    {
-      this.chickenError = 'Invalid credentials. Please try again.';
-    }
+  ngOnInit() {
+    this.fetchChicken(); // Call fetchChicken() method when the component initializes
   }
 
-}
-
+  fetchChicken() {
+    // Make an HTTP GET request to your backend API endpoint to fetch chicken data
+    this.http.get<any[]>('/recipes').subscribe(
+      (response: any) => {
+        this.chickenData = response; // Assign the fetched data to the chickenData variable
+      },
+      (error: any) => {
+        console.error('Error fetching chicken data:', error);
+      }
+    );
+  }
 }

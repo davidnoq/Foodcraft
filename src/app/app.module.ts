@@ -15,6 +15,7 @@ import { GetStartedComponent } from './pages/get-started/get-started.component';
 import { AuthService } from 'app/auth.service';
 import { AuthInterceptorService } from 'app/auth-interceptor.service';
 import { CanActivateViaAuthGuard } from 'app/can-activate-via-auth.guard';
+import { ChickenComponent } from './pages/chicken/chicken.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { CanActivateViaAuthGuard } from 'app/can-activate-via-auth.guard';
     LoginComponent,
     GetStartedComponent,
     SearchComponent,
+    ChickenComponent,
    
   ],
   imports: [

@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { retry, catchError } from 'rxjs/operators';
 import { LoginComponent } from './pages/login/login.component';
 import { Form, FormGroup } from '@angular/forms';
+import { NavbarComponent } from './sharepage/navbar/navbar.component';
+import { ChickenComponent } from './pages/chicken/chicken.component';
 
 @Injectable()
 export class AuthService {
@@ -69,4 +71,6 @@ export class AuthService {
     getAccount() {
         
     }
+
+    
 }
