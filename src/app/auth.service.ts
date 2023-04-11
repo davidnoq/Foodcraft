@@ -28,17 +28,17 @@ export class AuthService {
         this.router.navigateByUrl('');
     }
 
-    login(username: string, pass: string, form: FormGroup) {
-        const headers = {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' })
-        };
+    headers = {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' })
+    };
 
+    login(username: string, password: string) {
         const data = {
-            user: username,
-            password: pass
+            username: username,
+            password: password
         };
 
-        this.http.post(this.API_URL + '/signin', data, headers).subscribe(
+        this.http.post(this.API_URL + '/signin', data, this.headers).subscribe(
             (res: any) => {
                 localStorage.setItem(this.TOKEN_KEY, res.token);
                 // navigate to profile page when token is returned
@@ -56,13 +56,13 @@ export class AuthService {
             password: password
         };
 
-        this.http.post(this.API_URL + '/signup', data).subscribe(
+        this.http.post(this.API_URL + '/signup', data, this.headers).subscribe(
             (res: any) => {
                 localStorage.setItem(this.TOKEN_KEY, res.token);
                 // navigate to profile page when token is returned
                 this.router.navigateByUrl('');
             }, 
-            (error: HttpErrorResponse) => {
+            (error) => {
                 console.error
             }
         );

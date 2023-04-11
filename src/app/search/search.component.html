@@ -1,72 +1,71 @@
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="main-container">
-    <div class="box grid-container">
-        <div class="cell">
-            <h5 style="color: #2e1c0c; margin-top: 10px;">Meal Size</h5>
-            <button id = decrement style="margin-top: 10px;"(click)="decrement()">-</button>
-            <span id = mealSize style="margin:15px; color: #2e1c0c; font-size: 20px;">{{ number }}</span>
-            <button id = increment (click)="increment()">+</button>
-        </div>
-        <div class="cell">
-            <h5 style="color: #2e1c0c; margin-top: 10px;">Meal Type</h5>
-            <button id="Breakfast" (click)="mealType('Breakfast')" [ngClass]="{ 'clicked': breakfastClicked, 'original': !breakfastClicked }">Breakfast</button>
-            <button id="Lunch" (click)="mealType('Lunch')" [ngClass]="{ 'clicked': lunchClicked, 'original': !lunchClicked }">Lunch</button>
-            <button id="Dinner" (click)="mealType('Dinner')" [ngClass]="{ 'clicked': dinnerClicked, 'original': !dinnerClicked }">Dinner</button>
-            <br>
-            <button id="Snack" (click)="mealType('Snack')" [ngClass]="{ 'clicked': snackClicked, 'original': !snackClicked }">Snack</button>
-            <button id="Dessert" (click)="mealType('Dessert')" [ngClass]="{ 'clicked': dessertClicked, 'original': !dessertClicked }">Dessert</button>
-        </div>
-        <div class="cell">
-            <h5 style="color: #2e1c0c; margin-top: 10px;">Meal Cost</h5>
-            <div class="slider">
-                <input type="range" min="1" max="4" value="1" class="slider-range">
-                <div class="tick-marks">
-                    <span class="tick-mark">1</span>
-                    <span class="tick-mark">2</span>
-                    <span class="tick-mark">3</span>
-                    <span class="tick-mark">4</span>
+    <div class="crafting-table">
+        <img src="/assets/crafting-background.png" alt="crafting table" class="crafting-back">  
+        <div class="grid-container">
+            <div class="cell">
+                <h5 style="color: #2e1c0c; margin-top: 12px; font-size: 25px;">Meal<br>Size</h5>
+                <button id = decrement style="margin-top: 10px;"(click)="decrement()">-</button>
+                <span id = mealSize style="margin:15px; color: #2e1c0c; font-size: 20px;">{{ number }}</span>
+                <button id = increment (click)="increment()">+</button>
+            </div>
+            <div class="cell">
+                <img src="/assets/bread.png" alt='bread' 
+                height="100vh" margin="auto" display="block" class="images">
+            </div>
+            <div class="cell">
+                <h5 style="color: #2e1c0c; margin-top: 10px;">Meal Cost</h5>
+                <div class="slider">
+                    <input type="range" min="1" max="4" value="1" class="slider-range">
+                    <div class="tick-marks">
+                        <span class="tick-mark">1</span>
+                        <span class="tick-mark">2</span>
+                        <span class="tick-mark">3</span>
+                        <span class="tick-mark">4</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="cell">
-            <h5 style="color: #2e1c0c; margin-top: 10px;">Cook Time</h5>
-            <button id="On the Go" (click)="mealTime('On the Go')" [ngClass]="{ 'clicked': OntheGoClicked, 'original': !OntheGoClicked }">On the Go</button>
-            <button id="~30 min" (click)="mealTime('~30 min')" [ngClass]="{ 'clicked': MinClicked, 'original': !MinClicked }">~30 min</button>
-            <button id="~1 Hr" (click)="mealTime('~1 Hr')" [ngClass]="{ 'clicked': HrClicked, 'original': !HrClicked }">~1 Hr</button>
-            <button id="~2 Hrs" (click)="mealTime('~2 Hrs')" [ngClass]="{ 'clicked': HrsClicked, 'original': !HrsClicked }">~2 Hrs</button>
-        </div>
-        <div class="cell">
-            -
-        </div>
-        <div class="cell">
-            similar to other recipes
-        </div>
-        <div class="cell">
-            nutrition
-        </div>
-        <div class="cell">
-            diet
-        </div>
-        <div class="cell">
-            avoid
+            <div class="cell">
+                cuisine
+            </div>
+            <div class="cell">
+                <h5 style="color: #2e1c0c; margin-top: 10px;">Meal Type</h5>
+                <button id="Breakfast" (click)="mealType('Breakfast')" [ngClass]="{ 'clicked': breakfastClicked, 'original': !breakfastClicked }">Breakfast</button>
+                <button id="Lunch" (click)="mealType('Lunch')" [ngClass]="{ 'clicked': lunchClicked, 'original': !lunchClicked }">Lunch</button>
+                <button id="Dinner" (click)="mealType('Dinner')" [ngClass]="{ 'clicked': dinnerClicked, 'original': !dinnerClicked }">Dinner</button>
+                <br>
+                <button id="Snack" (click)="mealType('Snack')" [ngClass]="{ 'clicked': snackClicked, 'original': !snackClicked }">Snack</button>
+                <button id="Dessert" (click)="mealType('Dessert')" [ngClass]="{ 'clicked': dessertClicked, 'original': !dessertClicked }">Dessert</button>
+            </div>
+            <div class="cell">
+                <img src="/assets/cake.png" alt='cake'
+                height="100vh" margin="auto" display="block" class="images">
+            </div>
+            <div class="cell">
+                <img src="/assets/baked-potato.png" alt='baked-potato' 
+                height="100vh" margin="auto" display="block" class="images">
+            </div>
+            <div class="cell">
+                nutrients
+            </div>
+            <div class="cell">
+                similar recipes
+            </div>
         </div>
     </div>
 
-    <div class="box searchIngredients">
-        <h5>Search for ingredients to add to search function</h5>
-        <form>
-            <input type="text" [(ngModel)]="query" style="color:black;" (keyup.enter)="search()" placeholder="Search for Recipe...">
-            <button (click)="search()">Search</button>
-            <ul>
-                <li *ngFor="let recipe of recipes">
-                    <h3>{{ recipe.name }}</h3>
-                    <p>{{ recipe.ingredients }}</p>
-                </li>
-            </ul>
-        </form>
+    <div class="searchIngredients">
+        <input type="text" placeholder="Search for ingredients..." [(ngModel)]="searchTerm">
+            <div *ngFor="let ingredient of searchIngredients()">
+                <table>
+                    <input type="checkbox" [checked]="ingredient.selected" (change)="onIngredientSelected(ingredient)" class="listIng">
+                    {{ ingredient.name }}
+                </table>
+            </div>
     </div>
 </div>
 
-<div class="searchButton">
-    <button>Craft Recipe</button>
+<div class="craftButton">
+    <button (click)="searchRecipes()">Craft Recipe</button>
 </div>
 
