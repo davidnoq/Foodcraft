@@ -4,7 +4,7 @@
 - 
 
 **Backend**
-- 
+- added DELETE for user accounts
 
 # List unit tests for frontend
 - Used Cypress component tests for unit testing
@@ -15,12 +15,11 @@
 - About e2e test to determine if webiste if visitable.
 
 # List unit tests for backend
-- GET for retrieving recipes in database
+- GET for user-specific recipe lists
 - POST for adding a recipe to the database
 - POST for signing into an existing and nonexistant user
 - POST for signing up with an existing and nonexistant user
-- POST for refreshing JWT token after signin
-- Test for user-specific recipe lists
+- DELETE 
 
 ------------
 
