@@ -5,7 +5,9 @@
 
 **Backend**
 - added DELETE function for user accounts
-- added function to get instructions for recipe
+- added DELETE function for removing single recipe from user's list
+- added GET function for recipe instructions
+- added function for Featured Recipes
 # List unit tests for frontend
 - Used Cypress component tests for unit testing
 - Search component isolated and tested buttons, increments, visual texts, and type function
@@ -26,6 +28,9 @@
 - POST for refreshing JWT token after signin
 - DELETE for removing all recipes from a user's list
 - DELETE for removing a user from the database
+- DELETE for removing a single recipe from a user's list
+- GET for recipe instructions
+- ? for Featured Recipes
 
 ------------
 
