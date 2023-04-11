@@ -5,6 +5,7 @@
 
 **Backend**
 - added DELETE function for user accounts
+- added function to get instructions for recipe
 # List unit tests for frontend
 - Used Cypress component tests for unit testing
 - Search component isolated and tested buttons, increments, visual texts, and type function
