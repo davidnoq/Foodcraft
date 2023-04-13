@@ -175,11 +175,11 @@ export class SearchComponent {
   selectedMealTypes: string[] = [];
   selectedCuisines: string[] = [];
   selectedIngredients: Ingredient[] = [];
-  selectedIngredientNames: string[] = [];
+  ingredientlist: string[] = [];
   recipes: string[] = [];
 
   // filter ingredients and retrieve what the user selects
-  ingredients: Ingredient[] = [
+  ingredient: Ingredient[] = [
     { name: 'Salt', selected: false },
     { name: 'Sugar', selected: false },
     { name: 'Flour', selected: false },
@@ -190,7 +190,7 @@ export class SearchComponent {
 
   searchTerm: string = '';
   searchIngredients() {
-    return this.ingredients.filter(ingredient =>
+    return this.ingredient.filter(ingredient =>
       ingredient.name.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
@@ -203,19 +203,18 @@ export class SearchComponent {
       const index = this.selectedIngredients.findIndex(selected => selected.name === ingredient.name);
       this.selectedIngredients.splice(index, 1);
     }
-    this.selectedIngredientNames = this.selectedIngredients.map(selected => selected.name);
-    console.log('Selected ingredient names:', this.selectedIngredientNames);
+    this.ingredientlist = this.selectedIngredients.map(selected => selected.name);
+    console.log('Selected ingredient names:', this.ingredientlist);
   }
 
   // backend requests
   apiUrl = 'http://localhost:8080/api/recipes';
   searchRecipes() {
-    const url = `${this.apiUrl}?ingredients=${this.ingredients.join(',').toLowerCase()}`;
+    //const url = `${this.apiUrl}?ingredients=${this.ingredientlist.join(',').toLowerCase()}`;
 
-    this.httpClient.post<any>(this.apiUrl, this.selectedIngredientNames.join(',')).subscribe(
-      (res: any[]) => {
-        this.recipes = res;
-        console.log(this.recipes);
+    this.httpClient.post(this.apiUrl, this.ingredientlist).subscribe(
+      (res: any) => {
+        console.log(res);
     });
   }
 }
