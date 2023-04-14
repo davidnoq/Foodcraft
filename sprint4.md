@@ -8,6 +8,7 @@
 - added DELETE function for removing single recipe from user's list
 - added GET function for recipe instructions
 - added function for Featured Recipes
+- added GET function for frontend to retrieve username
 # List unit tests for frontend
 - Used Cypress component tests for unit testing
 - Search component isolated and tested buttons, increments, visual texts, and type function
@@ -31,6 +32,7 @@
 - DELETE for removing a single recipe from a user's list
 - GET for recipe instructions
 - ? for Featured Recipes
+- GET for retrieving username
 
 ------------
 
