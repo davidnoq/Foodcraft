@@ -500,3 +500,103 @@ func TestGetUsername(t *testing.T) {
 
 	assert.Equal(t, pay["username"], "admin")
 }
+
+// broken test
+func TestDeleteOneRecipe(t *testing.T) {
+	ts := httptest.NewServer(SetupServer())
+	defer ts.Close()
+
+	user := models.User{
+		Username: "unitTester1",
+		Password: "unitTester1",
+	}
+	// sign in
+	raw1, _ := json.Marshal(user)
+	resp, _ := http.Post(fmt.Sprintf("%s/api/signin", ts.URL), "application/json", bytes.NewBuffer(raw1))
+	defer resp.Body.Close()
+	data, _ := ioutil.ReadAll(resp.Body)
+
+	var payload map[string]string
+	json.Unmarshal(data, &payload)
+
+	JWTtoken := payload["token"]
+
+	raw, _ := json.Marshal(user)
+	// delete all recipes
+	r, err := http.NewRequest("DELETE", fmt.Sprintf("%s/api/recipes", ts.URL), bytes.NewBuffer(raw))
+	if err != nil {
+		panic(err)
+	}
+
+	r.Header.Add("Authorization", JWTtoken)
+
+	client := &http.Client{}
+	res, err := client.Do(r)
+
+	defer res.Body.Close()
+
+	assert.Nil(t, err)
+	assert.Equal(t, http.StatusOK, res.StatusCode) // check that the status code is 200
+
+	// add recipe to user
+	var ingredients models.Ingredients
+	ingredients.IngredientList = []string{"milk"}
+
+	raw, _ = json.Marshal(ingredients)
+
+	r, err = http.NewRequest("POST", fmt.Sprintf("%s/api/recipes", ts.URL), bytes.NewBuffer(raw))
+	if err != nil {
+		panic(err)
+	}
+
+	r.Header.Add("Authorization", JWTtoken)
+
+	client = &http.Client{}
+	res, err = client.Do(r)
+
+	defer res.Body.Close()
+
+	assert.Nil(t, err)
+	assert.Equal(t, http.StatusOK, res.StatusCode) // check that the status code is 200
+
+	r, err = http.NewRequest("DELETE", fmt.Sprintf("%s/api/recipes/:ID", ts.URL), bytes.NewBuffer(raw))
+	if err != nil {
+		panic(err)
+	}
+
+	r.Header.Add("Authorization", JWTtoken)
+
+	client = &http.Client{}
+	res, err = client.Do(r)
+
+	defer res.Body.Close()
+
+	assert.Nil(t, err)
+	assert.Equal(t, http.StatusOK, res.StatusCode) // check that the status code is 200
+
+	// check if recipe still exists for user
+	id := "666439"
+
+	r, err = http.NewRequest("GET", fmt.Sprintf("%s/api/userRecipe", ts.URL), bytes.NewBuffer(raw))
+	if err != nil {
+		panic(err)
+	}
+
+	r.Header.Add("Authorization", JWTtoken)
+
+	client = &http.Client{}
+	res, err = client.Do(r)
+
+	defer res.Body.Close()
+
+	assert.Nil(t, err)
+	assert.Equal(t, http.StatusOK, res.StatusCode) // check that the status code is 200
+
+	dataGet, _ := ioutil.ReadAll(res.Body)
+
+	var pay map[string]string
+	json.Unmarshal(dataGet, &pay)
+
+	assert.Equal(t, pay["message"], "Recipe "+id+" deleted for user")
+
+}

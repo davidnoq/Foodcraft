@@ -85,16 +85,16 @@ func (handler *RecipesHandler) NewRecipeHandler(c *gin.Context) {
 }
 
 func (handler *RecipesHandler) DeleteAllRecipesHandler(c *gin.Context) {
-    userID, _ := c.MustGet("userID").(string)
-    _, err := handler.collection.DeleteMany(handler.ctx, bson.M{"userId": userID})
-    if err != nil {
-        c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-        return
-    }
-    c.JSON(http.StatusOK, gin.H{"message": "All recipes deleted for user"})
+	userID, _ := c.MustGet("userID").(string)
+	_, err := handler.collection.DeleteMany(handler.ctx, bson.M{"userId": userID})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "All recipes deleted for user"})
 }
 
-func (handler *RecipesHandler) InstructionsForRecipeHandler(c *gin.Context){
+func (handler *RecipesHandler) InstructionsForRecipeHandler(c *gin.Context) {
 	recipeID := c.Param("ID")
 
 	// Set up the Spoonacular API URL
@@ -118,5 +118,54 @@ func (handler *RecipesHandler) InstructionsForRecipeHandler(c *gin.Context){
 	c.JSON(http.StatusOK, gin.H{"instructions": information.Instructions})
 }
 
+func (handler *RecipesHandler) DeleteOneRecipesHandler(c *gin.Context) {
+	recipeID := c.Param("ID")
 
+	userID, _ := c.MustGet("userID").(string)
 
+	// check if recipe & user combo exists
+	var result models.Recipe
+	err := handler.collection.FindOne(handler.ctx, bson.M{"userId": userID, "id": recipeID}).Decode(&result)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Recipe is not in user's collection"})
+			return
+		}
+		return
+	}
+
+	_, err = handler.collection.DeleteOne(handler.ctx, bson.M{"userId": userID, "id": recipeID})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	// check if it still exists
+	err = handler.collection.FindOne(handler.ctx, bson.M{"userId": userID, "id": recipeID}).Decode(&result)
+	if err != nil {
+		if err != mongo.ErrNoDocuments {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Recipe " + recipeID + " deleted for user"})
+}
+
+func (handler *RecipesHandler) FindRecipeHandler(c *gin.Context) {
+	recipeID := c.Param("ID")
+
+	userID, _ := c.MustGet("userID").(string)
+
+	// check if recipe & user combo exists
+	var result models.Recipe
+	err := handler.collection.FindOne(handler.ctx, bson.M{"userId": userID, "id": recipeID}).Decode(&result)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Recipe is not in user's collection"})
+			return
+		}
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"id": recipeID, "userID": userID})
+}
