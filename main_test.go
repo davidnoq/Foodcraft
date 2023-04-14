@@ -31,49 +31,6 @@ func SetupRouter() *gin.Engine {
 	return router
 }
 
-/*func TestListRecipesHandler(t *testing.T) {
-	ts := httptest.NewServer(SetupServer())
-	defer ts.Close()
-
-	user := models.User{
-		Username: "admin",
-		Password: "password",
-	}
-	// sign in
-	raw1, _ := json.Marshal(user)
-	resp, _ := http.Post(fmt.Sprintf("%s/api/signin", ts.URL), "application/json", bytes.NewBuffer(raw1))
-	defer resp.Body.Close()
-	data, _ := ioutil.ReadAll(resp.Body)
-
-	var payload map[string]string
-	json.Unmarshal(data, &payload)
-
-	JWTtoken := payload["token"]
-
-	raw, _ := json.Marshal(user)
-
-	r, err := http.NewRequest("GET", fmt.Sprintf("%s/api/recipes", ts.URL), bytes.NewBuffer(raw))
-	if err != nil {
-		panic(err)
-	}
-
-	r.Header.Add("Authorization", JWTtoken)
-
-	client := &http.Client{}
-	res, err := client.Do(r)
-
-	defer res.Body.Close()
-
-	assert.Nil(t, err)
-	assert.Equal(t, http.StatusOK, res.StatusCode) // check that the status code is 200
-
-	data, _ = ioutil.ReadAll(res.Body)
-
-	var recipes []models.Recipe
-	json.Unmarshal(data, &recipes)
-	assert.Equal(t, len(recipes), 25) // check that there are 24 recipes in the database
-}*/
-
 func TestSignInHandlerFail(t *testing.T) {
 	ts := httptest.NewServer(SetupServer())
 	defer ts.Close()
@@ -496,4 +453,50 @@ func TestDeleteUser(t *testing.T) {
 
 	assert.Equal(t, pay["message"], "User has been deleted")
 
+}
+
+func TestGetUsername(t *testing.T) {
+	ts := httptest.NewServer(SetupServer())
+	defer ts.Close()
+
+	user := models.User{
+		Username: "admin",
+		Password: "password",
+	}
+	// sign in
+	raw1, _ := json.Marshal(user)
+	resp, _ := http.Post(fmt.Sprintf("%s/api/signin", ts.URL), "application/json", bytes.NewBuffer(raw1))
+	defer resp.Body.Close()
+	data, _ := ioutil.ReadAll(resp.Body)
+
+	var payload map[string]string
+	json.Unmarshal(data, &payload)
+
+	JWTtoken := payload["token"]
+
+	// get username
+
+	raw, _ := json.Marshal(user)
+
+	r, err := http.NewRequest("GET", fmt.Sprintf("%s/api/user", ts.URL), bytes.NewBuffer(raw))
+	if err != nil {
+		panic(err)
+	}
+
+	r.Header.Add("Authorization", JWTtoken)
+
+	client := &http.Client{}
+	res, err := client.Do(r)
+
+	defer res.Body.Close()
+
+	assert.Nil(t, err)
+	assert.Equal(t, http.StatusOK, res.StatusCode) // check that the status code is 200
+
+	dataGet, _ := ioutil.ReadAll(res.Body)
+
+	var pay map[string]string
+	json.Unmarshal(dataGet, &pay)
+
+	assert.Equal(t, pay["username"], "admin")
 }
