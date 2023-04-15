@@ -15,7 +15,12 @@ import { GetStartedComponent } from './pages/get-started/get-started.component';
 import { AuthService } from 'app/auth.service';
 import { AuthInterceptorService } from 'app/auth-interceptor.service';
 import { CanActivateViaAuthGuard } from 'app/can-activate-via-auth.guard';
-import { ChickenComponent } from './pages/chicken/chicken.component';
+import { ChickenComponent } from './navbar-tabs/chicken/chicken.component';
+import { BeefComponent } from './navbar-tabs/beef/beef.component';
+import { SeafoodComponent } from './navbar-tabs/seafood/seafood.component';
+import { PorkComponent } from './navbar-tabs/pork/pork.component';
+//import { SeafoodComponent } from './navbar-tabs/seafood/seafood.component';
+//import { BeefComponent } from './navbar-tabs/beef/beef.component';
 
 
 @NgModule({
@@ -29,6 +34,11 @@ import { ChickenComponent } from './pages/chicken/chicken.component';
     GetStartedComponent,
     SearchComponent,
     ChickenComponent,
+    BeefComponent,
+    SeafoodComponent,
+    PorkComponent,
+    //SeafoodComponent,
+    //BeefComponent,
    
   ],
   imports: [

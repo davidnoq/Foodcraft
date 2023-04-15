@@ -1,4 +1,7 @@
-import { ChickenComponent } from './pages/chicken/chicken.component';
+import { ChickenComponent } from './navbar-tabs/chicken/chicken.component';
+import { BeefComponent } from './navbar-tabs/beef/beef.component';
+import { SeafoodComponent } from './navbar-tabs/seafood/seafood.component';
+import { PorkComponent } from './navbar-tabs/pork/pork.component';
 import { GetStartedComponent } from './pages/get-started/get-started.component';
 import { AboutComponent } from './pages/about/about.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -17,6 +20,9 @@ const routes: Routes = [
   {path:'search',component:SearchComponent},
   {path:'login', component:LoginComponent},
   {path:'chicken', component:ChickenComponent }, 
+  {path:'beef', component:BeefComponent }, 
+  {path:'salmon', component:SeafoodComponent }, 
+  {path:'pork', component:PorkComponent }, 
   {path: 'profile', component:userAccounts, canActivate: [CanActivateViaAuthGuard]}
 ];
 

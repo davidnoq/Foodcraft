@@ -8,7 +8,7 @@ interface Recipe {
 }
 
 interface Ingredient {
-  name: string;
+  ingredientlist: string;
 }
 
 @Component({
@@ -26,21 +26,27 @@ export class ChickenComponent implements OnInit {
   }
 
   //update to single object instead of an array
-  ingredient: Ingredient = { name: 'Chicken' }; 
-  recipes: Recipe[] = []; 
+  ingredientlist = ["Chicken"]; 
+  title: string = " ";
+  image: string = " ";
+
 
   apiUrl = 'http://localhost:8080/api/recipes';
   
   //backend requests
   fetchChicken() {
-    this.http.post<any[]>(this.apiUrl, [this.ingredient]).subscribe(
-      (response: any[]) => {
-        this.recipes = response;
-        console.log(this.recipes);
+    const data = {
+      ingredientlist: this.ingredientlist
+    }
+    this.http.post(this.apiUrl, data).subscribe(
+      (response: any) => {
+        this.title = response.Title;
+        this.image = response.Image;
+        console.log(response);
       },
       (error: any) => {
         console.error('Error fetching chicken data:', error);
-        console.log(this.ingredient);
+        
       }
     );
   }
