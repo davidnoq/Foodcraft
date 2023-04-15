@@ -9,6 +9,7 @@
 - added GET function for recipe instructions
 - added function for Featured Recipes
 - added GET function for frontend to retrieve username
+- added GET function to find a specific recipe within a user's list
 # List unit tests for frontend
 - Used Cypress component tests for unit testing
 - Search component isolated and tested buttons, increments, visual texts, and type function
@@ -33,6 +34,7 @@
 - GET for recipe instructions
 - ? for Featured Recipes
 - GET for retrieving username
+- GET for finding a recipe within a user's list
 
 ------------
 
