@@ -6,6 +6,7 @@ import (
 	"foodcraft/models"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -66,7 +67,7 @@ func (handler *AuthHandler) SignInHandler(c *gin.Context) {
 		return
 	}
 	// issue JWT token with 10 min expiration
-	expirationTime := time.Now().Add(10 * time.Minute)
+	expirationTime := time.Now().Add(60 * time.Minute)
 	claims := &Claims{
 		Username: user.Username,
 		StandardClaims: jwt.StandardClaims{
@@ -133,7 +134,8 @@ func (handler *AuthHandler) RefreshHandler(c *gin.Context) {
 }
 
 func (handler *AuthHandler) GetUsernameHandler(c *gin.Context) {
-	tokenValue := c.GetHeader("Authorization")
+	authHeader := c.GetHeader("Authorization")
+	tokenValue := strings.TrimPrefix(authHeader, "Bearer ")
 	claims := &Claims{}
 	tkn, err := jwt.ParseWithClaims(tokenValue, claims,
 		func(token *jwt.Token) (interface{}, error) {
@@ -223,7 +225,8 @@ func (handler *AuthHandler) DeleteUserHandler(c *gin.Context) {
 func (handler *AuthHandler) AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// check Authorization header
-		tokenValue := c.GetHeader("Authorization")
+		authHeader := c.GetHeader("Authorization")
+		tokenValue := strings.TrimPrefix(authHeader, "Bearer ")
 		claims := &Claims{}
 		// generate signature & verify if it matches one on JWT
 		tkn, err := jwt.ParseWithClaims(tokenValue, claims,
@@ -232,15 +235,21 @@ func (handler *AuthHandler) AuthMiddleware() gin.HandlerFunc {
 			})
 		// if doesn't match, 401 unauthorized error
 		if err != nil {
+			if err == jwt.ErrSignatureInvalid {
+				c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+					"error":  "Unauthorized",
+					"reason": "Invalid Signature",
+				})
+			}
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-				"error":  "Unauthorized",
+				"error":  err,
 				"reason": "Invalid API key",
 			})
 		}
-		if tkn == nil || !tkn.Valid {
+		if !tkn.Valid {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 				"error":  tokenValue,
-				"reason": "Invalid API key",
+				"reason": "Invalid API token",
 			})
 		} else {
 			c.Set("userID", claims.Subject)
