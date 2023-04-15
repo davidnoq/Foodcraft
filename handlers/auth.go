@@ -232,10 +232,16 @@ func (handler *AuthHandler) AuthMiddleware() gin.HandlerFunc {
 			})
 		// if doesn't match, 401 unauthorized error
 		if err != nil {
-			c.AbortWithStatus(http.StatusUnauthorized)
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+				"error":  "Unauthorized",
+				"reason": "Invalid API key",
+			})
 		}
 		if tkn == nil || !tkn.Valid {
-			c.AbortWithStatus(http.StatusUnauthorized)
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+				"error":  tokenValue,
+				"reason": "Invalid API key",
+			})
 		} else {
 			c.Set("userID", claims.Subject)
 		}
