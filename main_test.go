@@ -80,7 +80,7 @@ func TestSignUpHandler(t *testing.T) {
 	defer ts.Close()
 
 	user := models.User{
-		Username: "admin10",
+		Username: "testSignUp",
 		Password: "password",
 	}
 
@@ -95,6 +95,16 @@ func TestSignUpHandler(t *testing.T) {
 	json.Unmarshal(data, &payload)
 
 	assert.Equal(t, payload["message"], "Account has been created")
+
+	// delete user so test works next time
+	raw, _ = json.Marshal(user)
+	res, err := http.NewRequest("DELETE", fmt.Sprintf("%s/api/users", ts.URL), bytes.NewBuffer(raw))
+
+	client := &http.Client{}
+	resp, err = client.Do(res)
+
+	defer res.Body.Close()
+	defer resp.Body.Close()
 }
 
 func TestRefreshHandlerUnauthorized(t *testing.T) {
@@ -124,7 +134,7 @@ func TestNewRecipeHandler(t *testing.T) {
 	defer ts.Close()
 
 	user := models.User{
-		Username: "admin",
+		Username: "newRecipe",
 		Password: "password",
 	}
 	// sign in
@@ -158,6 +168,19 @@ func TestNewRecipeHandler(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode) // check that the status code is 200
+
+	// delete all so test will work next time
+	r, err = http.NewRequest("DELETE", fmt.Sprintf("%s/api/recipes", ts.URL), bytes.NewBuffer(raw))
+	if err != nil {
+		panic(err)
+	}
+
+	r.Header.Add("Authorization", JWTtoken)
+
+	client = &http.Client{}
+	res, err = client.Do(r)
+
+	defer res.Body.Close()
 }
 
 func TestRefreshHandler(t *testing.T) {
@@ -212,7 +235,7 @@ func TestUserSpecificRecipeList(t *testing.T) {
 	defer ts.Close()
 
 	user := models.User{
-		Username: "unitTester1",
+		Username: "recipeList1",
 		Password: "unitTester1",
 	}
 	// sign in
@@ -225,42 +248,6 @@ func TestUserSpecificRecipeList(t *testing.T) {
 	json.Unmarshal(data, &payload)
 
 	JWTtoken := payload["token"]
-
-	// add 2 recipes to user
-	var ingredients models.Ingredients
-	ingredients.IngredientList = []string{"milk"}
-
-	raw, _ := json.Marshal(ingredients)
-
-	r, err := http.NewRequest("POST", fmt.Sprintf("%s/api/recipes", ts.URL), bytes.NewBuffer(raw))
-	if err != nil {
-		panic(err)
-	}
-
-	r.Header.Add("Authorization", JWTtoken)
-
-	client := &http.Client{}
-	res, err := client.Do(r)
-
-	defer res.Body.Close()
-
-	assert.Nil(t, err)
-	assert.Equal(t, http.StatusOK, res.StatusCode) // check that the status code is 200
-
-	var ingredients2 models.Ingredients
-	ingredients2.IngredientList = []string{"eggs", "flour"}
-	raw2, _ := json.Marshal(ingredients2)
-
-	r2, err := http.NewRequest("POST", fmt.Sprintf("%s/api/recipes", ts.URL), bytes.NewBuffer(raw2))
-	if err != nil {
-		panic(err)
-	}
-
-	r2.Header.Add("Authorization", JWTtoken)
-	res2, err := client.Do(r2)
-	defer res2.Body.Close()
-	assert.Nil(t, err)
-	assert.Equal(t, http.StatusOK, res2.StatusCode) // check that the status code is 200
 
 	//check that there are 2 recipes associated to user1
 	req, err := http.NewRequest("GET", fmt.Sprintf("%s/api/recipes", ts.URL), nil)
@@ -286,7 +273,7 @@ func TestUserSpecificRecipeList(t *testing.T) {
 
 	// sign in second user
 	user2 := models.User{
-		Username: "unitTester2",
+		Username: "recipeList2",
 		Password: "unitTester2",
 	}
 
@@ -299,27 +286,6 @@ func TestUserSpecificRecipeList(t *testing.T) {
 	json.Unmarshal(data1, &payload1)
 
 	JWTtoken1 := payload1["token"]
-
-	// add recipe to second user
-	var ingredients4 models.Ingredients
-	ingredients4.IngredientList = []string{"bacon"}
-
-	raw4, _ := json.Marshal(ingredients4)
-
-	r4, err := http.NewRequest("POST", fmt.Sprintf("%s/api/recipes", ts.URL), bytes.NewBuffer(raw4))
-	if err != nil {
-		panic(err)
-	}
-
-	r4.Header.Add("Authorization", JWTtoken1)
-
-	client = &http.Client{}
-	res4, err := client.Do(r4)
-
-	defer res.Body.Close()
-
-	assert.Nil(t, err)
-	assert.Equal(t, http.StatusOK, res4.StatusCode) // check that the status code is 200
 
 	//check that there is only 1 recipe associated to user2
 	req2, err := http.NewRequest("GET", fmt.Sprintf("%s/api/recipes", ts.URL), nil)
@@ -349,8 +315,8 @@ func TestDeleteRecipes(t *testing.T) {
 	defer ts.Close()
 
 	user := models.User{
-		Username: "unitTester1",
-		Password: "unitTester1",
+		Username: "deleteRecipes",
+		Password: "password",
 	}
 	// sign in
 	raw1, _ := json.Marshal(user)
@@ -365,7 +331,13 @@ func TestDeleteRecipes(t *testing.T) {
 
 	raw, _ := json.Marshal(user)
 
-	r, err := http.NewRequest("DELETE", fmt.Sprintf("%s/api/recipes", ts.URL), bytes.NewBuffer(raw))
+	// add recipe
+	var ingredients models.Ingredients
+	ingredients.IngredientList = []string{"milk"}
+
+	raw, _ = json.Marshal(ingredients)
+
+	r, err := http.NewRequest("POST", fmt.Sprintf("%s/api/recipes", ts.URL), bytes.NewBuffer(raw))
 	if err != nil {
 		panic(err)
 	}
@@ -374,6 +346,18 @@ func TestDeleteRecipes(t *testing.T) {
 
 	client := &http.Client{}
 	res, err := client.Do(r)
+
+	defer res.Body.Close()
+
+	r, err = http.NewRequest("DELETE", fmt.Sprintf("%s/api/recipes", ts.URL), bytes.NewBuffer(raw))
+	if err != nil {
+		panic(err)
+	}
+
+	r.Header.Add("Authorization", JWTtoken)
+
+	client = &http.Client{}
+	res, err = client.Do(r)
 
 	defer res.Body.Close()
 
@@ -415,44 +399,31 @@ func TestDeleteUser(t *testing.T) {
 	defer ts.Close()
 
 	user := models.User{
-		Username: "admin10",
+		Username: "testDeleteUser",
 		Password: "password",
 	}
-	// sign up
-	raw1, _ := json.Marshal(user)
-	resp, _ := http.Post(fmt.Sprintf("%s/api/signin", ts.URL), "application/json", bytes.NewBuffer(raw1))
+
+	raw, _ := json.Marshal(user)
+	resp, err := http.NewRequest("DELETE", fmt.Sprintf("%s/api/users", ts.URL), bytes.NewBuffer(raw))
+
+	client := &http.Client{}
+	res, err := client.Do(resp)
+
+	defer res.Body.Close()
 	defer resp.Body.Close()
-	data, _ := ioutil.ReadAll(resp.Body)
+	assert.Nil(t, err)
+	assert.Equal(t, http.StatusOK, res.StatusCode) // check that the status code is 202
+	data, _ := ioutil.ReadAll(res.Body)
 
 	var payload map[string]string
 	json.Unmarshal(data, &payload)
 
-	JWTtoken := payload["token"]
+	assert.Equal(t, payload["message"], "User has been deleted")
 
-	raw, _ := json.Marshal(user)
-
-	r, err := http.NewRequest("DELETE", fmt.Sprintf("%s/api/users", ts.URL), bytes.NewBuffer(raw))
-	if err != nil {
-		panic(err)
-	}
-
-	r.Header.Add("Authorization", JWTtoken)
-
-	client := &http.Client{}
-	res, err := client.Do(r)
-
+	// remake user so test works next time
+	raw, _ = json.Marshal(user)
+	res, err = http.Post(fmt.Sprintf("%s/api/signup", ts.URL), "application/json", bytes.NewBuffer(raw))
 	defer res.Body.Close()
-
-	assert.Nil(t, err)
-	assert.Equal(t, http.StatusOK, res.StatusCode) // check that the status code is 200
-
-	dataGet, _ := ioutil.ReadAll(res.Body)
-
-	var pay map[string]string
-	json.Unmarshal(dataGet, &pay)
-
-	assert.Equal(t, pay["message"], "User has been deleted")
-
 }
 
 func TestGetUsername(t *testing.T) {
@@ -501,14 +472,13 @@ func TestGetUsername(t *testing.T) {
 	assert.Equal(t, pay["username"], "admin")
 }
 
-// broken test
 func TestDeleteOneRecipe(t *testing.T) {
 	ts := httptest.NewServer(SetupServer())
 	defer ts.Close()
 
 	user := models.User{
-		Username: "unitTester1",
-		Password: "unitTester1",
+		Username: "deleteOne",
+		Password: "password",
 	}
 	// sign in
 	raw1, _ := json.Marshal(user)
@@ -522,8 +492,14 @@ func TestDeleteOneRecipe(t *testing.T) {
 	JWTtoken := payload["token"]
 
 	raw, _ := json.Marshal(user)
-	// delete all recipes
-	r, err := http.NewRequest("DELETE", fmt.Sprintf("%s/api/recipes", ts.URL), bytes.NewBuffer(raw))
+
+	// add recipe to user
+	var ingredients models.Ingredients
+	ingredients.IngredientList = []string{"milk"}
+
+	raw, _ = json.Marshal(ingredients)
+
+	r, err := http.NewRequest("POST", fmt.Sprintf("%s/api/recipes", ts.URL), bytes.NewBuffer(raw))
 	if err != nil {
 		panic(err)
 	}
@@ -535,49 +511,7 @@ func TestDeleteOneRecipe(t *testing.T) {
 
 	defer res.Body.Close()
 
-	assert.Nil(t, err)
-	assert.Equal(t, http.StatusOK, res.StatusCode) // check that the status code is 200
-
-	// add recipe to user
-	var ingredients models.Ingredients
-	ingredients.IngredientList = []string{"milk"}
-
-	raw, _ = json.Marshal(ingredients)
-
-	r, err = http.NewRequest("POST", fmt.Sprintf("%s/api/recipes", ts.URL), bytes.NewBuffer(raw))
-	if err != nil {
-		panic(err)
-	}
-
-	r.Header.Add("Authorization", JWTtoken)
-
-	client = &http.Client{}
-	res, err = client.Do(r)
-
-	defer res.Body.Close()
-
-	assert.Nil(t, err)
-	assert.Equal(t, http.StatusOK, res.StatusCode) // check that the status code is 200
-
-	r, err = http.NewRequest("DELETE", fmt.Sprintf("%s/api/recipes/:ID", ts.URL), bytes.NewBuffer(raw))
-	if err != nil {
-		panic(err)
-	}
-
-	r.Header.Add("Authorization", JWTtoken)
-
-	client = &http.Client{}
-	res, err = client.Do(r)
-
-	defer res.Body.Close()
-
-	assert.Nil(t, err)
-	assert.Equal(t, http.StatusOK, res.StatusCode) // check that the status code is 200
-
-	// check if recipe still exists for user
-	id := "666439"
-
-	r, err = http.NewRequest("GET", fmt.Sprintf("%s/api/userRecipe", ts.URL), bytes.NewBuffer(raw))
+	r, err = http.NewRequest("DELETE", fmt.Sprintf("%s/api/recipes/666439", ts.URL), bytes.NewBuffer(raw))
 	if err != nil {
 		panic(err)
 	}
@@ -594,9 +528,71 @@ func TestDeleteOneRecipe(t *testing.T) {
 
 	dataGet, _ := ioutil.ReadAll(res.Body)
 
+	// check if recipe still exists for user
+	r, err = http.NewRequest("GET", fmt.Sprintf("%s/api/userRecipe/666439", ts.URL), bytes.NewBuffer(raw))
+	if err != nil {
+		panic(err)
+	}
+
+	r.Header.Add("Authorization", JWTtoken)
+
+	client = &http.Client{}
+	res, err = client.Do(r)
+
+	defer res.Body.Close()
+
+	assert.Nil(t, err)
+	assert.Equal(t, http.StatusInternalServerError, res.StatusCode) // check that the status code is 500
+
 	var pay map[string]string
 	json.Unmarshal(dataGet, &pay)
 
-	assert.Equal(t, pay["message"], "Recipe "+id+" deleted for user")
+	assert.Equal(t, pay["message"], "Recipe 666439 deleted for user")
 
+}
+
+func TestFindOneRecipe(t *testing.T) {
+	ts := httptest.NewServer(SetupServer())
+	defer ts.Close()
+
+	user := models.User{
+		Username: "findOne",
+		Password: "password",
+	}
+	// sign in
+	raw1, _ := json.Marshal(user)
+	resp, _ := http.Post(fmt.Sprintf("%s/api/signin", ts.URL), "application/json", bytes.NewBuffer(raw1))
+	defer resp.Body.Close()
+	data, _ := ioutil.ReadAll(resp.Body)
+
+	var payload map[string]string
+	json.Unmarshal(data, &payload)
+
+	JWTtoken := payload["token"]
+
+	raw, _ := json.Marshal(user)
+
+	// check if recipe still exists for user
+	r, err := http.NewRequest("GET", fmt.Sprintf("%s/api/userRecipe/666439", ts.URL), bytes.NewBuffer(raw))
+	if err != nil {
+		panic(err)
+	}
+
+	r.Header.Add("Authorization", JWTtoken)
+
+	client := &http.Client{}
+	res, err := client.Do(r)
+
+	defer res.Body.Close()
+
+	assert.Nil(t, err)
+	assert.Equal(t, http.StatusOK, res.StatusCode) // check that the status code is 200
+
+	dataGet, _ := ioutil.ReadAll(res.Body)
+
+	var pay map[string]string
+	json.Unmarshal(dataGet, &pay)
+	// "id": recipeID, "userID": userID
+	assert.Equal(t, pay["id"], "666439")
+	assert.Equal(t, pay["userID"], "643b1df79091eb7c7e371c64")
 }
