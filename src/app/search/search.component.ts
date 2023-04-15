@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { AuthService } from 'app/auth.service';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 // creating item for recipes and declared variables
 interface recipes {
@@ -211,10 +213,14 @@ export class SearchComponent {
   apiUrl = 'http://localhost:8080/api/recipes';
   searchRecipes() {
     //const url = `${this.apiUrl}?ingredients=${this.ingredientlist.join(',').toLowerCase()}`;
-
     this.httpClient.post(this.apiUrl, this.ingredientlist).subscribe(
       (res: any) => {
         console.log(res);
-    });
+      },
+      (error) => {
+        if (error.status === 401) {
+          console.log(error.error.reason); // Make sure to use the correct property name
+        }
+      })
   }
 }

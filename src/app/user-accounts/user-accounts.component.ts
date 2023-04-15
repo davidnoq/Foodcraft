@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { LoginComponent } from 'app/pages/login/login.component';
+import { HttpClient } from "@angular/common/http";
 
 @Component({
     selector: 'app-members',
@@ -10,12 +11,19 @@ import { LoginComponent } from 'app/pages/login/login.component';
 })
 export class userAccounts implements OnInit {
     accountData: any;
-    constructor(private authService: AuthService, private router: Router) { }
+    constructor(
+        private authService: AuthService, 
+        private router: Router,
+        private http: HttpClient) { }
 
     ngOnInit() { }
 
-    save(email: string, username: string) {
-        username = username;
-        email = email;
+    username : string = " ";
+
+    getUserName() {
+        this.http.get('http://localhost:8080/api/userRecipe').subscribe(
+        (res: any) => {
+            console.log(res)
+        })
     }
 }
