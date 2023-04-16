@@ -11,8 +11,8 @@
         class="avatar"
         src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="/>
   
-      <h4 class="name">Welcome,</h4>
-      <h4>{{ username }}</h4>
+      <h4 class="name" style="font-family: 'Minecraftia';">Welcome,</h4>
+      <h4 style="font-family: 'Minecraftia';">{{ username }}</h4>
   
       <mat-divider></mat-divider>
   
@@ -36,13 +36,13 @@
     <mat-drawer-content>
       <div class="content">
         <div class="information" *ngIf="showRecipes">
-            <h4 style="color:white">My Recipes</h4>
+            <h4 style="color:white; font-family: 'Minecraftia';">My Recipes</h4>
             <mat-divider></mat-divider>
         </div>
         <div class="information" *ngIf="showProfile">
-            <h4 style="color:white">My Profile</h4>
+            <h4 style="color:white; font-family: 'Minecraftia';">My Profile</h4>
             <mat-divider></mat-divider>
-            <h5 style="color:white">Username: {{ username }}</h5>
+            <h5 style="color:white; font-family: 'Minecraftia';">Username: {{ username }}</h5>
             <mat-divider></mat-divider>
             <br>
             <button class="btn-extra">Delete Account</button>
