@@ -19,8 +19,7 @@ import { ChickenComponent } from './navbar-tabs/chicken/chicken.component';
 import { BeefComponent } from './navbar-tabs/beef/beef.component';
 import { SeafoodComponent } from './navbar-tabs/seafood/seafood.component';
 import { PorkComponent } from './navbar-tabs/pork/pork.component';
-//import { SeafoodComponent } from './navbar-tabs/seafood/seafood.component';
-//import { BeefComponent } from './navbar-tabs/beef/beef.component';
+
 
 
 @NgModule({
@@ -37,8 +36,7 @@ import { PorkComponent } from './navbar-tabs/pork/pork.component';
     BeefComponent,
     SeafoodComponent,
     PorkComponent,
-    //SeafoodComponent,
-    //BeefComponent,
+    
    
   ],
   imports: [
