@@ -209,18 +209,23 @@ export class SearchComponent {
     console.log('Selected ingredient names:', this.ingredientlist);
   }
 
+  headers = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' })
+  };
+
   // backend requests
   apiUrl = 'http://localhost:8080/api/recipes';
   searchRecipes() {
+    const data = {
+      ingredientlist: this.ingredientlist
+    };
     //const url = `${this.apiUrl}?ingredients=${this.ingredientlist.join(',').toLowerCase()}`;
-    this.httpClient.post(this.apiUrl, this.ingredientlist).subscribe(
+    this.httpClient.post(this.apiUrl, data).subscribe(
       (res: any) => {
         console.log(res);
       },
       (error) => {
-        if (error.status === 401) {
-          console.log(error.error.reason); // Make sure to use the correct property name
-        }
+        console.log(error.message); // Make sure to use the correct property name
       })
   }
 }

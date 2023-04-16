@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild  } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { LoginComponent } from 'app/pages/login/login.component';
 import { HttpClient } from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { MatSidenav } from '@angular/material/sidenav';
+import { delay, filter } from 'rxjs/operators';
 
 @Component({
     selector: 'app-members',
@@ -14,16 +18,38 @@ export class userAccounts implements OnInit {
     constructor(
         private authService: AuthService, 
         private router: Router,
-        private http: HttpClient) { }
-
-    ngOnInit() { }
+        private http: HttpClient,
+        private observer: BreakpointObserver) { }
 
     username : string = " ";
-
-    getUserName() {
-        this.http.get('http://localhost:8080/api/userRecipe').subscribe(
+    
+    ngOnInit() {
+        this.http.get('http://localhost:8080/api/user').subscribe(
         (res: any) => {
-            console.log(res)
+            this.username = res.username;
         })
     }
+
+    showRecipes = true;
+    showProfile = false;
+
+    toggleProfile() {
+        if (this.showRecipes == true) {
+            this.showRecipes = false;
+            this.showProfile = true;
+        } else {
+            this.showProfile = true;
+        }
+    }
+
+    toggleRecipes() {
+        if (this.showProfile == true) {
+            this.showRecipes = true;
+            this.showProfile = false;
+        } else {
+            this.showRecipes = true;
+        }
+    }
+
+
 }

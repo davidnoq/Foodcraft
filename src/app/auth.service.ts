@@ -40,7 +40,6 @@ export class AuthService {
 
         this.http.post(this.API_URL + '/signin', data, this.headers).subscribe(
             (res: any) => {
-                console.log(res.token);
                 localStorage.setItem(this.TOKEN_KEY, res.token);
                 // navigate to profile page when token is returned
                 this.router.navigateByUrl('');

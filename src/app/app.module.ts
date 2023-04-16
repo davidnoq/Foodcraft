@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatSidenavModule} from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,7 +23,10 @@ import { ChickenComponent } from './navbar-tabs/chicken/chicken.component';
 import { BeefComponent } from './navbar-tabs/beef/beef.component';
 import { SeafoodComponent } from './navbar-tabs/seafood/seafood.component';
 import { PorkComponent } from './navbar-tabs/pork/pork.component';
-
+//import { SeafoodComponent } from './navbar-tabs/seafood/seafood.component';
+//import { BeefComponent } from './navbar-tabs/beef/beef.component';
+import { userAccounts } from './user-accounts/user-accounts.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -36,7 +43,8 @@ import { PorkComponent } from './navbar-tabs/pork/pork.component';
     BeefComponent,
     SeafoodComponent,
     PorkComponent,
-    
+    //SeafoodComponent,
+    //BeefComponent,
    
   ],
   imports: [
@@ -44,8 +52,12 @@ import { PorkComponent } from './navbar-tabs/pork/pork.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
-    
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatDividerModule
   ],
   providers: [
     AuthService,

@@ -10,7 +10,6 @@ export class AuthInterceptorService implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const authService = this.injector.get(AuthService);
-        console.log(authService.token);
         const authRequest = req.clone({
             // tslint:disable-next-line:max-line-length
             headers: req.headers.set('Authorization', 'Bearer ' + authService.token)
