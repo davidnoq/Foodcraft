@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { delay, filter } from 'rxjs/operators';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
     selector: 'app-members',
