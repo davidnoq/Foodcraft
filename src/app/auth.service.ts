@@ -5,7 +5,7 @@ import { retry, catchError } from 'rxjs/operators';
 import { LoginComponent } from './pages/login/login.component';
 import { Form, FormGroup } from '@angular/forms';
 import { NavbarComponent } from './sharepage/navbar/navbar.component';
-import { ChickenComponent } from './pages/chicken/chicken.component';
+import { ChickenComponent } from './navbar-tabs/chicken/chicken.component';
 
 @Injectable()
 export class AuthService {
