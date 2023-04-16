@@ -1,0 +1,93 @@
+* {
+    font-family: 'Minecraftia', sans-serif;
+  }
+
+mat-drawer {
+    margin: 16px;
+    width: 300px;
+    border-right: none;
+    background-image: url(/assets/bg-lightwool.png);
+    background-color: green;
+    color: Black;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+}
+
+.content {
+    height: calc(100vh - 130px);
+    border-radius: 10px;
+    margin: 16px;
+    margin-left: 32px;
+    padding: 30px;
+    overflow: auto;
+    background-color: rgba(128, 128, 128, 0.5);
+}
+  
+mat-drawer-container {
+    height: calc(100vh - 65px);
+}
+  
+.avatar {
+    margin-top: 16px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    color:rgba(129, 122, 122, 0.5)
+}
+  
+.name {
+    margin-top: 8px;
+    font-weight: normal;
+}
+  
+.designation {
+    margin-top: 2px;
+    font-size: 0.7rem;
+    color: lightgrey;
+}
+  
+mat-divider {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+body {
+    background-image: url('assets/bg-wool-dark.png');
+    background-size: cover;
+}
+
+button {
+    background: #727272;
+    color: rgb(247, 247, 247);
+    width: 100%;
+    padding: .5rem 0;
+    margin-bottom: .75rem;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
+    font-size: 1rem;
+    letter-spacing: .025em;
+    border: 2px solid rgba(0, 0, 0, 1);
+    box-shadow: inset 3px 3px 0 rgba(255, 255, 255, 0.5),
+                inset -3px -3px 0 rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    text-align: center;
+}
+
+button:hover {
+    background: rgba(115, 107, 221, 1);
+}
+
+button:focus {
+    color: rgb(246, 246, 44);
+    outline: none;
+}
+
+.btn-extra {
+    position: relative;
+    max-width: 400px;
+    margin: 10px;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+}
