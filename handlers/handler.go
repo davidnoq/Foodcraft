@@ -56,10 +56,10 @@ func (handler *RecipesHandler) NewRecipeHandler(c *gin.Context) {
 	if err := c.BindJSON(&ingredients); err != nil {
 		return
 	}
-	userID, _ := c.Get("userID")
+	//userID, _ := c.Get("userID")
 	// convert array of ingredients to string so that it can be in proper format for the url for api call
 	ingredientsString := strings.Join(ingredients.IngredientList, "%2c")
-	url := "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredientsString + "&number=1&ignorePantry=true&ranking=1"
+	url := "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredientsString + "&number=5&ignorePantry=true&ranking=1"
 	// make api GET request to spoonacular API to search for recipes by ingredients
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Add("X-RapidAPI-Key", "0e2d3a4b52msh4f7ca3d8295bc0ap1374f1jsnaa5308ae1f95")
@@ -73,7 +73,10 @@ func (handler *RecipesHandler) NewRecipeHandler(c *gin.Context) {
 	//create a new recipe struct, then put the result of the API call into recipe
 	var recipes []models.Recipe
 	_ = json.Unmarshal(body, &recipes)
-	newRecipe := recipes[0]
+
+	/* 
+	//recipe to database commented out for now
+
 	newRecipe.UserID = userID.(string)
 
 	// check if it already exists for user
@@ -91,8 +94,10 @@ func (handler *RecipesHandler) NewRecipeHandler(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
+	*/
+	
 	//print new recipe struct that contains the recipe corresponding to the input ingredients
-	c.JSON(http.StatusOK, newRecipe)
+	c.JSON(http.StatusOK, recipes)
 }
 
 func (handler *RecipesHandler) DeleteAllRecipesHandler(c *gin.Context) {
