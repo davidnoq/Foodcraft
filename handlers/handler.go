@@ -61,6 +61,7 @@ func (handler *RecipesHandler) NewRecipeHandler(c *gin.Context) {
 	ingredientsString := strings.Join(ingredients.IngredientList, "%2c")
 	url := "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredientsString + "&number=5&ignorePantry=true&ranking=1"
 	// make api GET request to spoonacular API to search for recipes by ingredients
+	// can edit url parameters to change number of recipes returned
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Add("X-RapidAPI-Key", "0e2d3a4b52msh4f7ca3d8295bc0ap1374f1jsnaa5308ae1f95")
 	req.Header.Add("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")
@@ -189,6 +190,7 @@ func (handler *RecipesHandler) FindRecipeHandler(c *gin.Context) {
 }
 
 func (handler *RecipesHandler) FeaturedRecipeHandler(c *gin.Context) {
+	//spoonaular API call for generating random recipe
 	url := "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random"
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Add("X-RapidAPI-Key", "0e2d3a4b52msh4f7ca3d8295bc0ap1374f1jsnaa5308ae1f95")
@@ -208,6 +210,7 @@ func (handler *RecipesHandler) FeaturedRecipeHandler(c *gin.Context) {
 
 	recipeInt := newRecipe.ID
 
+	//check for duplicates
 	err := handler.collection.FindOne(handler.ctx, bson.M{"userId": userID, "id": recipeInt}).Decode(&newRecipe)
 
 	if err != mongo.ErrNoDocuments {
@@ -225,6 +228,8 @@ func (handler *RecipesHandler) FeaturedRecipeHandler(c *gin.Context) {
 }
 
 func ConvertFeaturedRecipeToRecipe(featuredRecipe models.FeaturedRecipe) models.Recipe {
+	//the spoonacular API endpoint for generating a random recipe returns a struct of a 
+	// different format from the one we use, so we need to convert it
 	recipe := featuredRecipe.Recipes[0]
 	var newRecipe models.Recipe
 	newRecipe.ID = recipe.ID
@@ -248,6 +253,7 @@ func ConvertFeaturedRecipeToRecipe(featuredRecipe models.FeaturedRecipe) models.
 		Image        string   `bson:"image"`
 	}, len(recipe.ExtendedIngredients))
 
+	// set the list of ingredients from featured recipe to the list of used ingredients in recipe struct
 	for i, ingredient := range recipe.ExtendedIngredients {
 		newRecipe.UsedIngredients[i].ID = ingredient.ID
 		newRecipe.UsedIngredients[i].Amount = int(ingredient.Amount)
