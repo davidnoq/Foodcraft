@@ -1,7 +1,12 @@
+body {
+    background-image: url('assets/bg-wool-dark.png');
+    background-size: cover;
+}
+
 .main-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(1, 1fr);
+    max-height: 550px;
     grid-gap: 20px;
     margin-left: 25px;
     margin-right: 25px;
@@ -11,70 +16,16 @@
 .crafting-table {
     position: relative;
     max-width: 100%;
-    display: block;
     object-fit: cover;
-    margin: auto;
-    margin-right: 0;
+    margin-left: 0;
+    margin-right: auto;
+    max-height: 550px;
 }
 
 .crafting-back {
-    margin: auto;
-    width: 715px;
-    height: 715px;
+    width: 550px;
+    height: 550px;
     z-index: 1;
-}
-
-.grid-container {
-    position: absolute;
-    width: 495px;
-    height: 495px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-gap: 15px;
-    background-color: #2e1c0c;
-    z-index: 2;
-}
-
-.grid-container::before {
-    padding-bottom: 100%; 
-    grid-row: 1 / 1;
-    grid-column: 1 / 1;
-  }
-
-.cell {
-    background-color: #c68642;
-    padding: 10px;
-    font-size: 15px;
-    font-family: monospace;
-    text-align: center;
-}
-
-button {
-    font-family: monospace;
-    text-transform: uppercase;
-    padding: 2px;
-    cursor: pointer;
-}
-  
-button:active {
-    box-shadow: none;
-    transform: translate(3px, 3px);
-}
-
-button.clicked {
-    background-color: #eac086;
-    color: #2e1c0c;
-    border: 2px solid #2e1c0c;
-}
-  
-form {
-    align-items: center;
-    margin: 0 auto;
-    display: block;
 }
   
 input[type="text"] {
@@ -86,6 +37,7 @@ input[type="text"] {
     padding: 12px 20px 12px 40px;
     border: 3px solid #2e1c0c;
     display: block;
+    font-family: "minecraftia";
 }
  
 .craftButton {
@@ -95,64 +47,12 @@ input[type="text"] {
     font-size: 20px;
 }
 
-.slider {
-    position: relative;
-    margin: 15px;
-    width: 80%;
-    height: 25px;
-}
-  
-.slider-range {
-    position: relative;
-    width: 100%;
-    height: 25px;
-    -webkit-appearance: none;
-    appearance: none;
-    background: #eac086;
-    outline: none;
-}
-  
-.slider-range::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 30px;
-    background: #2e1c0c;
-    cursor: pointer;
-    border: 2px solid #eac086;
-}
-  
-.slider-range::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    background: #2e1c0c;
-    cursor: pointer;
-}
-  
-.tick-marks {
-    display: flex;
-    justify-content: space-between;
-    position: absolute;
-    bottom: -15px;
-    width: 100%;
-}
-  
-.tick-mark {
-    position: relative;
-    width: 1px;
-    height: 10px;
-    background: #eac086;
-    font-size: 15px;
-}
-  
-.tick-mark.active {
-    color: #eac086;
-    font-weight: bold;
-}
-
 .searchIngredients {
-    max-width: 700px;
-    margin-left: 0;
+    position: relative;
+    width: 550px;
+    max-height: 550px;
+    margin-left: auto;
+    margin-right: 0px;
 }
 
 .images {
@@ -162,14 +62,168 @@ input[type="text"] {
 table {
     border-collapse: collapse;
     width: 100%;
-    border: 1px solid #ddd;
+    border: 1px solid black;
     font-size: 18px;
+    color: white;
 }
 
 table:hover {
-    background-color: #eac086;
+    background-color: grey;
 }
 
 .listIng {
-    margin: 15px;
+    margin: 10px;
+}
+
+.listItem {
+    display: inline-flex;
+    align-items: center;
+    width: 550px;
+}
+
+.description {
+    text-align: center;
+    font-family: "minecraftia";
+    line-height: 20px;
+    color:grey;
+}
+
+mat-divider {
+    margin: 8px;
+    color:white;
+}
+
+.searchList {
+    position: relative;
+    max-height: 284px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    font-family: "minecraftia";
+    background-color: rgb(128,128,128,0.5);
+    align-items: center;
+}
+
+.btn {
+    background: #727272;
+    color: rgb(247, 247, 247);
+    width: 25%;
+    min-width: 280px;
+    padding: .5rem 0;
+    margin-bottom: .75rem;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
+    font-size: 1rem;
+    letter-spacing: .025em;
+    border: 2px solid rgba(0, 0, 0, 1);
+    box-shadow: inset 3px 3px 0 rgba(255, 255, 255, 0.5),
+                inset -3px -3px 0 rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    text-align: center;
+    font-family: "Minecraftia";
+}
+
+.search-container button {
+    position: relative;
+    top: 0;
+    right: 0;
+    margin-top: 8px;
+    margin-right: 8px;
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.card-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+ 
+.card-header-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    z-index: 5;
+}
+  
+mat-card {
+    overflow: hidden;
+}
+  
+mat-card-image {
+    object-fit: cover;
+}
+
+.loading-dots {
+    display: inline-block;
+    font-size: 24px;
+    font-weight: bold;
+    color: #555555;
+    font-family: "minecraftia";
+}
+  
+.loading-dots:after {
+    content: "";
+    animation: loading-dots 1s infinite;
+}
+  
+@keyframes loading-dots {
+    0% {
+      content: "Loading.";
+    }
+    33% {
+      content: "Loading..";
+    }
+    66% {
+      content: "Loading...";
+    }
+    100% {
+      content: "Loading..";
+    }
+}
+  
+.clearAllSelected {
+    position: relative;
+    width: 10px;
+    margin-left: 25%;
+}
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid White;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+input[type="checkbox"]::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 10px;
+    height: 10px;
+    background-color: rgb(8, 241, 8);
+}
+
+input[type="checkbox"]:checked::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+  
+.divider {
+    border-top-color: white;
 }

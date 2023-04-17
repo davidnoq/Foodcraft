@@ -1,5 +1,10 @@
+body {
+    align-items: center;
+}
+
 mat-drawer {
     margin: 16px;
+    margin-left: 10px;
     width: 300px;
     border-right: none;
     background-image: url('/assets/bg-lightwool.png');
@@ -13,22 +18,38 @@ mat-drawer {
     height: calc(100vh - 130px);
     border-radius: 10px;
     margin: 16px;
-    margin-left: 32px;
-    padding: 30px;
+    padding: 20px;
     overflow: auto;
     background-color: rgba(128, 128, 128, 0.5);
     min-width: 1000px;
+    max-width: 1000px;
 }
   
 mat-drawer-container {
     height: calc(100vh - 65px);
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: transparent;
+    position:absolute;
+    align-items: center;
+    justify-content: center;
 }
 
 .columns {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, auto));
-    gap: 5px;
+}
+
+mat-drawer-content {
+    width: 950px;
+    overflow-x: hidden;
+}
+
+@media (max-width: 1300px) {
+    mat-drawer-content {
+        width: 475px;
+    }
 }
 
 .avatar {
@@ -96,11 +117,11 @@ mat-card {
     max-width: 400px;
     max-height: 200px;
     cursor: pointer;
-    margin: 10px;
+    margin: 5px;
     font-family: "Minecraftia";
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 100%;
+    max-width: 400px;
 }
   
 mat-card:hover {
