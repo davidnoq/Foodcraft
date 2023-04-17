@@ -1,71 +1,65 @@
+<body>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="http://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet">
+<br>
 <div class="main-container">
-    <div class="crafting-table">
-        <img src="/assets/crafting-background.png" alt="crafting table" class="crafting-back">  
-        <div class="grid-container">
-            <div class="cell">
-                <h5 style="color: #2e1c0c; margin-top: 12px; font-size: 25px;">Meal<br>Size</h5>
-                <button id = decrement style="margin-top: 10px;"(click)="decrement()">-</button>
-                <span id = mealSize style="margin:15px; color: #2e1c0c; font-size: 20px;">{{ number }}</span>
-                <button id = increment (click)="increment()">+</button>
+    <div class="searchIngredients">
+        <div class="description">Type in Ingredients that you want to use for a recipe</div>
+        <mat-divider class="divider"></mat-divider>
+        <div class="description">Below are ingredients that are commonly used. If there are other ingredients 
+            that are not listed, just type it in and add the ingredient to list.
+        </div>
+        <mat-divider class="divider"></mat-divider>
+        <div class="description">Once you have all the ingredients you desire for a recipe,
+            click the button 'craft recipe' to display the recipe that matches the ingredients
+        </div>
+        <mat-divider class="divider"></mat-divider> 
+        <div class="search-container">
+            <input type="text" placeholder="Search for ingredients..." [(ngModel)]="searchTerm">
+            <div *ngIf="searchIngredients().length === 0">
+                <button class="btn clearAllSelected" (click)="addIngredient(searchTerm)">Add Ingredient</button>
             </div>
-            <div class="cell">
-                <img src="/assets/bread.png" alt='bread' 
-                height="100vh" margin="auto" display="block" class="images">
-            </div>
-            <div class="cell">
-                <h5 style="color: #2e1c0c; margin-top: 10px;">Meal Cost</h5>
-                <div class="slider">
-                    <input type="range" min="1" max="4" value="1" class="slider-range">
-                    <div class="tick-marks">
-                        <span class="tick-mark">1</span>
-                        <span class="tick-mark">2</span>
-                        <span class="tick-mark">3</span>
-                        <span class="tick-mark">4</span>
-                    </div>
+            <div class="searchList">
+                <div *ngFor="let ingredient of searchIngredients()">
+                    <table>
+                        <label class="listItem">
+                            <input type="checkbox"  
+                                [checked]="ingredient.selected" 
+                                (change)="onIngredientSelected(ingredient)" 
+                                class="listIng">
+                            <span class="ingredientName">{{ ingredient.name }}</span>
+                        </label>
+                    </table>
                 </div>
             </div>
-            <div class="cell">
-                cuisine
-            </div>
-            <div class="cell">
-                <h5 style="color: #2e1c0c; margin-top: 10px;">Meal Type</h5>
-                <button id="Breakfast" (click)="mealType('Breakfast')" [ngClass]="{ 'clicked': breakfastClicked, 'original': !breakfastClicked }">Breakfast</button>
-                <button id="Lunch" (click)="mealType('Lunch')" [ngClass]="{ 'clicked': lunchClicked, 'original': !lunchClicked }">Lunch</button>
-                <button id="Dinner" (click)="mealType('Dinner')" [ngClass]="{ 'clicked': dinnerClicked, 'original': !dinnerClicked }">Dinner</button>
-                <br>
-                <button id="Snack" (click)="mealType('Snack')" [ngClass]="{ 'clicked': snackClicked, 'original': !snackClicked }">Snack</button>
-                <button id="Dessert" (click)="mealType('Dessert')" [ngClass]="{ 'clicked': dessertClicked, 'original': !dessertClicked }">Dessert</button>
-            </div>
-            <div class="cell">
-                <img src="/assets/cake.png" alt='cake'
-                height="100vh" margin="auto" display="block" class="images">
-            </div>
-            <div class="cell">
-                <img src="/assets/baked-potato.png" alt='baked-potato' 
-                height="100vh" margin="auto" display="block" class="images">
-            </div>
-            <div class="cell">
-                nutrients
-            </div>
-            <div class="cell">
-                similar recipes
+            <div>
+                <button class="clearAllSelected btn" (click)="clearSelected()">Clear selected</button>
             </div>
         </div>
     </div>
 
-    <div class="searchIngredients">
-        <input type="text" placeholder="Search for ingredients..." [(ngModel)]="searchTerm">
-            <div *ngFor="let ingredient of searchIngredients()">
-                <table>
-                    <input type="checkbox" [checked]="ingredient.selected" (change)="onIngredientSelected(ingredient)" class="listIng">
-                    {{ ingredient.name }}
-                </table>
+    <div class="crafting-table">
+        <img src="/assets/crafting-background.png" alt="crafting table" class="crafting-back"> 
+        <div class="card-overlay" *ngIf="recipeFound">
+            <div class="card-container">
+                <mat-card>
+                    <mat-card-header>
+                        <div class="card-header-content">
+                            <h3>{{ title }}</h3>
+                        </div>
+                    </mat-card-header>
+                    <img [src]="imageSrc">
+                </mat-card>
             </div>
+        </div>
+        <div class="craftButton">
+            <button class="btn" (click)="searchRecipes()">Craft Recipe</button>
+            <h3 *ngIf = "recipeError" style="font-family:minecraftia;color:white;">Already viewed this recipe</h3>
+        </div>
+        <ng-container *ngIf="isLoading">
+            <div class="loading-dots"></div>
+        </ng-container>
     </div>
 </div>
-
-<div class="craftButton">
-    <button (click)="searchRecipes()">Craft Recipe</button>
-</div>
+</body>
 
