@@ -74,27 +74,27 @@ func (handler *RecipesHandler) NewRecipeHandler(c *gin.Context) {
 	var recipes []models.Recipe
 	_ = json.Unmarshal(body, &recipes)
 
-	/*
-		//recipe to database commented out for now
+	//recipe to database commented out for now
 
-		newRecipe.UserID = userID.(string)
+	/*newRecipe.UserID = userID.(string)
 
-		// check if it already exists for user
-		recipeInt := newRecipe.ID
+	// check if it already exists for user
+	recipeInt := newRecipe.ID
 
-		err := handler.collection.FindOne(handler.ctx, bson.M{"userId": userID, "id": recipeInt}).Decode(&newRecipe)
+	err := handler.collection.FindOne(handler.ctx, bson.M{"userId": userID, "id": recipeInt}).Decode(&newRecipe)
 
-		if err != mongo.ErrNoDocuments {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Recipe already in user's list"})
-			return
-		}
+	if err != mongo.ErrNoDocuments {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Recipe already in user's list"})
+		return
+	}*/
 
-		_, err = handler.collection.InsertOne(handler.ctx, newRecipe)
+	for i := 0; i < len(recipes); i++ {
+		_, err := handler.collection.InsertOne(handler.ctx, recipes[i])
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
-	*/
+	}
 
 	//print new recipe struct that contains the recipe corresponding to the input ingredients
 	c.JSON(http.StatusOK, recipes)
@@ -283,7 +283,14 @@ func (handler *RecipesHandler) AddOneRecipeHandler(c *gin.Context) {
 		}
 	}
 
-	_, err = handler.collection.InsertOne(handler.ctx, bson.M{"userId": userID, "id": recipeInt})
+	err = handler.collection.FindOne(handler.ctx, bson.M{"id": recipeInt}).Decode(&result)
+
+	var newRecipe models.Recipe
+	newRecipe = result
+
+	newRecipe.UserID = userID
+
+	_, err = handler.collection.InsertOne(handler.ctx, newRecipe)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

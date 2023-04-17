@@ -168,19 +168,6 @@ func TestNewRecipeHandler(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Equal(t, http.StatusOK, res.StatusCode) // check that the status code is 200
-
-	// delete all so test will work next time
-	r, err = http.NewRequest("DELETE", fmt.Sprintf("%s/api/recipes", ts.URL), bytes.NewBuffer(raw))
-	if err != nil {
-		panic(err)
-	}
-
-	r.Header.Add("Authorization", JWTtoken)
-
-	client = &http.Client{}
-	res, err = client.Do(r)
-
-	defer res.Body.Close()
 }
 
 func TestRefreshHandler(t *testing.T) {
@@ -472,7 +459,7 @@ func TestGetUsername(t *testing.T) {
 	assert.Equal(t, pay["username"], "admin")
 }
 
-func TestDeleteOneRecipe(t *testing.T) {
+func TestAddAndDeleteOneRecipe(t *testing.T) {
 	ts := httptest.NewServer(SetupServer())
 	defer ts.Close()
 
@@ -494,12 +481,12 @@ func TestDeleteOneRecipe(t *testing.T) {
 	raw, _ := json.Marshal(user)
 
 	// add recipe to user
-	var ingredients models.Ingredients
+	/*var ingredients models.Ingredients
 	ingredients.IngredientList = []string{"milk"}
 
-	raw, _ = json.Marshal(ingredients)
+	raw, _ = json.Marshal(ingredients)*/
 
-	r, err := http.NewRequest("POST", fmt.Sprintf("%s/api/recipes", ts.URL), bytes.NewBuffer(raw))
+	r, err := http.NewRequest("POST", fmt.Sprintf("%s/api/recipes/1090966", ts.URL), bytes.NewBuffer(raw))
 	if err != nil {
 		panic(err)
 	}
@@ -511,7 +498,7 @@ func TestDeleteOneRecipe(t *testing.T) {
 
 	defer res.Body.Close()
 
-	r, err = http.NewRequest("DELETE", fmt.Sprintf("%s/api/recipes/666439", ts.URL), bytes.NewBuffer(raw))
+	r, err = http.NewRequest("DELETE", fmt.Sprintf("%s/api/recipes/1090966", ts.URL), bytes.NewBuffer(raw))
 	if err != nil {
 		panic(err)
 	}
@@ -547,7 +534,7 @@ func TestDeleteOneRecipe(t *testing.T) {
 	var pay map[string]string
 	json.Unmarshal(dataGet, &pay)
 
-	assert.Equal(t, pay["message"], "Recipe 666439 deleted for user")
+	assert.Equal(t, pay["message"], "Recipe 1090966 deleted for user")
 
 }
 
@@ -597,7 +584,7 @@ func TestFindOneRecipe(t *testing.T) {
 	assert.Equal(t, pay["userID"], "643b1df79091eb7c7e371c64")
 }
 
-func TestGetRecipeInstructions(t *testing.T){
+func TestGetRecipeInstructions(t *testing.T) {
 	ts := httptest.NewServer(SetupServer())
 	defer ts.Close()
 
