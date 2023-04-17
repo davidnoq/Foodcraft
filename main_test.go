@@ -596,3 +596,44 @@ func TestFindOneRecipe(t *testing.T) {
 	assert.Equal(t, pay["id"], "666439")
 	assert.Equal(t, pay["userID"], "643b1df79091eb7c7e371c64")
 }
+
+func TestGetRecipeInstructions(t *testing.T){
+	ts := httptest.NewServer(SetupServer())
+	defer ts.Close()
+
+	user := models.User{
+		Username: "admin",
+		Password: "password",
+	}
+	// sign in
+	raw1, _ := json.Marshal(user)
+	resp, _ := http.Post(fmt.Sprintf("%s/api/signin", ts.URL), "application/json", bytes.NewBuffer(raw1))
+	defer resp.Body.Close()
+	data, _ := ioutil.ReadAll(resp.Body)
+
+	var payload map[string]string
+	json.Unmarshal(data, &payload)
+
+	JWTtoken := payload["token"]
+
+	//request recipe instructions
+	r, err := http.NewRequest("GET", fmt.Sprintf("%s/api/recipes/1040243/instructions", ts.URL), bytes.NewBuffer(raw1))
+	if err != nil {
+		panic(err)
+	}
+
+	r.Header.Add("Authorization", JWTtoken)
+
+	client := &http.Client{}
+	res, err := client.Do(r)
+
+	defer res.Body.Close()
+
+	assert.Nil(t, err)
+
+	dataGet, _ := ioutil.ReadAll(res.Body)
+	var pay map[string]string
+	json.Unmarshal(dataGet, &pay)
+	//verify instructions are properly retrieved
+	assert.Equal(t, pay["instructions"], "Instructions\n\n\n\nPlace white candy melts in a microwave safe bowl, and melt in the microwave according to package directions. \n\n\nStir until smooth. \n\n\nDip rice krispie treats into the candy melts, to fully coat the top of the treats. (You can cover the sides if you'd like as well) Place onto a baking sheet lined with parchment paper. Repeat with remaining rice krispie treats.\n\n\n Allow to set until candy hardens, or place in the fridge for 2-3 minutes if needed. \n\n\nSpoon remaining chocolate into a small ziplock bag. \n\n\nSnip the corner of the bag off with scissors. \n\n\nSqueeze a little white chocolate onto the bottom of each of the eye balls, to place 2 onto each rice krispie treat. \n\n\nDrizzle chocolate across the top of the rice krispie treats in a random pattern to create the look of a mummy wrap. Repeat with additional rice krispie treats. \n\n\nAllow chocolate to fully set. \n\n\nServe immediately. Store in an airtight container for up to 5 or 6 days.")
+}
