@@ -74,28 +74,28 @@ func (handler *RecipesHandler) NewRecipeHandler(c *gin.Context) {
 	var recipes []models.Recipe
 	_ = json.Unmarshal(body, &recipes)
 
-	/* 
-	//recipe to database commented out for now
+	/*
+		//recipe to database commented out for now
 
-	newRecipe.UserID = userID.(string)
+		newRecipe.UserID = userID.(string)
 
-	// check if it already exists for user
-	recipeInt := newRecipe.ID
+		// check if it already exists for user
+		recipeInt := newRecipe.ID
 
-	err := handler.collection.FindOne(handler.ctx, bson.M{"userId": userID, "id": recipeInt}).Decode(&newRecipe)
+		err := handler.collection.FindOne(handler.ctx, bson.M{"userId": userID, "id": recipeInt}).Decode(&newRecipe)
 
-	if err != mongo.ErrNoDocuments {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Recipe already in user's list"})
-		return
-	}
+		if err != mongo.ErrNoDocuments {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Recipe already in user's list"})
+			return
+		}
 
-	_, err = handler.collection.InsertOne(handler.ctx, newRecipe)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
+		_, err = handler.collection.InsertOne(handler.ctx, newRecipe)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
 	*/
-	
+
 	//print new recipe struct that contains the recipe corresponding to the input ingredients
 	c.JSON(http.StatusOK, recipes)
 }
@@ -188,7 +188,7 @@ func (handler *RecipesHandler) FindRecipeHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"id": recipeID, "userID": userID})
 }
 
-func (handler *RecipesHandler) FeaturedRecipeHandler(c *gin.Context){
+func (handler *RecipesHandler) FeaturedRecipeHandler(c *gin.Context) {
 	url := "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random"
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Add("X-RapidAPI-Key", "0e2d3a4b52msh4f7ca3d8295bc0ap1374f1jsnaa5308ae1f95")
@@ -225,16 +225,16 @@ func (handler *RecipesHandler) FeaturedRecipeHandler(c *gin.Context){
 }
 
 func ConvertFeaturedRecipeToRecipe(featuredRecipe models.FeaturedRecipe) models.Recipe {
-    recipe := featuredRecipe.Recipes[0]
-    var newRecipe models.Recipe
-    newRecipe.ID = recipe.ID
-    newRecipe.Title = recipe.Title
-    newRecipe.Image = recipe.Image
-    newRecipe.ImageType = recipe.ImageType
-    newRecipe.UsedIngredientCount = 0
-    newRecipe.MissedIngredientCount = 0
+	recipe := featuredRecipe.Recipes[0]
+	var newRecipe models.Recipe
+	newRecipe.ID = recipe.ID
+	newRecipe.Title = recipe.Title
+	newRecipe.Image = recipe.Image
+	newRecipe.ImageType = recipe.ImageType
+	newRecipe.UsedIngredientCount = 0
+	newRecipe.MissedIngredientCount = 0
 
-    newRecipe.UsedIngredients = make([]struct {
+	newRecipe.UsedIngredients = make([]struct {
 		ID           int      `bson:"id"`
 		Amount       int      `bson:"amount"`
 		Unit         string   `bson:"unit"`
@@ -248,21 +248,56 @@ func ConvertFeaturedRecipeToRecipe(featuredRecipe models.FeaturedRecipe) models.
 		Image        string   `bson:"image"`
 	}, len(recipe.ExtendedIngredients))
 
-    for i, ingredient := range recipe.ExtendedIngredients {
-        newRecipe.UsedIngredients[i].ID = ingredient.ID
-        newRecipe.UsedIngredients[i].Amount = int(ingredient.Amount)
-        newRecipe.UsedIngredients[i].Unit = ingredient.Unit
-        newRecipe.UsedIngredients[i].UnitLong = ingredient.UnitLong
-        newRecipe.UsedIngredients[i].UnitShort = ingredient.UnitShort
-        newRecipe.UsedIngredients[i].Aisle = ingredient.Aisle
-        newRecipe.UsedIngredients[i].Name = ingredient.Name
-        newRecipe.UsedIngredients[i].Original = ingredient.OriginalString
-        newRecipe.UsedIngredients[i].OriginalName = ingredient.Name
-        newRecipe.UsedIngredients[i].Meta = ingredient.MetaInformation
-        newRecipe.UsedIngredients[i].Image = ingredient.Image
-    }
+	for i, ingredient := range recipe.ExtendedIngredients {
+		newRecipe.UsedIngredients[i].ID = ingredient.ID
+		newRecipe.UsedIngredients[i].Amount = int(ingredient.Amount)
+		newRecipe.UsedIngredients[i].Unit = ingredient.Unit
+		newRecipe.UsedIngredients[i].UnitLong = ingredient.UnitLong
+		newRecipe.UsedIngredients[i].UnitShort = ingredient.UnitShort
+		newRecipe.UsedIngredients[i].Aisle = ingredient.Aisle
+		newRecipe.UsedIngredients[i].Name = ingredient.Name
+		newRecipe.UsedIngredients[i].Original = ingredient.OriginalString
+		newRecipe.UsedIngredients[i].OriginalName = ingredient.Name
+		newRecipe.UsedIngredients[i].Meta = ingredient.MetaInformation
+		newRecipe.UsedIngredients[i].Image = ingredient.Image
+	}
 
-    newRecipe.Likes = recipe.AggregateLikes 
+	newRecipe.Likes = recipe.AggregateLikes
 
-    return newRecipe
+	return newRecipe
+}
+
+func (handler *RecipesHandler) AddOneRecipeHandler(c *gin.Context) {
+	recipeID := c.Param("ID")
+	recipeInt, err := strconv.Atoi(recipeID)
+
+	userID, _ := c.MustGet("userID").(string)
+
+	// check if recipe and user combo exists
+	var result models.Recipe
+	err = handler.collection.FindOne(handler.ctx, bson.M{"userId": userID, "id": recipeInt}).Decode(&result)
+	if err != nil {
+		if err != mongo.ErrNoDocuments {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Recipe already exists for user"})
+			return
+		}
+	}
+
+	_, err = handler.collection.InsertOne(handler.ctx, bson.M{"userId": userID, "id": recipeInt})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	// check if recipe & user combo  now exists
+	err = handler.collection.FindOne(handler.ctx, bson.M{"userId": userID, "id": recipeInt}).Decode(&result)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Recipe " + recipeID + " is not in user's collection"})
+			return
+		}
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Recipe " + recipeID + " added for user"})
 }
