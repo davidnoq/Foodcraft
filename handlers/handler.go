@@ -276,11 +276,10 @@ func (handler *RecipesHandler) AddOneRecipeHandler(c *gin.Context) {
 	// check if recipe and user combo exists
 	var result models.Recipe
 	err = handler.collection.FindOne(handler.ctx, bson.M{"userId": userID, "id": recipeInt}).Decode(&result)
-	if err != nil {
-		if err != mongo.ErrNoDocuments {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Recipe already exists for user"})
-			return
-		}
+	if err == nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Recipe already exists for user"})
+		return
+
 	}
 
 	err = handler.collection.FindOne(handler.ctx, bson.M{"id": recipeInt}).Decode(&result)
