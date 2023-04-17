@@ -9,6 +9,13 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { delay, filter } from 'rxjs/operators';
 import { MatDividerModule } from '@angular/material/divider';
 
+interface Recipe {
+    ID: number;
+    Title: string;
+    Image: string;
+    Likes: number;
+}
+
 @Component({
     selector: 'app-members',
     templateUrl: './user-accounts.component.html',
@@ -23,16 +30,41 @@ export class userAccounts implements OnInit {
         private observer: BreakpointObserver) { }
 
     username : string = " ";
+    recipeList: Recipe[] = [];
+    noRecipes = false;
     
     ngOnInit() {
         this.http.get('http://localhost:8080/api/user').subscribe(
         (res: any) => {
             this.username = res.username;
         })
+
+        this.http.get<Recipe[]>('http://localhost:8080/api/recipes').subscribe(recipes => {
+            if(recipes != null) {
+                this.recipeList = recipes.map(recipe => {
+                    const { ID, Title, Image, Likes } = recipe;
+                    return { ID, Title, Image, Likes };
+                });
+            } else if (recipes == null) {
+                this.noRecipes = true;
+                this.recipeList = [];
+            }
+        });
     }
 
     showRecipes = true;
     showProfile = false;
+
+    getRecipes() {
+        this.http.get('http://localhost:8080/api/recipes').subscribe(
+        (res: any) => {
+            if (res != null) {
+                console.log(res)
+            } else if (res == null) {
+                this.noRecipes = true;
+            }
+        })
+    }
 
     toggleProfile() {
         if (this.showRecipes == true) {
@@ -52,5 +84,25 @@ export class userAccounts implements OnInit {
         }
     }
 
+    clear = false;
 
+    clearRecipes() {
+        this.http.delete('http://localhost:8080/api/recipes').subscribe(
+        (res: any) => {
+            if (res.message == "All recipes deleted for user") {
+                this.clear = true;
+                this.recipeList = [];
+                this.noRecipes = true;
+            } else {
+                this.clear = false;
+            }
+        })
+    }
+
+    removeRecipe(ID: number) {
+        this.http.delete('http://localhost:8080/api/recipes/' + ID).subscribe(
+        (res: any) => {
+            window.location.reload();
+        })
+    }
 }
