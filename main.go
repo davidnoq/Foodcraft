@@ -66,6 +66,7 @@ func SetupServer() *gin.Engine {
 		authorized.GET("/user", authHandler.GetUsernameHandler)
 		authorized.DELETE("/recipes/:ID", recipesHandler.DeleteOneRecipesHandler)
 		authorized.GET("/userRecipe/:ID", recipesHandler.FindRecipeHandler)
+		authorized.POST("/recipes/featured", recipesHandler.FeaturedRecipeHandler)
 	}
 
 	return router
