@@ -14,7 +14,10 @@ export class LoginComponent implements OnInit {
     signinErrorMessage: string = '';
     signupErrorMessage: string = '';
 
-    constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+    constructor(
+        private fb: FormBuilder, 
+        private authService: AuthService, 
+        private router: Router) {
         this.form = this.fb.group({
             // sign up info
             email: ['', Validators.required],
