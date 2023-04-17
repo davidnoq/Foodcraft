@@ -58,21 +58,8 @@
           </ul>
         </li>
 
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Featured Recipes
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Breakfast</a></li>
-            <li><a class="dropdown-item" href="#">Lunch</a></li>
-            <li><a class="dropdown-item" href="#">Dinner</a></li>
-          </ul>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="featured"> Featured Recipe </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="about"> About Us </a>
@@ -81,10 +68,10 @@
       <nav class="navbar navbar-expand-sm">
         <ul class="nav navbar-nav navbar-right">
           <a class="nav-link">
-            <a class="button" *ngIf="!authService.isAuthenticated">
+            <a class="buttonn" *ngIf="!authService.isAuthenticated">
               <button routerLink="login">Login/Signup</button>
             </a>
-            <a class="button" *ngIf="authService.isAuthenticated">
+            <a class="buttonn" *ngIf="authService.isAuthenticated">
               <button routerLink="profile">Profile</button>
             </a>
             <a

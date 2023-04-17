@@ -29,6 +29,7 @@ export class BeefComponent implements OnInit {
   ingredientlist = ["Beef"]; 
   title: string = " ";
   image: string = " ";
+  likes: string = " ";
 
 
   apiUrl = 'http://localhost:8080/api/recipes';
@@ -42,6 +43,7 @@ export class BeefComponent implements OnInit {
       (response: any) => {
         this.title = response.Title;
         this.image = response.Image;
+        this.likes = response.Likes
         console.log(response);
       },
       (error: any) => {

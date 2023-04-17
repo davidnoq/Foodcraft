@@ -1,74 +1,103 @@
 <body>
-<br>
-<br>
-<br>
-<body>
-<link href="http://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet">
-<mat-drawer-container>
-    <mat-drawer mode="side" class="mat-elevation-z8" opened
-    background-image="url(assets/grassblock.png)">
-      <img
-        class="avatar"
-        src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="/>
-  
-      <h4 class="name" style="font-family: 'Minecraftia'; font-size: 20px;">Welcome, <br> {{ username }}</h4>
-  
-      <mat-divider></mat-divider>
-  
-      <button class="menu-button" (click)="toggleRecipes()">
-        <span>My Recipes</span>
-      </button>
-      <button class="menu-button" (click)="toggleProfile()">
-        <span>Profile</span>
-      </button>
-      <button class="menu-button" routerLink="/about">
-        <span>About</span>
-      </button>
-  
-      <mat-divider></mat-divider>
-    </mat-drawer>
+  <br />
+  <br />
+  <br />
+  <body>
+    <link href="http://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet" />
+    <mat-drawer-container>
+      <mat-drawer
+        mode="side"
+        class="mat-elevation-z8"
+        opened
+        background-image="url(assets/grassblock.png)"
+      >
+        <img
+          class="avatar"
+          src="https://media.istockphoto.com/id/1130884625/vector/user-member-vector-icon-for-ui-user-interface-or-profile-face-avatar-app-in-circle-design.jpg?s=612x612&w=0&k=20&c=1ky-gNHiS2iyLsUPQkxAtPBWH1BZt0PKBB1WBtxQJRE="
+        />
 
-    <mat-drawer-content>
-      <div class="content">
-        <div class="cards" *ngIf="showRecipes">
-          <h4 style="color:white; font-family: 'Minecraftia';" (click)="getRecipes()">My Recipes</h4>
-          <mat-divider></mat-divider>
-          <div class="columns">
-            <h4 *ngIf="noRecipes"
-              style="color:white; font-family: 'Minecraftia';">
-              There are no recipes to display
+        <h4 class="name" style="font-family: 'Minecraftia'; font-size: 20px">
+          Welcome, <br />
+          {{ username }}
+        </h4>
+
+        <mat-divider></mat-divider>
+
+        <button class="menu-button" (click)="toggleRecipes()">
+          <span>My Recipes</span>
+        </button>
+        <button class="menu-button" (click)="toggleProfile()">
+          <span>Profile</span>
+        </button>
+        <button class="menu-button" routerLink="/about">
+          <span>About</span>
+        </button>
+
+        <mat-divider></mat-divider>
+      </mat-drawer>
+
+      <mat-drawer-content>
+        <div class="content">
+          <div class="cards" *ngIf="showRecipes">
+            <h4
+              style="color: white; font-family: 'Minecraftia'"
+              (click)="getRecipes()"
+            >
+              My Recipes
             </h4>
-            <mat-card *ngFor="let recipe of recipeList">
-              <button matTooltip="Remove Recipe" [matTooltipPosition]="'right'" class="remove-button" (click)="removeRecipe(recipe.ID)">
-                <mat-icon>close</mat-icon>
-              </button>
-              <mat-card-header>
-                <mat-card-title> {{ recipe.Title }} </mat-card-title>
-                <img class="card-image"src="{{ recipe.Image }}" alt="Photo of {{ recipe.Title }}">
-                <mat-card-subtitle> Likes: {{recipe.Likes}} </mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <!-- Recipe details -->
-              </mat-card-content>
-            </mat-card>
+            <mat-divider></mat-divider>
+            <div class="columns">
+              <h4
+                *ngIf="noRecipes"
+                style="color: white; font-family: 'Minecraftia'"
+              >
+                There are no recipes to display
+              </h4>
+              <mat-card *ngFor="let recipe of recipeList">
+                <button
+                  matTooltip="Remove Recipe"
+                  [matTooltipPosition]="'right'"
+                  class="remove-button"
+                  (click)="removeRecipe(recipe.ID)"
+                >
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-card-header>
+                  <mat-card-title> {{ recipe.Title }} </mat-card-title>
+                  <img
+                    class="card-image"
+                    src="{{ recipe.Image }}"
+                    alt="Photo of {{ recipe.Title }}"
+                  />
+                  <mat-card-subtitle>
+                    Likes: {{ recipe.Likes }}
+                  </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                  <!-- Recipe details -->
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+          <div class="information" *ngIf="showProfile">
+            <h4 style="color: white; font-family: 'Minecraftia'">My Profile</h4>
+            <mat-divider></mat-divider>
+            <h4 style="color: white; font-family: 'Minecraftia'">
+              Username: {{ username }}
+            </h4>
+            <mat-divider></mat-divider>
+            <br />
+            <button class="menu-button btn-extra">Delete Account</button>
+            <br />
+            <button class="menu-button btn-extra" (click)="clearRecipes()">
+              Clear All Recipes
+            </button>
+            <h4 *ngIf="clear" style="color: white; font-family: 'Minecraftia'">
+              All recipes have been cleared
+            </h4>
           </div>
         </div>
-        <div class="information" *ngIf="showProfile">
-            <h4 style="color:white; font-family: 'Minecraftia';">My Profile</h4>
-            <mat-divider></mat-divider>
-            <h4 style="color:white; font-family: 'Minecraftia';">Username: {{ username }}</h4>
-            <mat-divider></mat-divider>
-            <br>
-            <button class="menu-button btn-extra">Delete Account</button>
-            <br>
-            <button class="menu-button btn-extra" (click)="clearRecipes()">Clear All Recipes</button>
-            <h4 *ngIf="clear"
-                style="color:white; font-family: 'Minecraftia';">
-                All recipes have been cleared
-            </h4>
-        </div>
-      </div>
-    </mat-drawer-content>
-
-  </mat-drawer-container>
+      </mat-drawer-content>
+    </mat-drawer-container>
+  </body>
 </body>

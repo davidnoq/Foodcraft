@@ -25,10 +25,9 @@ import { ChickenComponent } from './navbar-tabs/chicken/chicken.component';
 import { BeefComponent } from './navbar-tabs/beef/beef.component';
 import { SeafoodComponent } from './navbar-tabs/seafood/seafood.component';
 import { PorkComponent } from './navbar-tabs/pork/pork.component';
-//import { SeafoodComponent } from './navbar-tabs/seafood/seafood.component';
-//import { BeefComponent } from './navbar-tabs/beef/beef.component';
 import { userAccounts } from './user-accounts/user-accounts.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FeaturedComponent } from './pages/featured/featured.component';
 
 
 @NgModule({
@@ -45,9 +44,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BeefComponent,
     SeafoodComponent,
     PorkComponent,
-    //SeafoodComponent,
-    //BeefComponent,
-    userAccounts
+ 
+    userAccounts,
+       FeaturedComponent
   ],
   imports: [
     BrowserModule,

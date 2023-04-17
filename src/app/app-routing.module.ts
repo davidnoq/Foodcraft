@@ -11,8 +11,9 @@ import { SearchComponent } from './search/search.component';
 import { LoginComponent } from './pages/login/login.component';
 import { userAccounts } from './user-accounts/user-accounts.component';
 import { CanActivateViaAuthGuard } from './can-activate-via-auth.guard';
+import { FeaturedComponent } from './pages/featured/featured.component';
 
-//if i add the canActvate for hcicken, it doesnt go to chickencomponent
+
 const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'about',component:AboutComponent},
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path:'beef', component:BeefComponent }, 
   {path:'salmon', component:SeafoodComponent }, 
   {path:'pork', component:PorkComponent }, 
+  {path:'featured', component:FeaturedComponent }, 
   {path: 'profile', component:userAccounts, canActivate: [CanActivateViaAuthGuard]}
 ];
 

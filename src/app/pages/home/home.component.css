@@ -1,12 +1,20 @@
 
 
 /* Style the main section */
+main{
+  
+  background-repeat: repeat;
+  background-image: url('assets\bg-wool-dark.png')
+  
+  
+}
 .inner {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height:100%;
+  width:100%;
 }
 
 /* Style the cover heading */
@@ -20,33 +28,53 @@
 /* Style the description text */
 .describe {
   font-size: 1.5rem;
-  color: #4d4d4d;
+  color: #000000;
   text-align: center;
   margin-bottom: 4rem;
 }
 
 /* Style the crafting button */
-.button {
-  background-color: #531c03;
-  border-radius: 10px;
-  padding: 1rem 2rem;
-  transition: background-color 0.3s ease-in-out;
-}
-
-/* Style the button on hover */
-.button:hover {
-  background-color: #116101;
-  cursor: pointer;
-}
-
-/* Style the button text */
 button {
-  font-size: 1.0rem;
-  color: #ffffff;
-  text-transform: uppercase;
-  letter-spacing: 0.1rem;
-  font-weight: bold;
-  background-color:transparent;
-  border: none;
+  background: #727272;
+  color: rgb(247, 247, 247);
+  width: 200px;
+  height: 50px;
+  border-radius:5px;
+  padding-top:10px;
+  margin-bottom: .75rem;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
+  font-size: 1rem;
+  letter-spacing: .025em;
+  border: 2px solid rgba(0, 0, 0, 1);
+  box-shadow: inset 3px 3px 0 rgba(255, 255, 255, 0.5),
+              inset -3px -3px 0 rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  text-align: center;
+  font-family: "Minecraftia";
+  display:block;
+margin:auto;
+}
+
+button:hover {
+  background: rgba(115, 107, 221, 1);
+}
+
+button:focus {
+  color: rgb(246, 246, 44);
   outline: none;
+}
+
+
+
+.container{
+  position: relative;   
+  object-position: left; 
+  
+ 
+}
+.text{
+  position:absolute;
+ 
+
+ 
 }
