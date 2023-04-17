@@ -192,12 +192,72 @@ func (handler *RecipesHandler) FeaturedRecipeHandler(c *gin.Context){
 	if res.Body != nil {
 		defer res.Body.Close()
 	}
-	
+	userID, _ := c.Get("userID")
 	body, _ := ioutil.ReadAll(res.Body)
 	//create a new recipe struct, then put the result of the API call into recipe
 	var recipes models.FeaturedRecipe
 	_ = json.Unmarshal(body, &recipes)
+	//need to convert recipes.Recipes[0] into models.Recipe struct
+	newRecipe := ConvertFeaturedRecipeToRecipe(recipes)
+	newRecipe.UserID = userID.(string)
+
+	recipeInt := newRecipe.ID
+
+	err := handler.collection.FindOne(handler.ctx, bson.M{"userId": userID, "id": recipeInt}).Decode(&newRecipe)
+
+	if err != mongo.ErrNoDocuments {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Recipe already in user's list"})
+		return
+	}
+
+	_, err = handler.collection.InsertOne(handler.ctx, newRecipe)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
 	//print new recipe struct that contains the recipe corresponding to the input ingredients
-	c.JSON(http.StatusOK, recipes)
+	c.JSON(http.StatusOK, newRecipe)
 }
 
+func ConvertFeaturedRecipeToRecipe(featuredRecipe models.FeaturedRecipe) models.Recipe {
+    recipe := featuredRecipe.Recipes[0]
+    var newRecipe models.Recipe
+    newRecipe.ID = recipe.ID
+    newRecipe.Title = recipe.Title
+    newRecipe.Image = recipe.Image
+    newRecipe.ImageType = recipe.ImageType
+    newRecipe.UsedIngredientCount = 0
+    newRecipe.MissedIngredientCount = 0
+
+    newRecipe.UsedIngredients = make([]struct {
+		ID           int      `bson:"id"`
+		Amount       int      `bson:"amount"`
+		Unit         string   `bson:"unit"`
+		UnitLong     string   `bson:"unitLong"`
+		UnitShort    string   `bson:"unitShort"`
+		Aisle        string   `bson:"aisle"`
+		Name         string   `bson:"name"`
+		Original     string   `bson:"original"`
+		OriginalName string   `bson:"originalName"`
+		Meta         []string `bson:"meta"`
+		Image        string   `bson:"image"`
+	}, len(recipe.ExtendedIngredients))
+
+    for i, ingredient := range recipe.ExtendedIngredients {
+        newRecipe.UsedIngredients[i].ID = ingredient.ID
+        newRecipe.UsedIngredients[i].Amount = int(ingredient.Amount)
+        newRecipe.UsedIngredients[i].Unit = ingredient.Unit
+        newRecipe.UsedIngredients[i].UnitLong = ingredient.UnitLong
+        newRecipe.UsedIngredients[i].UnitShort = ingredient.UnitShort
+        newRecipe.UsedIngredients[i].Aisle = ingredient.Aisle
+        newRecipe.UsedIngredients[i].Name = ingredient.Name
+        newRecipe.UsedIngredients[i].Original = ingredient.OriginalString
+        newRecipe.UsedIngredients[i].OriginalName = ingredient.Name
+        newRecipe.UsedIngredients[i].Meta = ingredient.MetaInformation
+        newRecipe.UsedIngredients[i].Image = ingredient.Image
+    }
+
+    newRecipe.Likes = recipe.AggregateLikes 
+
+    return newRecipe
+}
