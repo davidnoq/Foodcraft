@@ -192,30 +192,12 @@ func (handler *RecipesHandler) FeaturedRecipeHandler(c *gin.Context){
 	if res.Body != nil {
 		defer res.Body.Close()
 	}
-	userID, _ := c.Get("userID")
+	
 	body, _ := ioutil.ReadAll(res.Body)
 	//create a new recipe struct, then put the result of the API call into recipe
-	var recipes []models.Recipe
+	var recipes models.FeaturedRecipe
 	_ = json.Unmarshal(body, &recipes)
-	newRecipe := recipes[0]
-	newRecipe.UserID = userID.(string)
-
-	// check if it already exists for user
-	recipeInt := newRecipe.ID
-
-	err := handler.collection.FindOne(handler.ctx, bson.M{"userId": userID, "id": recipeInt}).Decode(&newRecipe)
-
-	if err != mongo.ErrNoDocuments {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Recipe already in user's list"})
-		return
-	}
-
-	_, err = handler.collection.InsertOne(handler.ctx, newRecipe)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
 	//print new recipe struct that contains the recipe corresponding to the input ingredients
-	c.JSON(http.StatusOK, newRecipe)
+	c.JSON(http.StatusOK, recipes)
 }
 
