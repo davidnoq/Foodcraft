@@ -59,7 +59,7 @@ func (handler *RecipesHandler) NewRecipeHandler(c *gin.Context) {
 	//userID, _ := c.Get("userID")
 	// convert array of ingredients to string so that it can be in proper format for the url for api call
 	ingredientsString := strings.Join(ingredients.IngredientList, "%2c")
-	url := "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredientsString + "&number=5&ignorePantry=true&ranking=1"
+	url := "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredientsString + "&number=10&ignorePantry=true&ranking=1"
 	// make api GET request to spoonacular API to search for recipes by ingredients
 	// can edit url parameters to change number of recipes returned
 	req, _ := http.NewRequest("GET", url, nil)
