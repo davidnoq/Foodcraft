@@ -33,7 +33,9 @@ h4{
     grid-template-columns: repeat(auto-fit, minmax(400px, auto));
     gap: 5px;
 }
-
+mat-card{
+    background-image: url('assets\bg-lightwool.png');
+}
 
 
 mat-divider {
@@ -73,6 +75,7 @@ body {
     color: rgb(246, 246, 44);
     outline: none;
 }
+
 
 .btn-extra {
     position: relative;
@@ -135,7 +138,4 @@ mat-card-subtitle {
 
 .remove-button:hover {
     color: red;
-}
-buttonn{
-    margin-bottom: 5px;
 }

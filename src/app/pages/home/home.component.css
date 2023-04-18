@@ -20,7 +20,7 @@ main{
 /* Style the cover heading */
 .cover-heading {
   font-size: 5rem;
-  color: #000000;
+  color: #ffffff;
   text-align: center;
   margin-bottom: 2rem;
 }
@@ -28,7 +28,8 @@ main{
 /* Style the description text */
 .describe {
   font-size: 1.5rem;
-  color: #000000;
+  color: #ffffff;
+  margin-top:20px;
   text-align: center;
   margin-bottom: 4rem;
 }

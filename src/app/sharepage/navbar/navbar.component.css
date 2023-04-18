@@ -28,7 +28,7 @@
 
 
 .dropdown-menu.show {
-  background-image: url('assets/bg-wool-dark.png');
+  background-image: url('assets/bg-lightwool.png');
   border-radius:10px;
  
 }
@@ -44,9 +44,7 @@
   cursor: pointer;
   
 }
-a.button{
 
-}
 button {
   background: #727272;
   color: rgb(247, 247, 247);

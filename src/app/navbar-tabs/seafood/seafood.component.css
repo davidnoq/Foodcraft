@@ -139,3 +139,6 @@ mat-card-subtitle {
 buttonn{
     margin-bottom: 5px;
 }
+mat-card{
+    background-image: url('assets\bg-lightwool.png');
+}

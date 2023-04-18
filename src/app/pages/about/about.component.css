@@ -31,14 +31,15 @@ body {
     margin: 8px;
   }
   h1{
-    color:black;
+    color:rgb(255, 255, 255);
+    font-size: 4rem;
   }
   .about-section {
     padding: 100px;
     margin-top: 100px;
     text-align: center;
     font-size: 1.5rem;
-  color: #4d4d4d;
+  color: #ffffff;
     
     background-size: auto;
   }
@@ -102,5 +103,8 @@ button.btn-close{
     outline: none;
   }
   body{
-    background-image: url('assets\bg-lightwool.png')
+    background-image: url('assets\bg-wool-dark.png')
+  }
+  h2{
+    color: #ffffff;
   }

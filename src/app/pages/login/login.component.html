@@ -1,65 +1,69 @@
 <body>
-<link href="http://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet">
-<section class="auth-container">
-  <div class="login-container">
-    <form [formGroup]="form">
-      <h2 style="font-family: minecraftia">Login</h2>
-      <br>
-      <mat-divider class="divider"></mat-divider>
-      <label>Username:</label>
-      <input
-        type="text"
-        id="signinUsername"
-        placeholder="johnDoe123"
-        formControlName="signinUsername"
-        name="signinUsername"
-      />
-      <label>Password:</label>
-      <input
-        type="password"
-        id="signinPassword"
-        formControlName="signinPassword"
-        name="signinPassword"
-      />
-      <button type="submit" id="loginButton" class="btn" (click)="login()">Login</button>
-      <div class="error" *ngIf="signinErrorMessage">
-        {{ signinErrorMessage }}
-      </div>
-    </form>
-  </div>
-  <div class="signup-container">
-    <form [formGroup]="form">
-      <h2 style="font-family: minecraftia">Signup</h2>
-      <br>
-      <mat-divider class="divider"></mat-divider>
-      <label>Email:</label>
-      <input
-        type="text"
-        id="email"
-        placeholder="john@gmail.com"
-        formControlName="email"
-        name="email"
-      />
-      <label>Username:</label>
-      <input
-        type="text"
-        id="signupUsername"
-        placeholder="johnDoe123"
-        formControlName="signupUsername"
-        name="signUpUsername"
-      />
-      <label>Password:</label>
-      <input
-        type="password"
-        id="signupPassword"
-        formControlName="signupPassword"
-        name="signupPassword"
-      />
-      <button type="submit" id="signupButton" class="btn" (click)="signup()">Signup</button>
-      <div class="error" *ngIf="signupErrorMessage">
-        {{ signupErrorMessage }}
-      </div>
-    </form>
-  </div>
-</section>
+  <link href="http://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet" />
+  <section class="auth-container">
+    <div class="login-container">
+      <form [formGroup]="form">
+        <h2 style="font-family: minecraftia">Login</h2>
+        <br />
+        <mat-divider class="divider"></mat-divider>
+        <label>Username:</label>
+        <input
+          type="text"
+          id="signinUsername"
+          placeholder="minecraftLover123"
+          formControlName="signinUsername"
+          name="signinUsername"
+        />
+        <label>Password:</label>
+        <input
+          type="password"
+          id="signinPassword"
+          formControlName="signinPassword"
+          name="signinPassword"
+        />
+        <button type="submit" id="loginButton" class="btn" (click)="login()">
+          Login
+        </button>
+        <div class="error" *ngIf="signinErrorMessage">
+          {{ signinErrorMessage }}
+        </div>
+      </form>
+    </div>
+    <div class="signup-container">
+      <form [formGroup]="form">
+        <h2 style="font-family: minecraftia">Signup</h2>
+        <br />
+        <mat-divider class="divider"></mat-divider>
+        <label>Email:</label>
+        <input
+          type="text"
+          id="email"
+          placeholder="notch@gmail.com"
+          formControlName="email"
+          name="email"
+        />
+        <label>Username:</label>
+        <input
+          type="text"
+          id="signupUsername"
+          placeholder="minecraftGod420"
+          formControlName="signupUsername"
+          name="signUpUsername"
+        />
+        <label>Password:</label>
+        <input
+          type="password"
+          id="signupPassword"
+          formControlName="signupPassword"
+          name="signupPassword"
+        />
+        <button type="submit" id="signupButton" class="btn" (click)="signup()">
+          Signup
+        </button>
+        <div class="error" *ngIf="signupErrorMessage">
+          {{ signupErrorMessage }}
+        </div>
+      </form>
+    </div>
+  </section>
 </body>
