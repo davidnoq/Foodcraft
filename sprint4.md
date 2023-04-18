@@ -6,10 +6,12 @@
 **Backend**
 - added DELETE function for user accounts
 - added DELETE function for removing single recipe from user's list
-- added GET function for recipe instructions
-- added function for Featured Recipes
+- added handler for retrieving instructions of a specific recipe through a GET request to Spoonacular endpoint
+- added handler for generating a random recipe
 - added GET function for frontend to retrieve username
 - added GET function to find a specific recipe within a user's list
+- refactored new recipe handler to generate five recipe recommendations based on user inputted ingredients instead of just one
+- created unit tests for new changes
 # List unit tests for frontend
 - Used Cypress component tests for unit testing
 - Search component isolated and tested buttons, increments, visual texts, and type function
@@ -32,7 +34,7 @@
 - DELETE for removing a user from the database
 - DELETE for removing a single recipe from a user's list
 - GET for recipe instructions
-- ? for Featured Recipes
+- POST for Featured Recipes
 - GET for retrieving username
 - GET for finding a recipe within a user's list
 
@@ -62,9 +64,21 @@ Authentication middleware: This middleware enables user authentication and provi
 
 `POST /api/signup`: Registers a new user.
 
-`POST /api/recipes`: Generates a new recipe for user.
+`POST /api/recipes`: Generates a 5 recipe recommendations for user.
 
 `DELETE /api/recipes`: Clears a user's recipe list.
+
+`GET /api/recipes/:ID/instructions`: returns instructions for the specificed recipe.
+
+`GET /api/user`: returns username of currently logged-in user.
+
+`DELETE /api/recipes/:ID`: deletes the specified recipe from the user's recipe list.
+
+`GET /api/userRecipe/:ID`: returns a specific recipe within a user's list.
+
+`POST /api/recipes/featured`: generates a random recipe using Spoonacular's custom endpoint and adds it to the user's list.
+
+`POST /api/recipes/:ID`: adds the specified recipe to the database with the corresponding user ID.
 
 ## Authentication and Authorization
 Authentication is performed using JWT access tokens. When a user successfully authenticates using their credentials, a JWT access token is generated and returned in the response. This access token can be used to authenticate future requests by including it in the Authorization header of the request.
