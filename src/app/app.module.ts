@@ -8,6 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,6 +30,7 @@ import { PorkComponent } from './navbar-tabs/pork/pork.component';
 import { userAccounts } from './user-accounts/user-accounts.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FeaturedComponent } from './pages/featured/featured.component';
+import { RecipeDialogComponent } from './recipe-dialog/recipe-dialog.component';
 
 
 @NgModule({
@@ -46,7 +49,8 @@ import { FeaturedComponent } from './pages/featured/featured.component';
     PorkComponent,
  
     userAccounts,
-       FeaturedComponent
+       FeaturedComponent,
+       RecipeDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +64,8 @@ import { FeaturedComponent } from './pages/featured/featured.component';
     MatIconModule,
     MatDividerModule,
     MatCardModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule
   ],
   providers: [
     AuthService,
@@ -68,6 +73,10 @@ import { FeaturedComponent } from './pages/featured/featured.component';
         provide: HTTP_INTERCEPTORS,
         useClass: AuthInterceptorService,
         multi: true
+    },
+    { 
+        provide: MAT_DIALOG_DATA, 
+        useValue: {} 
     },
     CanActivateViaAuthGuard],
   bootstrap: [AppComponent]

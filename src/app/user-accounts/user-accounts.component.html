@@ -53,7 +53,7 @@
               >
                 There are no recipes to display
               </h4>
-              <mat-card *ngFor="let recipe of recipeList">
+              <mat-card *ngFor="let recipe of recipeList" (click)="onRecipeCardClick(recipe)">
                 <button
                   matTooltip="Remove Recipe"
                   [matTooltipPosition]="'right'"

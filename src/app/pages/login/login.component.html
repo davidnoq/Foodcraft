@@ -1,7 +1,11 @@
+<body>
+<link href="http://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet">
 <section class="auth-container">
   <div class="login-container">
     <form [formGroup]="form">
-      <h2>Login</h2>
+      <h2 style="font-family: minecraftia">Login</h2>
+      <br>
+      <mat-divider class="divider"></mat-divider>
       <label>Username:</label>
       <input
         type="text"
@@ -17,7 +21,7 @@
         formControlName="signinPassword"
         name="signinPassword"
       />
-      <button type="submit" id="loginButton" (click)="login()">Login</button>
+      <button type="submit" id="loginButton" class="btn" (click)="login()">Login</button>
       <div class="error" *ngIf="signinErrorMessage">
         {{ signinErrorMessage }}
       </div>
@@ -25,7 +29,9 @@
   </div>
   <div class="signup-container">
     <form [formGroup]="form">
-      <h2>Signup</h2>
+      <h2 style="font-family: minecraftia">Signup</h2>
+      <br>
+      <mat-divider class="divider"></mat-divider>
       <label>Email:</label>
       <input
         type="text"
@@ -49,10 +55,11 @@
         formControlName="signupPassword"
         name="signupPassword"
       />
-      <button type="submit" id="signupButton" (click)="signup()">Signup</button>
+      <button type="submit" id="signupButton" class="btn" (click)="signup()">Signup</button>
       <div class="error" *ngIf="signupErrorMessage">
         {{ signupErrorMessage }}
       </div>
     </form>
   </div>
 </section>
+</body>

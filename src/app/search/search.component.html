@@ -42,19 +42,22 @@
         <img src="/assets/crafting-background.png" alt="crafting table" class="crafting-back"> 
         <div class="card-overlay" *ngIf="recipeFound">
             <div class="card-container">
-                <mat-card>
+                <mat-card (click)="openDetails()" matTooltip="Click for More Detail" [matTooltipPosition]="'right'">
+                    <img [src]="recipe.Image">
                     <mat-card-header>
-                        <div class="card-header-content">
-                            <h3>{{ title }}</h3>
-                        </div>
+                        <h3 style="color:black; font-family: minecraftia;"> {{ recipe.Title }} </h3>
                     </mat-card-header>
-                    <img [src]="imageSrc">
                 </mat-card>
+                <div class="favorite">
+                    <mat-icon matTooltip="Add to user profile" 
+                    [matTooltipPosition]="'right'" 
+                    (click)="onLikeButtonClick()" 
+                    [ngClass]="{ 'liked': recipe.liked }">favorite</mat-icon>                    
+                </div>
             </div>
         </div>
         <div class="craftButton">
             <button class="btn" (click)="searchRecipes()">Craft Recipe</button>
-            <h3 *ngIf = "recipeError" style="font-family:minecraftia;color:white;">Already viewed this recipe</h3>
         </div>
         <ng-container *ngIf="isLoading">
             <div class="loading-dots"></div>

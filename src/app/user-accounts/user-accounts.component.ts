@@ -1,19 +1,24 @@
-import { Component, OnInit, ViewChild  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { Router, NavigationEnd } from '@angular/router';
-import { LoginComponent } from 'app/pages/login/login.component';
+import { Router } from '@angular/router';
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { MatSidenav } from '@angular/material/sidenav';
-import { delay, filter } from 'rxjs/operators';
-import { MatDividerModule } from '@angular/material/divider';
+import { RecipeDialogComponent } from 'app/recipe-dialog/recipe-dialog.component';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 
 interface Recipe {
     ID: number;
     Title: string;
     Image: string;
     Likes: number;
+}
+
+interface recipeClick {
+    ID: number;
+    Title: string;
+    Image: string;
+    Likes: number;
+    instructions: string;
 }
 
 @Component({
@@ -23,13 +28,24 @@ interface Recipe {
 })
 export class userAccounts implements OnInit {
     accountData: any;
+    isDetailsDialogOpen: boolean = false;
     constructor(
         private authService: AuthService, 
         private router: Router,
         private http: HttpClient,
-        private observer: BreakpointObserver) { }
+        private observer: BreakpointObserver,
+        private dialog: MatDialog) { 
+            this.recipeClick = {
+                ID: 0,
+                Title: "",
+                Image: "",
+                Likes: 0,
+                instructions: ""
+            };
+        }
 
     username : string = " ";
+    recipeClick: recipeClick;
     recipeList: Recipe[] = [];
     noRecipes = false;
     
@@ -104,5 +120,53 @@ export class userAccounts implements OnInit {
         (res: any) => {
             window.location.reload();
         })
+    }
+
+    // open dialog window
+
+    openDetails(): void {
+        if (!this.isDetailsDialogOpen) { // check if the details dialog is already open
+          const dialogConfig = new MatDialogConfig();
+          dialogConfig.data = this.recipeClick; // Pass the recipe data to the dialog component
+    
+          const dialogRef = this.dialog.open(RecipeDialogComponent, dialogConfig);
+    
+          dialogRef.afterClosed().subscribe(() => {
+            this.isDetailsDialogOpen = false; // set the flag to false when the dialog is closed
+          });
+    
+          this.isDetailsDialogOpen = true; // set the flag to true when the dialog is opened
+        }
+    }
+
+    onRecipeCardClick(recipe: Recipe): void {
+        if (!this.isDetailsDialogOpen) { // check if the details dialog is already open
+            const dialogConfig = new MatDialogConfig();
+            recipeClicked: this.recipeClick;
+
+            this.recipeClick.Title = recipe.Title;
+            this.recipeClick.Likes = recipe.Likes;
+            this.recipeClick.Image = recipe.Image;
+            this.recipeClick.ID = recipe.ID;
+            this.getInstructions();
+
+            dialogConfig.data = this.recipeClick; // Pass the recipe data to the dialog component
+      
+            const dialogRef = this.dialog.open(RecipeDialogComponent, dialogConfig);
+      
+            dialogRef.afterClosed().subscribe(() => {
+              this.isDetailsDialogOpen = false; // set the flag to false when the dialog is closed
+            });
+      
+            this.isDetailsDialogOpen = true; // set the flag to true when the dialog is opened
+          }
+    }
+
+    getInstructions() {
+        this.http.get('http://localhost:8080/api/recipes/' + this.recipeClick.ID + '/instructions').subscribe(
+          (res: any) => {      
+            this.recipeClick.instructions = res.instructions;
+          }
+        )
     }
 }

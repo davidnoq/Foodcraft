@@ -1,7 +1,26 @@
+* {
+    font-family: "minecraftia";
+}
+
+body {
+    background-image: url('assets/bg-wool-dark.png');
+    background-size: cover;
+}
+
 .auth-container {
     display: flex;
+    padding: 20px;
     flex-direction: row;
     margin-top:100px;
+    background-color: rgba(128, 128, 128, 0.5);
+    max-width: 1000px;
+    top: 300px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position:absolute;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
 }
   
 .login-container, .signup-container {
@@ -9,18 +28,17 @@
     padding: 1rem;
     display:block;
     margin:auto;
+    max-width: 500px;
 }
   
 .login-container {
     border-right: 1px solid #ccc;
-    border-left: 1px solid #ccc;
-    
 }
   
 h2 {
     display:block;
     margin:auto;
-    
+    color: white;
     font-size: 2rem;
 }
   
@@ -31,10 +49,10 @@ form {
 }
   
 label {
-    
-    
     margin-bottom: 0.5rem;
     margin-top:0.5rem;
+    color: black;
+    font-weight: bold;
 }
   
 input {
@@ -46,31 +64,40 @@ input {
     margin-top: 0.5rem;
 }
 
-button {
-    font-size: 1.0rem;
-  color: #ffffff;
-  text-transform: uppercase;
-  letter-spacing: 0.1rem;
-  font-weight: bold;
-  background-color:transparent;
-  border: none;
-  outline: none;
-}
-
-[type=submit]:not(:disabled), button:not(:disabled) {
-    background-color: #531c03;
-    border-radius: 10px;
-    padding: 0.5rem 1rem;
-    transition: background-color 0.3s ease-in-out;
-    margin-top: 50px;
-}
-button:hover {
-    background-color: #116101;
-  cursor: pointer;
-}
-
 .error {
     color: red;
     text-align: center;
+}
+
+.btn {
+    margin-top: 15px;
+    background: #727272;
+    color: rgb(247, 247, 247);
+    width: 25%;
+    min-width: 280px;
+    padding: .5rem 0;
+    margin-bottom: .75rem;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
+    font-size: 1rem;
+    letter-spacing: .025em;
+    border: 2px solid rgba(0, 0, 0, 1);
+    box-shadow: inset 3px 3px 0 rgba(255, 255, 255, 0.5),
+                inset -3px -3px 0 rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    text-align: center;
+    font-family: "Minecraftia";
+}
+
+.btn:hover {
+    background: rgba(115, 107, 221, 1);
+}
+
+.btn:focus {
+    color: rgb(246, 246, 44);
+    outline: none;
+}
+
+.divider {
+    border-top-color: white;
 }
   

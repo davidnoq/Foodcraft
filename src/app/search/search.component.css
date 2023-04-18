@@ -121,6 +121,15 @@ mat-divider {
     font-family: "Minecraftia";
 }
 
+.btn:hover {
+    background: rgba(115, 107, 221, 1);
+}
+
+.btn:focus {
+    color: rgb(246, 246, 44);
+    outline: none;
+}
+
 .search-container button {
     position: relative;
     top: 0;
@@ -157,11 +166,65 @@ mat-divider {
 }
   
 mat-card {
-    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 
+        1px 3px 3px rgba(0,0,0,0.2),
+        -1px -1px 4px rgba(0,0,0,0.2);
+    height: 300px;
+    position: relative;
+    transition: box-shadow 130ms ease-in-out;
+    width: 300px;
+    z-index: 1;
+}
+
+mat-card:hover {
+    box-shadow: 
+      2px 6px 6px rgba(0,0,0,0.2),
+      -1px -1px 7px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+mat-card-header {
+    font-family: "minecraftia";
+    color: black;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    justify-content: left;
 }
   
 mat-card-image {
     object-fit: cover;
+}
+
+.favorite {
+    transition: all 111ms ease-in-out;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+  
+.favorite {
+    cursor: pointer;
+    background-color: transparent;
+    fill: white;
+    height: 1.5em;
+    padding: 1px;
+    stroke-width: 15;
+    width: 1.5em;
+    z-index: 2;
+}
+  
+.favorite:hover {
+    cursor: pointer;
+    stroke: Red;
+}
+  
+mat-icon.liked {
+    color: red;
 }
 
 .loading-dots {
