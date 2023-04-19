@@ -1,7 +1,15 @@
 
 # Detail work you've completed in Sprint 4
 **Frontend**
-- 
+- styled frontend to replicate theme, 'Minecraft'.
+- added functionality to search recipe component to output recipe after user selects ingredients
+- added loading animation when the frontend is waiting for response for recipe
+- allow user to add ingredients that aren't listed already
+- added functionality to clicking on a recipe, it displays a dialog with more details regarding recipe.
+- allow user to 'like' a recipe, which in turn adds it to the user profile
+- profile displays user liked recipes
+- allow user to clear all recipes in profile
+- allow user to delete account
 
 **Backend**
 - added DELETE function for user accounts
@@ -13,6 +21,7 @@
 - refactored new recipe handler to generate ten recipe recommendations based on user inputted ingredients instead of just one
 - added handler for adding recipe to a user's list
 - created unit tests for new changes
+
 # List unit tests for frontend
 - Used Cypress component tests for unit testing
 - Search component isolated and tested buttons, increments, visual texts, and type function
@@ -24,6 +33,8 @@
 - Login e2e testing logout function when the user is logged in
 - Checking whether a profile exists and making a new profile for login component testing
 - check whether contact button is visible and can be accessed
+- Check when the user input ingredients, user receives a recipe
+- Test clear all recipes functions for profile
 
 # List unit tests for backend
 - GET for retrieving recipes in database associated with a user (user-specific recipe lists)
