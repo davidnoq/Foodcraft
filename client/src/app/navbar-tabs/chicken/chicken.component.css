@@ -33,7 +33,9 @@ h4{
     grid-template-columns: repeat(auto-fit, minmax(400px, auto));
     gap: 5px;
 }
-
+mat-card{
+    background-image: url('assets\bg-lightwool.png');
+}
 
 
 mat-divider {
@@ -74,6 +76,7 @@ body {
     outline: none;
 }
 
+
 .btn-extra {
     position: relative;
     max-width: 400px;
@@ -86,8 +89,8 @@ body {
 mat-card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    max-width: 400px;
-    max-height: 200px;
+    width: 400px;
+    height: 360px;
     cursor: pointer;
     margin: 10px;
     font-family: "Minecraftia";
@@ -102,11 +105,13 @@ mat-card:hover {
 
 mat-card-title {
     font-size: 15px;
-    font-weight: 500;
+    font-weight: bold;
     font-family: "Minecraftia";
     margin-top: 10px;
     font-size-adjust: 0.5;
     line-height: 1.5em;
+    overflow: hidden;
+    text-size-adjust: 80%;
 }
 
 mat-card-subtitle {
@@ -115,8 +120,8 @@ mat-card-subtitle {
 
 .card-image {
     background-size: cover;
-    max-width: 175px;
-    max-height: 175px;
+    width: 375px;
+    height: 250px;
     margin: 10px;
 }
 
@@ -135,10 +140,4 @@ mat-card-subtitle {
 
 .remove-button:hover {
     color: red;
-}
-buttonn{
-    margin-bottom: 5px;
-}
-mat-card{
-    background-image: url('assets\bg-lightwool.png');
 }

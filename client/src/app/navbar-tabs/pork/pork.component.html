@@ -27,15 +27,17 @@
                 </button>
                 <mat-card-header>
                   <mat-card-title> {{ recipe.Title }} </mat-card-title>
-                  <img
+                </mat-card-header>
+                <mat-card-content>
+                  <mat-card-subtitle style="font-family:minecraftia;">
+                    Likes: {{ recipe.Likes }}
+                  </mat-card-subtitle>
+                </mat-card-content>
+                <img
                     class="card-image"
                     src="{{ recipe.Image }}"
                     alt="Photo of {{ recipe.Title }}"
                   />
-                  <mat-card-subtitle>
-                    Likes: {{ recipe.Likes }}
-                  </mat-card-subtitle>
-                </mat-card-header>
                 <mat-card-content>
                   <!-- Recipe details -->
                 </mat-card-content>
