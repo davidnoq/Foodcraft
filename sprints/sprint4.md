@@ -10,6 +10,10 @@
 - profile displays user liked recipes
 - allow user to clear all recipes in profile
 - allow user to delete account
+- allow user to choose from preselected recipes on the dropdown menu
+- allows user to get inspiration from the featured recipe of the day and see ingredients plus instructions
+- fixed about page to look more straightforward
+- fixed home page and styling of the entire website including the buttons
 
 **Backend**
 - added DELETE function for user accounts
@@ -35,6 +39,8 @@
 - check whether contact button is visible and can be accessed
 - Check when the user input ingredients, user receives a recipe
 - Test clear all recipes functions for profile
+- Check if post to the backend is recieved from the e2e tests on beef,chicken,pork, etc
+- completed new component tests for the new additions, checking if each component contains the generated recipes
 
 # List unit tests for backend
 - GET for retrieving recipes in database associated with a user (user-specific recipe lists)
