@@ -324,7 +324,7 @@ func TestDeleteRecipes(t *testing.T) {
 
 	raw, _ = json.Marshal(ingredients)
 
-	r, err := http.NewRequest("POST", fmt.Sprintf("%s/api/recipes/666439", ts.URL), bytes.NewBuffer(raw))
+	r, err := http.NewRequest("GET", fmt.Sprintf("%s/api/recipes/666439", ts.URL), bytes.NewBuffer(raw))
 	if err != nil {
 		panic(err)
 	}
@@ -486,7 +486,7 @@ func TestAddAndDeleteOneRecipe(t *testing.T) {
 
 	raw, _ = json.Marshal(ingredients)*/
 
-	r, err := http.NewRequest("POST", fmt.Sprintf("%s/api/recipes/1090966", ts.URL), bytes.NewBuffer(raw))
+	r, err := http.NewRequest("GET", fmt.Sprintf("%s/api/recipes/1090966", ts.URL), bytes.NewBuffer(raw))
 	if err != nil {
 		panic(err)
 	}
