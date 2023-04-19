@@ -76,5 +76,9 @@ func SetupServer() *gin.Engine {
 	return router
 }
 func main() {
-	SetupServer().Run()
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // Default port if not specified
+	}
+	SetupServer().Run(":" + port)
 }
