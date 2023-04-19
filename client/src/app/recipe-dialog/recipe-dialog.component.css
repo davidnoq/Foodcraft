@@ -1,0 +1,51 @@
+:host {
+  display: block;
+  max-width: 600px; /* set the maximum width of the dialog */
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 200px 1fr; /* set the columns for the image and details */
+  grid-gap: 16px; /* add some gap between the columns */
+}
+
+.image-container {
+  grid-row: span 2;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.likes {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.instructions {
+  margin-top: 0;
+  margin-bottom: 0;
+  max-height: 250px;
+  overflow-y: scroll;
+}
+
+h2 {
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+}
+

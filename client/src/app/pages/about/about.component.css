@@ -1,0 +1,110 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+  }
+  
+  html {
+    box-sizing: border-box;
+  }
+  
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  
+  .column {
+    float: left;
+    width: 25%;
+    margin-bottom: 16px;
+    padding: 0 8px;
+  }
+  .column h2{
+    font-size: 26px;
+  }
+  h1{
+    font-size: 2rem;
+  }
+  h2{
+    margin-bottom: 60px;
+  }
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 8px;
+  }
+  h1{
+    color:rgb(255, 255, 255);
+    font-size: 4rem;
+  }
+  .about-section {
+    padding: 100px;
+    margin-top: 100px;
+    text-align: center;
+    font-size: 1.5rem;
+  color: #ffffff;
+    
+    background-size: auto;
+  }
+  p{
+    margin-top:40px;
+  }
+  /*background-image: url(src\assets\grass.png); */
+  
+  .container {
+    padding: 0 16px;
+  }
+  
+  .container::after, .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  .title {
+    color: grey;
+  }
+  
+ 
+  
+  
+
+
+  
+button.btn-close{
+  width:40px;
+  height:30px;
+}
+
+  button {
+    background: #727272;
+    color: rgb(247, 247, 247);
+    width: 200px;
+    height: 50px;
+    border-radius:5px;
+    padding-top:10px;
+    margin-bottom: .75rem;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
+    font-size: 1rem;
+    letter-spacing: .025em;
+    border: 2px solid rgba(0, 0, 0, 1);
+    box-shadow: inset 3px 3px 0 rgba(255, 255, 255, 0.5),
+                inset -3px -3px 0 rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    text-align: center;
+    font-family: "Minecraftia";
+    display:block;
+  margin:auto;
+  }
+  
+  button.btn-contact:hover {
+    background: rgba(115, 107, 221, 1);
+  }
+  
+  button:focus {
+    color: rgb(246, 246, 44);
+    outline: none;
+  }
+  body{
+    background-image: url('assets\bg-wool-dark.png')
+  }
+  h2{
+    color: #ffffff;
+  }

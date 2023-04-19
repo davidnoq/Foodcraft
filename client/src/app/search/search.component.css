@@ -1,0 +1,292 @@
+body {
+    background-image: url('assets/bg-wool-dark.png');
+    background-size: cover;
+}
+
+.main-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-height: 550px;
+    grid-gap: 20px;
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-top: 100px;
+}
+
+.crafting-table {
+    position: relative;
+    max-width: 100%;
+    object-fit: cover;
+    margin-left: 0;
+    margin-right: auto;
+    max-height: 550px;
+}
+
+.crafting-back {
+    width: 550px;
+    height: 550px;
+    z-index: 1;
+}
+  
+input[type="text"] {
+    background-image: url(https://www.w3schools.com/css/searchicon.png);
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 3px solid #2e1c0c;
+    display: block;
+    font-family: "minecraftia";
+}
+ 
+.craftButton {
+    position: relative;
+    text-align: center;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.searchIngredients {
+    position: relative;
+    width: 550px;
+    max-height: 550px;
+    margin-left: auto;
+    margin-right: 0px;
+}
+
+.images {
+    margin-top: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid black;
+    font-size: 18px;
+    color: white;
+}
+
+table:hover {
+    background-color: grey;
+}
+
+.listIng {
+    margin: 10px;
+}
+
+.listItem {
+    display: inline-flex;
+    align-items: center;
+    width: 550px;
+}
+
+.description {
+    text-align: center;
+    font-family: "minecraftia";
+    line-height: 20px;
+    color:grey;
+}
+
+mat-divider {
+    margin: 8px;
+    color:white;
+}
+
+.searchList {
+    position: relative;
+    max-height: 284px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    font-family: "minecraftia";
+    background-color: rgb(128,128,128,0.5);
+    align-items: center;
+}
+
+.btn {
+    background: #727272;
+    color: rgb(247, 247, 247);
+    width: 25%;
+    min-width: 280px;
+    padding: .5rem 0;
+    margin-bottom: .75rem;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
+    font-size: 1rem;
+    letter-spacing: .025em;
+    border: 2px solid rgba(0, 0, 0, 1);
+    box-shadow: inset 3px 3px 0 rgba(255, 255, 255, 0.5),
+                inset -3px -3px 0 rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    text-align: center;
+    font-family: "Minecraftia";
+}
+
+.btn:hover {
+    background: rgba(115, 107, 221, 1);
+}
+
+.btn:focus {
+    color: rgb(246, 246, 44);
+    outline: none;
+}
+
+.search-container button {
+    position: relative;
+    top: 0;
+    right: 0;
+    margin-top: 8px;
+    margin-right: 8px;
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.card-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+ 
+.card-header-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    z-index: 5;
+}
+  
+mat-card {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 
+        1px 3px 3px rgba(0,0,0,0.2),
+        -1px -1px 4px rgba(0,0,0,0.2);
+    height: 300px;
+    position: relative;
+    transition: box-shadow 130ms ease-in-out;
+    width: 300px;
+    z-index: 1;
+}
+
+mat-card:hover {
+    box-shadow: 
+      2px 6px 6px rgba(0,0,0,0.2),
+      -1px -1px 7px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+mat-card-header {
+    font-family: "minecraftia";
+    color: black;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    justify-content: left;
+}
+  
+mat-card-image {
+    object-fit: cover;
+}
+
+.favorite {
+    transition: all 111ms ease-in-out;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+  
+.favorite {
+    cursor: pointer;
+    background-color: transparent;
+    fill: white;
+    height: 1.5em;
+    padding: 1px;
+    stroke-width: 15;
+    width: 1.5em;
+    z-index: 2;
+}
+  
+.favorite:hover {
+    cursor: pointer;
+    stroke: Red;
+}
+  
+mat-icon.liked {
+    color: red;
+}
+
+.loading-dots {
+    display: inline-block;
+    font-size: 24px;
+    font-weight: bold;
+    color: #555555;
+    font-family: "minecraftia";
+}
+  
+.loading-dots:after {
+    content: "";
+    animation: loading-dots 1s infinite;
+}
+  
+@keyframes loading-dots {
+    0% {
+      content: "Loading.";
+    }
+    33% {
+      content: "Loading..";
+    }
+    66% {
+      content: "Loading...";
+    }
+    100% {
+      content: "Loading..";
+    }
+}
+  
+.clearAllSelected {
+    position: relative;
+    width: 10px;
+    margin-left: 25%;
+}
+
+input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid White;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+input[type="checkbox"]::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 10px;
+    height: 10px;
+    background-color: rgb(8, 241, 8);
+}
+
+input[type="checkbox"]:checked::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+  
+.divider {
+    border-top-color: white;
+}

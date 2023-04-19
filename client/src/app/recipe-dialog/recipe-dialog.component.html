@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>{{ recipe.Title }}</h2>
+<div mat-dialog-content class="content">
+  <div class="image-container">
+    <img class="image" [src]="recipe.Image" alt="Recipe Image" />
+  </div>
+  <div class="info-container">
+    <h2>Likes:</h2>
+    <p class="likes">{{ recipe.Likes }}</p>
+    <mat-divider></mat-divider>
+    <h2>Instructions:</h2>
+    <div [innerHTML]="recipe.instructions"></div>
+  </div>
+</div>
+
+<div mat-dialog-actions class="actions">
+  <button mat-button mat-dialog-close>Close</button>
+</div>

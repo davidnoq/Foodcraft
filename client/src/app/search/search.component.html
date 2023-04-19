@@ -1,0 +1,70 @@
+<body>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="http://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet">
+<br>
+<div class="main-container">
+    <div class="searchIngredients">
+        <div class="description">Type in Ingredients that you want to use for a recipe</div>
+        <mat-divider class="divider"></mat-divider>
+        <div class="description">Below are ingredients that are commonly used. If there are other ingredients 
+            that are not listed, just type it in and add the ingredient to list.
+        </div>
+        <mat-divider class="divider"></mat-divider>
+        <div class="description">Once you have all the ingredients you desire for a recipe,
+            click the button 'craft recipe' to display the recipe that matches the ingredients
+        </div>
+        <mat-divider class="divider"></mat-divider> 
+        <div class="search-container">
+            <input type="text" placeholder="Search for ingredients..." [(ngModel)]="searchTerm" id="search">
+            <div *ngIf="searchIngredients().length === 0">
+                <button class="btn clearAllSelected" (click)="addIngredient(searchTerm)" id="add">Add Ingredient</button>
+            </div>
+            <div class="searchList">
+                <div *ngFor="let ingredient of searchIngredients()">
+                    <table>
+                        <label class="listItem">
+                            <input type="checkbox"  
+                                [checked]="ingredient.selected" 
+                                (change)="onIngredientSelected(ingredient)" 
+                                class="listIng"
+                                id="checkbox">
+                            <span class="ingredientName" id="ingredientName">{{ ingredient.name }}</span>
+                        </label>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <button class="clearAllSelected btn" (click)="clearSelected()" id="clear">Clear selected</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="crafting-table">
+        <img src="/assets/crafting-background.png" alt="crafting table" class="crafting-back"> 
+        <div class="card-overlay" *ngIf="recipeFound">
+            <div class="card-container">
+                <mat-card (click)="openDetails()" matTooltip="Click for More Detail" [matTooltipPosition]="'right'">
+                    <img [src]="recipe.Image">
+                    <mat-card-header>
+                        <h3 style="color:black; font-family: minecraftia;"> {{ recipe.Title }} </h3>
+                    </mat-card-header>
+                </mat-card>
+                <div class="favorite">
+                    <mat-icon matTooltip="Add to user profile" 
+                    [matTooltipPosition]="'right'" 
+                    (click)="onLikeButtonClick()" 
+                    [ngClass]="{ 'liked': recipe.liked }" 
+                    id="like">favorite</mat-icon>                    
+                </div>
+            </div>
+        </div>
+        <div class="craftButton">
+            <button class="btn" (click)="searchRecipes()" id="craft">Craft Recipe</button>
+        </div>
+        <ng-container *ngIf="isLoading">
+            <div class="loading-dots"></div>
+        </ng-container>
+    </div>
+</div>
+</body>
+

@@ -1,0 +1,88 @@
+
+
+.navbar-brand {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-right: 2rem;
+}
+.container-fluid{
+
+  background-image: url('/assets/bg-lightwool.png');
+}
+.navbar-nav {
+  font-size: 1.2rem;
+}
+
+.nav-link {
+  color: #070707;
+  padding: 0.5rem;
+
+}
+
+/* home button is diff from the rest for some reason, prob bc its home */
+.navbar-nav .show > .nav-link, .navbar-nav .nav-link.active {
+  color: #070707;
+  
+}
+
+
+
+.dropdown-menu.show {
+  background-image: url('assets/bg-lightwool.png');
+  border-radius:10px;
+ 
+}
+
+.dropdown-item {
+  color: #ffffff;
+  
+}
+
+
+.dropdown-item:hover {
+  background-color: #116101;
+  cursor: pointer;
+  
+}
+
+button {
+  background: #727272;
+  color: rgb(247, 247, 247);
+  width: 100%;
+  border-radius:5px;
+  padding-top:10px;
+
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
+  font-size: 1rem;
+  letter-spacing: .025em;
+  border: 2px solid rgba(0, 0, 0, 1);
+  box-shadow: inset 3px 3px 0 rgba(255, 255, 255, 0.5),
+              inset -3px -3px 0 rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  text-align: center;
+  font-family: "Minecraftia";
+ 
+}
+
+button:hover {
+  background: rgba(115, 107, 221, 1);
+}
+
+button:focus {
+  color: rgb(246, 246, 44);
+  outline: none;
+}
+
+
+.navbar-expand-sm button{
+  width:150px;
+  margin-right: 30px;
+}
+
+.container-fluid{
+  margin-top: 60px;
+  position:fixed;
+  background-color: #f5f5f5;
+  padding: 0.5rem;
+  z-index: 5;
+}

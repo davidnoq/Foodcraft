@@ -1,0 +1,90 @@
+<nav class="navbar navbar-expand-lg navbar-dark shadow-5-strong">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="\assets\foodcraft.png" alt="picture" width="250" />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Ingredients
+          </a>
+          <ul class="dropdown-menu">
+            <li class="nav-item">
+              <a class="nav-link">
+                <a class="button">
+                  <button routerLink="chicken">Chicken</button>
+                </a>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link">
+                <a class="button">
+                  <button routerLink="beef">Beef</button>
+                </a>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link">
+                <a class="button">
+                  <button routerLink="pork">Pork</button>
+                </a>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link">
+                <a class="button">
+                  <button routerLink="salmon">Salmon</button>
+                </a>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="featured"> Featured Recipe </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="about"> About Us </a>
+        </li>
+      </ul>
+      <nav class="navbar navbar-expand-sm">
+        <ul class="nav navbar-nav navbar-right">
+          <a class="nav-link">
+            <a class="buttonn" *ngIf="!authService.isAuthenticated">
+              <button routerLink="login">Login/Signup</button>
+            </a>
+            <a class="buttonn" *ngIf="authService.isAuthenticated">
+              <button routerLink="profile">Profile</button>
+            </a>
+            <a
+              class="button"
+              id="logoutButton"
+              *ngIf="authService.isAuthenticated"
+              (click)="authService.logout()"
+            >
+              <button>Logout</button>
+            </a>
+          </a>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</nav>
