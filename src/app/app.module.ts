@@ -31,6 +31,7 @@ import { userAccounts } from './user-accounts/user-accounts.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FeaturedComponent } from './pages/featured/featured.component';
 import { RecipeDialogComponent } from './recipe-dialog/recipe-dialog.component';
+import { UsersearchComponent } from './navbar-tabs/usersearch/usersearch.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { RecipeDialogComponent } from './recipe-dialog/recipe-dialog.component';
  
     userAccounts,
        FeaturedComponent,
-       RecipeDialogComponent
+       RecipeDialogComponent,
+       UsersearchComponent
   ],
   imports: [
     BrowserModule,

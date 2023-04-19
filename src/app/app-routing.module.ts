@@ -12,6 +12,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { userAccounts } from './user-accounts/user-accounts.component';
 import { CanActivateViaAuthGuard } from './can-activate-via-auth.guard';
 import { FeaturedComponent } from './pages/featured/featured.component';
+import { UsersearchComponent } from './navbar-tabs/usersearch/usersearch.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path:'salmon', component:SeafoodComponent }, 
   {path:'pork', component:PorkComponent }, 
   {path:'featured', component:FeaturedComponent }, 
+  {path:'usersearch/:query', component:UsersearchComponent }, 
   {path: 'profile', component:userAccounts, canActivate: [CanActivateViaAuthGuard]}
 ];
 
