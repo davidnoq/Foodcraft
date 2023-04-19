@@ -10,7 +10,8 @@
 - added handler for generating a random recipe
 - added GET function for frontend to retrieve username
 - added GET function to find a specific recipe within a user's list
-- refactored new recipe handler to generate five recipe recommendations based on user inputted ingredients instead of just one
+- refactored new recipe handler to generate ten recipe recommendations based on user inputted ingredients instead of just one
+- added handler for adding recipe to a user's list
 - created unit tests for new changes
 # List unit tests for frontend
 - Used Cypress component tests for unit testing
@@ -32,7 +33,7 @@
 - POST for refreshing JWT token after signin
 - DELETE for removing all recipes from a user's list
 - DELETE for removing a user from the database
-- DELETE for removing a single recipe from a user's list
+- GET and DELETE for adding and removing a single recipe from a user's list
 - GET for recipe instructions
 - POST for Featured Recipes
 - GET for retrieving username
