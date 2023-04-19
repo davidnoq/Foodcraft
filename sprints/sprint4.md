@@ -76,7 +76,7 @@ Authentication middleware: This middleware enables user authentication and provi
 
 `POST /api/signup`: Registers a new user.
 
-`POST /api/recipes`: Generates a 5 recipe recommendations for user.
+`POST /api/recipes`: Generates 10 recipe recommendations for user.
 
 `DELETE /api/recipes`: Clears a user's recipe list.
 
@@ -90,7 +90,7 @@ Authentication middleware: This middleware enables user authentication and provi
 
 `POST /api/recipes/featured`: generates a random recipe using Spoonacular's custom endpoint and adds it to the user's list.
 
-`POST /api/recipes/:ID`: adds the specified recipe to the database with the corresponding user ID.
+`GET /api/recipes/:ID`: adds the specified recipe to the database with the corresponding user ID.
 
 ## Authentication and Authorization
 Authentication is performed using JWT access tokens. When a user successfully authenticates using their credentials, a JWT access token is generated and returned in the response. This access token can be used to authenticate future requests by including it in the Authorization header of the request.
