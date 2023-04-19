@@ -3,9 +3,9 @@ package main
 import (
 	"context"
 	"log"
-
+	"os"
 	handlers "foodcraft/handlers"
-
+	"github.com/joho/godotenv"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -18,8 +18,11 @@ var recipesHandler *handlers.RecipesHandler
 func init() {
 	ctx := context.Background()
 
-	// apply URI so as to not have to pass in commandline
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb+srv://fullstack:fullstack@foodcraft.p5l8kww.mongodb.net/?retryWrites=true&w=majority"))
+	if err := godotenv.Load(); err != nil {
+		log.Println("No .env file found")
+	}
+	
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(os.Getenv("MONGODB_URI")))
 
 	// check for successful connection
 	if err = client.Ping(context.TODO(), readpref.Primary()); err != nil {
