@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'app/auth.service';
 
 @Component({
@@ -7,5 +8,12 @@ import { AuthService } from 'app/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  constructor(public authService: AuthService) { }
+  searchQuery: string = " ";
+  
+  constructor(public authService: AuthService, private router: Router) { }
+  
+  onSearch(): void {
+    console.log(this.searchQuery);
+    this.router.navigate(['/usersearch', this.searchQuery]);
+  }
 }

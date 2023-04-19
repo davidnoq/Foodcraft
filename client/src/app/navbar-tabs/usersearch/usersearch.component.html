@@ -1,0 +1,48 @@
+<body>
+  <br />
+  <br />
+  <br />
+  <body>
+    <link href="http://fonts.cdnfonts.com/css/minecraftia" rel="stylesheet" />
+    <mat-drawer-container>
+      <mat-drawer-content>
+        <div class="content">
+          <div class="cards">
+            <h4 style="color: white; font-family: 'Minecraftia'">
+              Generated Recipes
+            </h4>
+            <mat-divider></mat-divider>
+            <div class="columns">
+              <mat-card
+                *ngFor="let recipe of ingredientArray"
+                (click)="onRecipeCardClick(recipe)"
+              >
+                <button
+                  matTooltip="Remove Recipe"
+                  [matTooltipPosition]="'right'"
+                  class="remove-button"
+                  (click)="removeRecipe(recipe.ID)"
+                >
+                  <mat-icon>close</mat-icon>
+                </button>
+                <mat-card-header>
+                  <mat-card-title> {{ recipe.Title }} </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <mat-card-subtitle style="font-family: minecraftia">
+                    Likes: {{ recipe.Likes }}
+                  </mat-card-subtitle>
+                </mat-card-content>
+                <img
+                  class="card-image"
+                  src="{{ recipe.Image }}"
+                  alt="Photo of {{ recipe.Title }}"
+                />
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </mat-drawer-content>
+    </mat-drawer-container>
+  </body>
+</body>

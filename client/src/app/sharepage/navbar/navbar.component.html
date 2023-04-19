@@ -55,6 +55,29 @@
                 </a>
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    placeholder="Search for ingredient"
+                    [(ngModel)]="searchQuery"
+                    class="form-control"
+                  />
+                  <a class="button">
+                    <button
+                      type="button"
+                      (click)="onSearch()"
+                      class="btn btn-primary"
+                      [routerLink]="['/usersearch', { query: searchQuery }]"
+                      routerLinkActive="active"
+                    >
+                      Search
+                    </button>
+                  </a>
+                </div>
+              </a>
+            </li>
           </ul>
         </li>
 
