@@ -1,1 +1,1 @@
-web: cd server && go build -o bin/app && bin/app
+web: go build -o bin/app && bin/app
