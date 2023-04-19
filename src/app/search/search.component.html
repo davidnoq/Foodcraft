@@ -15,9 +15,9 @@
         </div>
         <mat-divider class="divider"></mat-divider> 
         <div class="search-container">
-            <input type="text" placeholder="Search for ingredients..." [(ngModel)]="searchTerm">
+            <input type="text" placeholder="Search for ingredients..." [(ngModel)]="searchTerm" id="search">
             <div *ngIf="searchIngredients().length === 0">
-                <button class="btn clearAllSelected" (click)="addIngredient(searchTerm)">Add Ingredient</button>
+                <button class="btn clearAllSelected" (click)="addIngredient(searchTerm)" id="add">Add Ingredient</button>
             </div>
             <div class="searchList">
                 <div *ngFor="let ingredient of searchIngredients()">
@@ -26,14 +26,15 @@
                             <input type="checkbox"  
                                 [checked]="ingredient.selected" 
                                 (change)="onIngredientSelected(ingredient)" 
-                                class="listIng">
-                            <span class="ingredientName">{{ ingredient.name }}</span>
+                                class="listIng"
+                                id="checkbox">
+                            <span class="ingredientName" id="ingredientName">{{ ingredient.name }}</span>
                         </label>
                     </table>
                 </div>
             </div>
             <div>
-                <button class="clearAllSelected btn" (click)="clearSelected()">Clear selected</button>
+                <button class="clearAllSelected btn" (click)="clearSelected()" id="clear">Clear selected</button>
             </div>
         </div>
     </div>
@@ -52,12 +53,13 @@
                     <mat-icon matTooltip="Add to user profile" 
                     [matTooltipPosition]="'right'" 
                     (click)="onLikeButtonClick()" 
-                    [ngClass]="{ 'liked': recipe.liked }">favorite</mat-icon>                    
+                    [ngClass]="{ 'liked': recipe.liked }" 
+                    id="like">favorite</mat-icon>                    
                 </div>
             </div>
         </div>
         <div class="craftButton">
-            <button class="btn" (click)="searchRecipes()">Craft Recipe</button>
+            <button class="btn" (click)="searchRecipes()" id="craft">Craft Recipe</button>
         </div>
         <ng-container *ngIf="isLoading">
             <div class="loading-dots"></div>

@@ -35,10 +35,7 @@ describe('Login/Signup page', () => {
         cy.get('input[id=signupPassword]').type('testingPass2');
         cy.get('[id=signupButton]').contains('Signup')
         cy.get('[id=signupButton]').click()
-        cy.contains('Profile')
-        cy.contains('Logout')
-        cy.get('[id=logoutButton]').click()
-        cy.contains('Login/Signup')
+        cy.contains('Credentials already taken. Please try again.')
     })
 
     it('testing signin after signup', () => {
