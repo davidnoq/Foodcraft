@@ -51,8 +51,8 @@ export class FeaturedComponent implements OnInit {
     
   }
 
-  apiUrl = 'http://localhost:8080/api/recipes/featured'; 
-  instrucURL = 'http://localhost:8080/api/recipes/:ID/instructions';
+  apiUrl = 'https://foodcraftbe.herokuapp.com/api/recipes/featured'; 
+  instrucURL = 'https://foodcraftbe.herokuapp.com/api/recipes/:ID/instructions';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json' 

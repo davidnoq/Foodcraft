@@ -104,7 +104,7 @@ export class SearchComponent {
   recipeFound = false;
 
   // backend requests
-  apiUrl = 'http://localhost:8080/api/recipes';
+  apiUrl = 'https://foodcraftbe.herokuapp.com/api/recipes';
   searchRecipes() {
     const data = {
       ingredientlist: this.ingredientlist
@@ -128,7 +128,7 @@ export class SearchComponent {
   }
 
   getInstructions() {
-    this.httpClient.get('http://localhost:8080/api/recipes/' + this.recipe.ID + '/instructions').subscribe(
+    this.httpClient.get('https://foodcraftbe.herokuapp.com/api/recipes/' + this.recipe.ID + '/instructions').subscribe(
       (res: any) => {      
         this.recipe.instructions = res.instructions;
       }

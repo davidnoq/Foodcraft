@@ -10,7 +10,7 @@ import { ChickenComponent } from './navbar-tabs/chicken/chicken.component';
 @Injectable()
 export class AuthService {
 
-    API_URL = 'http://localhost:8080/api';
+    API_URL = 'https://foodcraftbe.herokuapp.com/api';
     TOKEN_KEY = 'token';
 
     constructor(private http: HttpClient, private router: Router) { }

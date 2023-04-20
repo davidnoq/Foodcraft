@@ -50,12 +50,12 @@ export class userAccounts implements OnInit {
     noRecipes = false;
     
     ngOnInit() {
-        this.http.get('http://localhost:8080/api/user').subscribe(
+        this.http.get('https://foodcraftbe.herokuapp.com/api/user').subscribe(
         (res: any) => {
             this.username = res.username;
         })
 
-        this.http.get<Recipe[]>('http://localhost:8080/api/recipes').subscribe(recipes => {
+        this.http.get<Recipe[]>('https://foodcraftbe.herokuapp.com/api/recipes').subscribe(recipes => {
             if(recipes != null) {
                 this.recipeList = recipes.map(recipe => {
                     const { ID, Title, Image, Likes } = recipe;
@@ -72,7 +72,7 @@ export class userAccounts implements OnInit {
     showProfile = false;
 
     getRecipes() {
-        this.http.get('http://localhost:8080/api/recipes').subscribe(
+        this.http.get('https://foodcraftbe.herokuapp.com/api/recipes').subscribe(
         (res: any) => {
             if (res != null) {
                 console.log(res)
@@ -103,7 +103,7 @@ export class userAccounts implements OnInit {
     clear = false;
 
     clearRecipes() {
-        this.http.delete('http://localhost:8080/api/recipes').subscribe(
+        this.http.delete('https://foodcraftbe.herokuapp.com/api/recipes').subscribe(
         (res: any) => {
             if (res.message == "All recipes deleted for user") {
                 this.clear = true;
@@ -116,7 +116,7 @@ export class userAccounts implements OnInit {
     }
 
     removeRecipe(ID: number) {
-        this.http.delete('http://localhost:8080/api/recipes/' + ID).subscribe(
+        this.http.delete('https://foodcraftbe.herokuapp.com/api/recipes/' + ID).subscribe(
         (res: any) => {
             window.location.reload();
         })
@@ -163,7 +163,7 @@ export class userAccounts implements OnInit {
     }
 
     getInstructions() {
-        this.http.get('http://localhost:8080/api/recipes/' + this.recipeClick.ID + '/instructions').subscribe(
+        this.http.get('https://foodcraftbe.herokuapp.com/api/recipes/' + this.recipeClick.ID + '/instructions').subscribe(
           (res: any) => {      
             this.recipeClick.instructions = res.instructions;
           }

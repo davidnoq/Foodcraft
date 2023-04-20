@@ -42,7 +42,7 @@ export class SeafoodComponent implements OnInit {
   ingredientlist = ["Salmon"]; 
   ingredientArray: Recipe[] = [];
   recipeClick: recipeClick;
-  apiUrl = 'http://localhost:8080/api/recipes';
+  apiUrl = 'https://foodcraftbe.herokuapp.com/api/recipes';
   
   //backend requests
   fetchSeafood() {
@@ -101,7 +101,7 @@ onRecipeCardClick(recipe: Recipe): void {
 }
 
 getInstructions() {
-  this.http.get('http://localhost:8080/api/recipes/' + this.recipeClick.ID + '/instructions').subscribe(
+  this.http.get('https://foodcraftbe.herokuapp.com/api/recipes/' + this.recipeClick.ID + '/instructions').subscribe(
     (res: any) => {      
       this.recipeClick.instructions = res.instructions;
     }
@@ -109,7 +109,7 @@ getInstructions() {
 }
 
 removeRecipe(ID: number) {
-  this.http.delete('http://localhost:8080/api/recipes/' + ID).subscribe(
+  this.http.delete('https://foodcraftbe.herokuapp.com/api/recipes/' + ID).subscribe(
   (res: any) => {
       window.location.reload();
   })
