@@ -1,23 +1,17 @@
 # Foodcraft
-Foodcraft is a web application for everything recipes. User's can login and get recipe recommendations based on inputted ingredients, save recipes to their own list, get random recipe ideas, and more. The application is built with an Angular/Typescript frontend and a Go/Gin backend. 
-# How to Setup Foodcraft
-## Prerequisites:
-Install on your local computer:
+Foodcraft is a web application for everything recipes. User's can login and get recipe recommendations based on inputted ingredients, save recipes to their own list, get random recipe ideas, and more. The application is built with an Angular/Typescript frontend and a Go/Gin backend.
+# Prerequisites:
+Before you start setting up Foodcraft, make sure you have the following software installed on your local computer:
 - Angular
 - Node.js
 - Go
-## Step 1: Clone the Repository to your local machine
-- Run the command: `git clone git@github.com:6hris/foodcraft.git`
-## Step 2: Install frontend dependencies
-- Navigate to the `client` directory
-- Run the following command: `npm install` to install the required dependencies on your local device.
-## Step 3: Start the Angular App
-- In the `client` directory, run the command: `npm start` to boot the development server.
-## Step 4: Install backend dependencies
-- In another terminal, navigate the the `server` directory 
-- Run the following command: `go get .` to install the required dependencies on your local device.
-## Step 5: Start the backend server
-- In the `server` directory, run the command: `go run main.go` to boot the backend server.
+# Setup
+To set up Foodcraft on your local machine, follow these steps:
+1. Clone the repository to your local machine using the command `git clone git@github.com:6hris/foodcraft.git`.
+2. Install the frontend dependencies by navigating to the `client` directory and running the command `npm install`.
+3. Start the Angular app by running the command `npm start` in the `client` directory.
+4. Install the backend dependencies by navigating to the `server` directory and running the command `go get .`.
+5. Start the backend server by running the command `go run main.go` in the `server` directory.
 
 
 
