@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "proxy": "http://localhost:8080"
+    "proxy": "https://foodcraftbe.herokuapp.com"
   },
   "private": true,
   "dependencies": {
