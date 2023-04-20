@@ -1,5 +1,10 @@
 # Foodcraft
 Foodcraft is a web application for everything recipes. User's can login and get recipe recommendations based on inputted ingredients, save recipes to their own list, get random recipe ideas, and more. The application is built with an Angular/Typescript frontend and a Go/Gin backend.
+# Demo
+<img width="1000" alt="Screenshot 2023-04-19 at 11 01 08 PM" src="https://user-images.githubusercontent.com/53630299/233247293-53ae653f-1029-4043-82be-d4fbb9445485.png">
+
+Live link coming soon!
+
 # Prerequisites:
 Before you start setting up Foodcraft, make sure you have the following software installed on your local computer:
 - Angular
